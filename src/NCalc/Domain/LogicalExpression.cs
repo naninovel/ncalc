@@ -30,6 +30,7 @@ namespace NCalc.Domain
                     case 'r': sb.Remove(slashIndex, 2).Insert(slashIndex, '\r'); break;
                     case 't': sb.Remove(slashIndex, 2).Insert(slashIndex, '\t'); break;
                     case '\'': sb.Remove(slashIndex, 2).Insert(slashIndex, '\''); break;
+                    case '"': sb.Remove(slashIndex, 2).Insert(slashIndex, '\"'); break;
                     case '\\': sb.Remove(slashIndex, 2).Insert(slashIndex, '\\'); break;
                     default: throw new Exception("Unvalid escape sequence: \\" + escapeType);
                 }

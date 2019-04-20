@@ -2108,6 +2108,11 @@ public partial class NCalcLexer : Antlr.Runtime.Lexer
 				alt13=4;
 				}
 				break;
+            case '"':
+				{
+				alt13=7;
+				}
+				break;
 			case '\\':
 				{
 				alt13=5;
@@ -2163,6 +2168,15 @@ public partial class NCalcLexer : Antlr.Runtime.Lexer
 				{
 				DebugLocation(287, 4);
 				Match('\''); 
+
+				}
+				break;
+            case 7:
+				DebugEnterAlt(4);
+				// C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:287:4: '\\''
+				{
+				DebugLocation(287, 4);
+				Match('"'); 
 
 				}
 				break;

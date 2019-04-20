@@ -149,7 +149,8 @@ public partial class NCalcParser : Antlr.Runtime.Parser
 	            case 'r': sb.Remove(slashIndex, 2).Insert(slashIndex, '\r'); break;
 	            case 't': sb.Remove(slashIndex, 2).Insert(slashIndex, '\t'); break;
 	            case '\'': sb.Remove(slashIndex, 2).Insert(slashIndex, '\''); break;
-	            case '\\': sb.Remove(slashIndex, 2).Insert(slashIndex, '\\'); break;
+                case '"': sb.Remove(slashIndex, 2).Insert(slashIndex, '\"'); break;
+                case '\\': sb.Remove(slashIndex, 2).Insert(slashIndex, '\\'); break;
 	            default: throw new RecognitionException("Unvalid escape sequence: \\" + escapeType);
 	        }
 
