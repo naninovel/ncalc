@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace NCalc.Tests
+namespace Naninovel.NCalc.Tests
 {
     public class Lambdas
     {

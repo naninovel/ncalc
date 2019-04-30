@@ -1,5 +1,5 @@
 
-namespace NCalc.Domain
+namespace Naninovel.NCalc.Domain
 {
     public abstract class LogicalExpressionVisitor
     {

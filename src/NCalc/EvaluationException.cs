@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NCalc
+namespace Naninovel.NCalc
 {
     public class EvaluationException : Exception
     {

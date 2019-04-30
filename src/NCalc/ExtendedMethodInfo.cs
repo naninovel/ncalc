@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using L = System.Linq.Expressions;
 
-namespace NCalc 
+namespace Naninovel.NCalc 
 {
     public class ExtendedMethodInfo 
     {

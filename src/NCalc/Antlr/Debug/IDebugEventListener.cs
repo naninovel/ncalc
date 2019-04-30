@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Antlr.Runtime.Debug
+namespace Naninovel.Antlr.Runtime.Debug
 {
 
     /** <summary>All debugging events that a recognizer can trigger.</summary>

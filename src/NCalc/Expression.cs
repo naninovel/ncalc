@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using NCalc.Domain;
-using Antlr.Runtime;
+using Naninovel.NCalc.Domain;
+using Naninovel.Antlr.Runtime;
 using System.Diagnostics;
 using System.Threading;
 
-namespace NCalc
+namespace Naninovel.NCalc
 {
     public class Expression
     {

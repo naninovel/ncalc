@@ -18,7 +18,7 @@
 
 using System.Collections.Generic;
 
-namespace Antlr3.Runtime.PCL.Output
+namespace Naninovel.Antlr3.Runtime.PCL.Output
 {
     /// <summary>
     /// Output stream host.

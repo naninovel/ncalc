@@ -30,9 +30,9 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using Antlr3.Runtime.PCL;
+using Naninovel.Antlr3.Runtime.PCL;
 
-namespace Antlr.Runtime
+namespace Naninovel.Antlr.Runtime
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

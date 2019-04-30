@@ -1,8 +1,8 @@
 using System;
-using Antlr.Runtime.Tree;
+using Naninovel.Antlr.Runtime.Tree;
 using System.Text;
 
-namespace NCalc.Domain
+namespace Naninovel.NCalc.Domain
 {
     public abstract class LogicalExpression
     {

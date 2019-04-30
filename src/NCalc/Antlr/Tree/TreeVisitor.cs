@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Antlr.Runtime.Tree
+namespace Naninovel.Antlr.Runtime.Tree
 {
     /** <summary>Do a depth first walk of a tree, applying pre() and post() actions as we go.</summary> */
     public class TreeVisitor

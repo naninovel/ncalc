@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Antlr.Runtime.Misc
+namespace Naninovel.Antlr.Runtime.Misc
 {
     using ArgumentException = System.ArgumentException;
 

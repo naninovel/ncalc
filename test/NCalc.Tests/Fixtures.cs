@@ -1,5 +1,5 @@
 ﻿using System;
-using NCalc.Domain;
+using Naninovel.NCalc.Domain;
 using System.Collections.Generic;
 using System.Threading;
 using System.Collections;
@@ -7,7 +7,7 @@ using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace NCalc.Tests
+namespace Naninovel.NCalc.Tests
 {
     public class Fixtures
     {

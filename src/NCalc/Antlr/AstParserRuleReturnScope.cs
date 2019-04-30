@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Antlr.Runtime;
+using Naninovel.Antlr.Runtime;
 
-namespace Antlr.Runtime
+namespace Naninovel.Antlr.Runtime
 {
     public class AstParserRuleReturnScope<TAstLabel, TToken> : ParserRuleReturnScope<TToken>,
                                                                IAstRuleReturnScope<TAstLabel>

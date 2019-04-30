@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Antlr.Runtime
+namespace Naninovel.Antlr.Runtime
 {
     using TextReader = System.IO.TextReader;
 

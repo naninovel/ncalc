@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Antlr3.Runtime.PCL.Output
+namespace Naninovel.Antlr3.Runtime.PCL.Output
 {
     internal class OutOutputStream : IOutputStream
     {

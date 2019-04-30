@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace NCalc.Domain
+namespace Naninovel.NCalc.Domain
 {
 	public class ValueExpression : LogicalExpression
 	{

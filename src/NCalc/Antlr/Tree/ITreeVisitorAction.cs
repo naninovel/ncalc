@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Antlr.Runtime.Tree
+namespace Naninovel.Antlr.Runtime.Tree
 {
     /** <summary>
      *  How to execute code for node t when a visitor visits node t.  Execute

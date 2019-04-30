@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using System;
 
 // ReSharper disable once CheckNamespace
-namespace System
+namespace Naninovel.NCalc
 {
     public static class TypeExtensions
     {

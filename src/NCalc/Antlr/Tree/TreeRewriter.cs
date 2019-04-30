@@ -30,9 +30,9 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using Antlr3.Runtime.PCL.Output;
+using Naninovel.Antlr3.Runtime.PCL.Output;
 
-namespace Antlr.Runtime.Tree
+namespace Naninovel.Antlr.Runtime.Tree
 {
     using Console = OutputStreamHost;
 

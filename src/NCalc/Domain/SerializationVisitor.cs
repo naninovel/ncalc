@@ -2,7 +2,7 @@
 using System.Text;
 using System.Globalization;
 
-namespace NCalc.Domain
+namespace Naninovel.NCalc.Domain
 {
     public class SerializationVisitor : LogicalExpressionVisitor
     {

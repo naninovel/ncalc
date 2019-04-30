@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with OsmSharp. If not, see <http://www.gnu.org/licenses/>.
 
-namespace Antlr3.Runtime.PCL.Output
+namespace Naninovel.Antlr3.Runtime.PCL.Output
 {
     /// <summary>
     /// Interface representing a listener that can be used to listen to output.
