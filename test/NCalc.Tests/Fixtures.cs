@@ -42,6 +42,81 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
+        public void ExpressionShouldHandleNullRightParameters()
+        {
+            var e = new Expression("'a string' == null", EvaluateOptions.AllowNullParameter);
+
+            Assert.False((bool)e.Evaluate());
+        }
+
+        [Fact]
+        public void ExpressionShouldHandleNullLeftParameters()
+        {
+            var e = new Expression("null == 'a string'", EvaluateOptions.AllowNullParameter);
+
+            Assert.False((bool)e.Evaluate());
+        }
+
+        [Fact]
+        public void ExpressionShouldHandleNullBothParameters()
+        {
+            var e = new Expression("null == null", EvaluateOptions.AllowNullParameter);
+
+            Assert.True((bool)e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldCompareNullToNull()
+        {
+            var e = new Expression("[x] = null", EvaluateOptions.AllowNullParameter);
+
+            e.Parameters["x"] = null;
+
+            Assert.True((bool)e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldCompareNullableToNonNullable()
+        {
+            var e = new Expression("[x] = 5", EvaluateOptions.AllowNullParameter);
+
+            e.Parameters["x"] = (int?)5;
+            Assert.True((bool)e.Evaluate());
+
+            e.Parameters["x"] = (int?)6;
+            Assert.False((bool)e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldCompareNullToString()
+        {
+            var e = new Expression("[x] = 'foo'", EvaluateOptions.AllowNullParameter);
+
+            e.Parameters["x"] = null;
+
+            Assert.False((bool)e.Evaluate());
+        }
+
+        [Fact]
+        public void ExpressionDoesNotDefineNullParameterWithoutNullOption()
+        {
+            var e = new Expression("'a string' == null");
+
+            var ex = Assert.Throws<ArgumentException>(() => e.Evaluate());
+            Assert.Contains("Parameter name: null", ex.Message);
+        }
+
+        [Fact]
+        public void ExpressionThrowsNullReferenceExceptionWithoutNullOption()
+        {
+            var e = new Expression("'a string' == null");
+
+            e.Parameters["null"] = null;
+
+            Assert.Throws<NullReferenceException>(() => e.Evaluate());
+        }
+
+        [Fact]
         public void ShouldParseValues()
         {
             Assert.Equal(123456, new Expression("123456").Evaluate());
@@ -654,6 +729,58 @@ namespace Naninovel.NCalc.Tests
             e.Parameters["var1"] = 9.2;
 
             Assert.Equal(11M, e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldSubtractDoubleAndDecimal()
+        {
+            var e = new Expression("[double] - [decimal]");
+            e.Parameters["double"] = 2D;
+            e.Parameters["decimal"] = 2m;
+
+            Assert.Equal(0m, e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldMultiplyDoubleAndDecimal()
+        {
+            var e = new Expression("[double] * [decimal]");
+            e.Parameters["double"] = 2D;
+            e.Parameters["decimal"] = 2m;
+
+            Assert.Equal(4m, e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldDivideDoubleAndDecimal()
+        {
+            var e = new Expression("[double] / [decimal]");
+            e.Parameters["double"] = 2D;
+            e.Parameters["decimal"] = 2m;
+
+            Assert.Equal(1m, e.Evaluate());
+        }
+
+        [Fact]
+        public void ShouldModDoubleAndDecimal()
+        {
+            var e = new Expression("[double] % [decimal]");
+            e.Parameters["double"] = 2D;
+            e.Parameters["decimal"] = 2m;
+
+            Assert.Equal(0m, e.Evaluate());
+        }
+
+        [InlineData("Min(2,1.97)",1.97)]
+        [InlineData("Max(2,2.33)",2.33)]
+        [Theory]
+        public void ShouldCheckPrecisionOfBothParametersForMaxAndMin(string expression, double expected)
+        {
+            var e=new Expression(expression);
+            
+            var result = e.Evaluate();
+
+            Assert.Equal(expected,result);
         }
     }
 }

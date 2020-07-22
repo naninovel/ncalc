@@ -159,6 +159,14 @@ namespace Naninovel.NCalc
             switch (function.Identifier.Name.ToLowerInvariant())
             {
                 case "if":
+                    var numberTypePriority = new Type[] { typeof(double), typeof(float), typeof(long), typeof(int), typeof(short) };
+                    var index1 = Array.IndexOf(numberTypePriority, args[1].Type);
+                    var index2 = Array.IndexOf(numberTypePriority, args[2].Type);
+                    if (index1 >= 0 && index2 >= 0 && index1 != index2)
+                    {
+                        args[1] = L.Expression.Convert(args[1], numberTypePriority[Math.Min(index1, index2)]);
+                        args[2] = L.Expression.Convert(args[2], numberTypePriority[Math.Min(index1, index2)]);
+                    }
                     _result = L.Expression.Condition(args[0], args[1], args[2]);
                     break;
                 case "in":
@@ -167,6 +175,21 @@ namespace Naninovel.NCalc
                     var smi = typeof (Array).GetRuntimeMethod("IndexOf", new[] { typeof(Array), typeof(object) });
                     var r = L.Expression.Call(smi, L.Expression.Convert(items, typeof(Array)), L.Expression.Convert(args[0], typeof(object)));
                     _result = L.Expression.GreaterThanOrEqual(r, L.Expression.Constant(0));
+                    break;
+                case "min":
+                    var min_arg0 = L.Expression.Convert(args[0], typeof(double));
+                    var min_arg1 = L.Expression.Convert(args[1], typeof(double));
+                    _result = L.Expression.Condition(L.Expression.LessThan(min_arg0, min_arg1), min_arg0, min_arg1);
+                    break;
+                case "max":
+                    var max_arg0 = L.Expression.Convert(args[0], typeof(double));
+                    var max_arg1 = L.Expression.Convert(args[1], typeof(double));
+                    _result = L.Expression.Condition(L.Expression.GreaterThan(max_arg0, max_arg1), max_arg0, max_arg1);
+                    break;
+                case "pow":
+                    var pow_arg0 = L.Expression.Convert(args[0], typeof(double));
+                    var pow_arg1 = L.Expression.Convert(args[1], typeof(double));
+                    _result = L.Expression.Power(pow_arg0, pow_arg1);
                     break;
                 default:
                     var mi = FindMethod(function.Identifier.Name, args);
@@ -215,7 +238,6 @@ namespace Naninovel.NCalc
             if (hasParamsKeyword && parameters.Length > arguments.Length) return null;
             L.Expression[] newArguments = new L.Expression[parameters.Length];
             L.Expression[] paramsKeywordArgument = null;
-            var paramsElementTypeCode = TypeCode.Empty;
             Type paramsElementType = null;
             int paramsParameterPosition = 0;
             if (!hasParamsKeyword) 
@@ -227,15 +249,14 @@ namespace Naninovel.NCalc
             {
                 paramsParameterPosition = lastParameter.Position;
                 paramsElementType = lastParameter.ParameterType.GetElementType();
-                paramsElementTypeCode = paramsElementType.ToTypeCode();
                 paramsKeywordArgument = new L.Expression[arguments.Length - parameters.Length + 1];
             }
             
             for (int i = 0; i < arguments.Length; i++) 
             {
                 var isParamsElement = hasParamsKeyword && i >= paramsParameterPosition;
-                var argumentType = arguments[i].Type.ToTypeCode();
-                var parameterType = isParamsElement ? paramsElementTypeCode : parameters[i].ParameterType.ToTypeCode();
+                var argumentType = arguments[i].Type;
+                var parameterType = isParamsElement ? paramsElementType : parameters[i].ParameterType;
                 paramsMatchArguments &= argumentType == parameterType;
                 if (!paramsMatchArguments) return null;
                 if (!isParamsElement) 
