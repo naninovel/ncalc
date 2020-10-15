@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NCalc", "src\NCalc\NCalc.csproj", "{F3E0F86D-52E4-4B30-9131-A5AE87C9269C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Naninovel.NCalc", "src\Naninovel.NCalc\Naninovel.NCalc.csproj", "{F3E0F86D-52E4-4B30-9131-A5AE87C9269C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NCalc.Tests", "test\NCalc.Tests\NCalc.Tests.csproj", "{00EE17CD-D198-48C3-AED8-1CE6A816C01B}"
 EndProject
