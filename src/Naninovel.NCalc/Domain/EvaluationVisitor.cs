@@ -289,7 +289,7 @@ namespace Naninovel.NCalc.Domain
             }
 
             // Calls external implementation
-            OnEvaluateFunction(IgnoreCase ? function.Identifier.Name.ToLower() : function.Identifier.Name, args);
+            OnEvaluateFunction(IgnoreCase ? function.Identifier.Name.ToLowerInvariant() : function.Identifier.Name, args);
 
             // If an external implementation was found get the result back
             if (args.HasResult)
@@ -298,7 +298,7 @@ namespace Naninovel.NCalc.Domain
                 return;
             }
 
-            switch (function.Identifier.Name.ToLower())
+            switch (function.Identifier.Name.ToLowerInvariant())
             {
                 #region Abs
                 case "abs":
@@ -652,7 +652,7 @@ namespace Naninovel.NCalc.Domain
         {
             if (IgnoreCase)
             {
-                if (function.ToLower() == called.ToLower())
+                if (function.ToLowerInvariant() == called.ToLowerInvariant())
                 {
                     return;
                 }
