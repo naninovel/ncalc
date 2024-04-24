@@ -762,12 +762,12 @@ namespace Naninovel.NCalc.Tests
         [Fact]
         public void HandlesNonEnglishFuncNames ()
         {
-            var e = new Expression("ф()");
+            var e = new Expression("функция()");
 
             e.EvaluateFunction += (name, arg) => {
                 switch (name)
                 {
-                    case "ф":
+                    case "функция":
                         arg.Result = 7;
                         break;
                 }

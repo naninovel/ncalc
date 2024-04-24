@@ -30,13 +30,10 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-using Naninovel.Antlr3.Runtime.PCL.Output;
-
 namespace Naninovel.Antlr.Runtime
 {
     using ConditionalAttribute = System.Diagnostics.ConditionalAttribute;
-    using Console = OutputStreamHost;
-    using IDebugEventListener = Antlr.Runtime.Debug.IDebugEventListener;
+    using IDebugEventListener = Debug.IDebugEventListener;
 
     public delegate int SpecialStateTransitionHandler (DFA dfa, int s, IIntStream input);
 
@@ -68,23 +65,15 @@ namespace Naninovel.Antlr.Runtime
         /** <summary>Which recognizer encloses this DFA?  Needed to check backtracking</summary> */
         protected BaseRecognizer recognizer;
 
-        public readonly bool debug = false;
-
         public DFA ()
-            : this(new SpecialStateTransitionHandler(SpecialStateTransitionDefault)) { }
+            : this(SpecialStateTransitionDefault) { }
 
         public DFA (SpecialStateTransitionHandler specialStateTransition)
         {
-            this.SpecialStateTransition = specialStateTransition ?? new SpecialStateTransitionHandler(SpecialStateTransitionDefault);
+            SpecialStateTransition = specialStateTransition ?? SpecialStateTransitionDefault;
         }
 
-        public virtual string Description
-        {
-            get
-            {
-                return "n/a";
-            }
-        }
+        public virtual string Description => "n/a";
 
         /** <summary>
          *  From the input stream, predict what alternative will succeed
@@ -95,33 +84,16 @@ namespace Naninovel.Antlr.Runtime
          */
         public virtual int Predict (IIntStream input)
         {
-            if (debug)
-            {
-                Console.Error.WriteLine("Enter DFA.predict for decision " + decisionNumber);
-            }
             int mark = input.Mark(); // remember where decision started in input
             int s = 0; // we always start at s0
             try
             {
                 for (;;)
                 {
-                    if (debug)
-                        Console.Error.WriteLine("DFA " + decisionNumber + " state " + s + " LA(1)=" + (char)input.LA(1) + "(" + input.LA(1) +
-                                                "), index=" + input.Index);
                     int specialState = special[s];
                     if (specialState >= 0)
                     {
-                        if (debug)
-                        {
-                            Console.Error.WriteLine("DFA " + decisionNumber +
-                                                    " state " + s + " is special state " + specialState);
-                        }
                         s = SpecialStateTransition(this, specialState, input);
-                        if (debug)
-                        {
-                            Console.Error.WriteLine("DFA " + decisionNumber +
-                                                    " returns from special state " + specialState + " to " + s);
-                        }
                         if (s == -1)
                         {
                             NoViableAlt(s, input);
@@ -132,8 +104,6 @@ namespace Naninovel.Antlr.Runtime
                     }
                     if (accept[s] >= 1)
                     {
-                        if (debug)
-                            Console.Error.WriteLine("accept; predict " + accept[s] + " from state " + s);
                         return accept[s];
                     }
                     // look for a normal char transition
@@ -149,8 +119,6 @@ namespace Naninovel.Antlr.Runtime
                             // state.
                             if (eot[s] >= 0)
                             { // EOT Transition to accept state?
-                                if (debug)
-                                    Console.Error.WriteLine("EOT transition");
                                 s = eot[s];
                                 input.Consume();
                                 // TODO: I had this as return accept[eot[s]]
@@ -169,31 +137,15 @@ namespace Naninovel.Antlr.Runtime
                     }
                     if (eot[s] >= 0)
                     { // EOT Transition?
-                        if (debug)
-                            Console.Error.WriteLine("EOT transition");
                         s = eot[s];
                         input.Consume();
                         continue;
                     }
                     if (c == unchecked((char)TokenTypes.EndOfFile) && eof[s] >= 0)
                     { // EOF Transition to accept state?
-                        if (debug)
-                            Console.Error.WriteLine("accept via EOF; predict " + accept[eof[s]] + " from " + eof[s]);
                         return accept[eof[s]];
                     }
                     // not in range and not EOF/EOT, must be invalid symbol
-                    if (debug)
-                    {
-                        Console.Error.WriteLine("min[" + s + "]=" + min[s]);
-                        Console.Error.WriteLine("max[" + s + "]=" + max[s]);
-                        Console.Error.WriteLine("eot[" + s + "]=" + eot[s]);
-                        Console.Error.WriteLine("eof[" + s + "]=" + eof[s]);
-                        for (int p = 0; p < transition[s].Length; p++)
-                        {
-                            Console.Error.Write(transition[s][p] + " ");
-                        }
-                        Console.Error.WriteLine();
-                    }
                     NoViableAlt(s, input);
                     return 0;
                 }
@@ -211,7 +163,7 @@ namespace Naninovel.Antlr.Runtime
                 recognizer.state.failed = true;
                 return;
             }
-            NoViableAltException nvae =
+            var nvae =
                 new NoViableAltException(Description,
                     decisionNumber,
                     s,
@@ -295,9 +247,8 @@ namespace Naninovel.Antlr.Runtime
         [Conditional("ANTLR_DEBUG")]
         protected virtual void DebugRecognitionException (RecognitionException ex)
         {
-            IDebugEventListener dbg = recognizer.DebugListener;
-            if (dbg != null)
-                dbg.RecognitionException(ex);
+            var dbg = recognizer.DebugListener;
+            dbg?.RecognitionException(ex);
         }
     }
 }

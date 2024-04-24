@@ -161,21 +161,15 @@ namespace Naninovel.Antlr.Runtime
 
         public virtual void Consume ()
         {
-            //System.out.println("prev p="+p+", c="+(char)data[p]);
             if (p < n)
             {
                 charPositionInLine++;
                 if (data[p] == '\n')
                 {
-                    /*
-                    System.out.println("newline char found on line: "+line+
-                                       "@ pos="+charPositionInLine);
-                    */
                     line++;
                     charPositionInLine = 0;
                 }
                 p++;
-                //System.out.println("p moves to "+p+" (c='"+(char)data[p]+"')");
             }
         }
 
