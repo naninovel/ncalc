@@ -78,12 +78,11 @@ namespace Naninovel.Antlr.Runtime.Tree
                     Consume();
                     continue;
                 }
-                if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
+                if (char.IsLetter((char)c) || c == '_')
                 {
                     sval.Append((char)c);
                     Consume();
-                    while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
-                           (c >= '0' && c <= '9') || c == '_')
+                    while (char.IsLetterOrDigit((char)c) || c == '_')
                     {
                         sval.Append((char)c);
                         Consume();

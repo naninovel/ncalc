@@ -3,15 +3,9 @@
     <PropertyGroup>
         <Description>This is a port of NCalc for .NET Core applications.</Description>
         <AssemblyTitle>CoreCLR-NCalc</AssemblyTitle>
-        <VersionPrefix>2.2.0</VersionPrefix>
-        <Authors>Sebastian Klose</Authors>
-        <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>
-        <PackageId>CoreCLR-NCalc</PackageId>
-        <PackageTags>ncalc;coreclr;expression;evaluator</PackageTags>
-        <PackageProjectUrl>https://github.com/sklose/NCalc2</PackageProjectUrl>
-        <RepositoryType>git</RepositoryType>
+        <VersionPrefix>2.3.0</VersionPrefix>
+        <TargetFramework>netstandard2.0</TargetFramework>
         <RepositoryUrl>git://github.com/sklose/NCalc2</RepositoryUrl>
-        <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.3' ">1.6.0</NetStandardImplicitPackageVersion>
         <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
         <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -21,16 +15,7 @@
         <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-        <RootNamespace>NCalc</RootNamespace>
+        <RootNamespace>Naninovel</RootNamespace>
     </PropertyGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-        <Reference Include="System"/>
-        <Reference Include="Microsoft.CSharp"/>
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
-        <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.1.1"/>
-    </ItemGroup>
 
 </Project>

@@ -104,7 +104,7 @@ namespace Naninovel.NCalc.Tests
             var e = new Expression("'a string' == null");
 
             var ex = Assert.Throws<ArgumentException>(() => e.Evaluate());
-            Assert.Contains("Parameter name: null", ex.Message);
+            Assert.Contains("Parameter 'null'", ex.Message);
         }
 
         [Fact]
@@ -762,12 +762,12 @@ namespace Naninovel.NCalc.Tests
         [Fact]
         public void HandlesNonEnglishFuncNames ()
         {
-            var e = new Expression("функция()");
+            var e = new Expression("ф()");
 
-            e.EvaluateFunction += delegate (string name, FunctionArgs arg) {
+            e.EvaluateFunction += (name, arg) => {
                 switch (name)
                 {
-                    case "функция":
+                    case "ф":
                         arg.Result = 7;
                         break;
                 }

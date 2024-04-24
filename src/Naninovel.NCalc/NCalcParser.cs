@@ -1,5 +1,3 @@
-// $ANTLR 3.3.0.7239 C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g 2011-08-08 11:08:01
-
 // The variable 'variable' is assigned but its value is never used.
 
 #pragma warning disable 219
@@ -119,7 +117,6 @@ namespace Naninovel.NCalc
         }
 
         public override string[] TokenNames { get { return NCalcParser.tokenNames; } }
-        public override string GrammarFileName { get { return "C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g"; } }
 
         private const char BS = '\\';
         private static NumberFormatInfo numberFormatInfo = new NumberFormatInfo();
@@ -204,7 +201,6 @@ namespace Naninovel.NCalc
         partial void Leave_ncalcExpression ();
 
         // $ANTLR start "ncalcExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:77:1: ncalcExpression returns [LogicalExpression value] : logicalExpression EOF ;
         [GrammarRule("ncalcExpression")]
         public NCalcParser.ncalcExpression_return ncalcExpression ()
         {
@@ -227,9 +223,7 @@ namespace Naninovel.NCalc
                 DebugLocation(77, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:78:2: ( logicalExpression EOF )
                     DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:78:4: logicalExpression EOF
                     {
                         root_0 = (CommonTree)adaptor.Nil();
 
@@ -281,7 +275,6 @@ namespace Naninovel.NCalc
         partial void Leave_logicalExpression ();
 
         // $ANTLR start "logicalExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:81:1: logicalExpression returns [LogicalExpression value] : left= conditionalExpression ( '?' middle= conditionalExpression ':' right= conditionalExpression )? ;
         [GrammarRule("logicalExpression")]
         private NCalcParser.logicalExpression_return logicalExpression ()
         {
@@ -308,9 +301,7 @@ namespace Naninovel.NCalc
                 DebugLocation(81, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:82:2: (left= conditionalExpression ( '?' middle= conditionalExpression ':' right= conditionalExpression )? )
                     DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:82:4: left= conditionalExpression ( '?' middle= conditionalExpression ':' right= conditionalExpression )?
                     {
                         root_0 = (CommonTree)adaptor.Nil();
 
@@ -323,7 +314,6 @@ namespace Naninovel.NCalc
                         DebugLocation(82, 31);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(82, 57);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:82:57: ( '?' middle= conditionalExpression ':' right= conditionalExpression )?
                         int alt1 = 2;
                         try
                         {
@@ -343,7 +333,6 @@ namespace Naninovel.NCalc
                             {
                                 case 1:
                                     DebugEnterAlt(1);
-                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:82:59: '?' middle= conditionalExpression ':' right= conditionalExpression
                                 {
                                     DebugLocation(82, 59);
                                     char_literal3 = (IToken)Match(input, 41, Follow._41_in_logicalExpression84);
@@ -412,7 +401,6 @@ namespace Naninovel.NCalc
         partial void Leave_conditionalExpression ();
 
         // $ANTLR start "conditionalExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:85:1: conditionalExpression returns [LogicalExpression value] : left= booleanAndExpression ( ( '||' | 'or' ) right= conditionalExpression )* ;
         [GrammarRule("conditionalExpression")]
         private NCalcParser.conditionalExpression_return conditionalExpression ()
         {
@@ -438,9 +426,7 @@ namespace Naninovel.NCalc
                 DebugLocation(85, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:89:2: (left= booleanAndExpression ( ( '||' | 'or' ) right= conditionalExpression )* )
                     DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:89:4: left= booleanAndExpression ( ( '||' | 'or' ) right= conditionalExpression )*
                     {
                         root_0 = (CommonTree)adaptor.Nil();
 
@@ -453,7 +439,6 @@ namespace Naninovel.NCalc
                         DebugLocation(89, 30);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(89, 56);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:89:56: ( ( '||' | 'or' ) right= conditionalExpression )*
                         try
                         {
                             DebugEnterSubRule(2);
@@ -475,7 +460,6 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:90:4: ( '||' | 'or' ) right= conditionalExpression
                                     {
                                         DebugLocation(90, 4);
                                         set5 = (IToken)input.LT(1);
@@ -551,7 +535,6 @@ namespace Naninovel.NCalc
         partial void Leave_booleanAndExpression ();
 
         // $ANTLR start "booleanAndExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:95:1: booleanAndExpression returns [LogicalExpression value] : left= bitwiseOrExpression ( ( '&&' | 'and' ) right= bitwiseOrExpression )* ;
         [GrammarRule("booleanAndExpression")]
         private NCalcParser.booleanAndExpression_return booleanAndExpression ()
         {
@@ -577,9 +560,7 @@ namespace Naninovel.NCalc
                 DebugLocation(95, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:99:2: (left= bitwiseOrExpression ( ( '&&' | 'and' ) right= bitwiseOrExpression )* )
                     DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:99:4: left= bitwiseOrExpression ( ( '&&' | 'and' ) right= bitwiseOrExpression )*
                     {
                         root_0 = (CommonTree)adaptor.Nil();
 
@@ -592,7 +573,6 @@ namespace Naninovel.NCalc
                         DebugLocation(99, 29);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(99, 55);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:99:55: ( ( '&&' | 'and' ) right= bitwiseOrExpression )*
                         try
                         {
                             DebugEnterSubRule(3);
@@ -614,7 +594,6 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:100:4: ( '&&' | 'and' ) right= bitwiseOrExpression
                                     {
                                         DebugLocation(100, 4);
                                         set6 = (IToken)input.LT(1);
@@ -690,7 +669,6 @@ namespace Naninovel.NCalc
         partial void Leave_bitwiseOrExpression ();
 
         // $ANTLR start "bitwiseOrExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:105:1: bitwiseOrExpression returns [LogicalExpression value] : left= bitwiseXOrExpression ( '|' right= bitwiseOrExpression )* ;
         [GrammarRule("bitwiseOrExpression")]
         private NCalcParser.bitwiseOrExpression_return bitwiseOrExpression ()
         {
@@ -716,9 +694,7 @@ namespace Naninovel.NCalc
                 DebugLocation(105, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:109:2: (left= bitwiseXOrExpression ( '|' right= bitwiseOrExpression )* )
                     DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:109:4: left= bitwiseXOrExpression ( '|' right= bitwiseOrExpression )*
                     {
                         root_0 = (CommonTree)adaptor.Nil();
 
@@ -731,7 +707,6 @@ namespace Naninovel.NCalc
                         DebugLocation(109, 30);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(109, 56);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:109:56: ( '|' right= bitwiseOrExpression )*
                         try
                         {
                             DebugEnterSubRule(4);
@@ -753,7 +728,6 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:110:4: '|' right= bitwiseOrExpression
                                     {
                                         DebugLocation(110, 4);
                                         char_literal7 = (IToken)Match(input, 46, Follow._46_in_bitwiseOrExpression246);
@@ -819,7 +793,6 @@ namespace Naninovel.NCalc
         partial void Leave_bitwiseXOrExpression ();
 
         // $ANTLR start "bitwiseXOrExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:115:1: bitwiseXOrExpression returns [LogicalExpression value] : left= bitwiseAndExpression ( '^' right= bitwiseAndExpression )* ;
         [GrammarRule("bitwiseXOrExpression")]
         private NCalcParser.bitwiseXOrExpression_return bitwiseXOrExpression ()
         {
@@ -845,9 +818,7 @@ namespace Naninovel.NCalc
                 DebugLocation(115, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:119:2: (left= bitwiseAndExpression ( '^' right= bitwiseAndExpression )* )
                     DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:119:4: left= bitwiseAndExpression ( '^' right= bitwiseAndExpression )*
                     {
                         root_0 = (CommonTree)adaptor.Nil();
 
@@ -860,7 +831,6 @@ namespace Naninovel.NCalc
                         DebugLocation(119, 30);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(119, 56);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:119:56: ( '^' right= bitwiseAndExpression )*
                         try
                         {
                             DebugEnterSubRule(5);
@@ -882,7 +852,6 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:120:4: '^' right= bitwiseAndExpression
                                     {
                                         DebugLocation(120, 4);
                                         char_literal8 = (IToken)Match(input, 42, Follow._42_in_bitwiseXOrExpression299);
@@ -948,8 +917,7 @@ namespace Naninovel.NCalc
         partial void Leave_bitwiseAndExpression ();
 
         // $ANTLR start "bitwiseAndExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:125:1: bitwiseAndExpression returns [LogicalExpression value] : left= equalityExpression ( '&' right= equalityExpression )* ;
-        [GrammarRule("bitwiseAndExpression")]
+                [GrammarRule("bitwiseAndExpression")]
         private NCalcParser.bitwiseAndExpression_return bitwiseAndExpression ()
         {
             Enter_bitwiseAndExpression();
@@ -974,10 +942,8 @@ namespace Naninovel.NCalc
                 DebugLocation(125, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:129:2: (left= equalityExpression ( '&' right= equalityExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:129:4: left= equalityExpression ( '&' right= equalityExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(129, 8);
@@ -989,8 +955,7 @@ namespace Naninovel.NCalc
                         DebugLocation(129, 28);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(129, 54);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:129:54: ( '&' right= equalityExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(6);
                             while (true)
@@ -1011,8 +976,7 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:130:4: '&' right= equalityExpression
-                                    {
+                                                                            {
                                         DebugLocation(130, 4);
                                         char_literal9 = (IToken)Match(input, 23, Follow._23_in_bitwiseAndExpression350);
                                         char_literal9_tree = (CommonTree)adaptor.Create(char_literal9);
@@ -1077,8 +1041,7 @@ namespace Naninovel.NCalc
         partial void Leave_equalityExpression ();
 
         // $ANTLR start "equalityExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:135:1: equalityExpression returns [LogicalExpression value] : left= relationalExpression ( ( ( '==' | '=' ) | ( '!=' | '<>' ) ) right= relationalExpression )* ;
-        [GrammarRule("equalityExpression")]
+                [GrammarRule("equalityExpression")]
         private NCalcParser.equalityExpression_return equalityExpression ()
         {
             Enter_equalityExpression();
@@ -1105,10 +1068,8 @@ namespace Naninovel.NCalc
                 DebugLocation(135, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:139:2: (left= relationalExpression ( ( ( '==' | '=' ) | ( '!=' | '<>' ) ) right= relationalExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:139:4: left= relationalExpression ( ( ( '==' | '=' ) | ( '!=' | '<>' ) ) right= relationalExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(139, 8);
@@ -1120,8 +1081,7 @@ namespace Naninovel.NCalc
                         DebugLocation(139, 30);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(139, 56);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:139:56: ( ( ( '==' | '=' ) | ( '!=' | '<>' ) ) right= relationalExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(8);
                             while (true)
@@ -1142,11 +1102,9 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:4: ( ( '==' | '=' ) | ( '!=' | '<>' ) ) right= relationalExpression
-                                    {
+                                                                            {
                                         DebugLocation(140, 4);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:4: ( ( '==' | '=' ) | ( '!=' | '<>' ) )
-                                        int alt7 = 2;
+                                                                                int alt7 = 2;
                                         try
                                         {
                                             DebugEnterSubRule(7);
@@ -1176,8 +1134,7 @@ namespace Naninovel.NCalc
                                             {
                                                 case 1:
                                                     DebugEnterAlt(1);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:6: ( '==' | '=' )
-                                                {
+                                                                                                    {
                                                     DebugLocation(140, 6);
                                                     set10 = (IToken)input.LT(1);
                                                     if ((input.LA(1) >= 36 && input.LA(1) <= 37))
@@ -1199,8 +1156,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 2:
                                                     DebugEnterAlt(2);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:141:6: ( '!=' | '<>' )
-                                                {
+                                                                                                    {
                                                     DebugLocation(141, 6);
                                                     set11 = (IToken)input.LT(1);
                                                     if (input.LA(1) == 20 || input.LA(1) == 35)
@@ -1281,8 +1237,7 @@ namespace Naninovel.NCalc
         partial void Leave_relationalExpression ();
 
         // $ANTLR start "relationalExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:146:1: relationalExpression returns [LogicalExpression value] : left= shiftExpression ( ( '<' | '<=' | '>' | '>=' ) right= shiftExpression )* ;
-        [GrammarRule("relationalExpression")]
+                [GrammarRule("relationalExpression")]
         private NCalcParser.relationalExpression_return relationalExpression ()
         {
             Enter_relationalExpression();
@@ -1313,10 +1268,8 @@ namespace Naninovel.NCalc
                 DebugLocation(146, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:150:2: (left= shiftExpression ( ( '<' | '<=' | '>' | '>=' ) right= shiftExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:150:4: left= shiftExpression ( ( '<' | '<=' | '>' | '>=' ) right= shiftExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(150, 8);
@@ -1328,8 +1281,7 @@ namespace Naninovel.NCalc
                         DebugLocation(150, 25);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(150, 51);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:150:51: ( ( '<' | '<=' | '>' | '>=' ) right= shiftExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(10);
                             while (true)
@@ -1350,11 +1302,9 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:4: ( '<' | '<=' | '>' | '>=' ) right= shiftExpression
-                                    {
+                                                                            {
                                         DebugLocation(151, 4);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:4: ( '<' | '<=' | '>' | '>=' )
-                                        int alt9 = 4;
+                                                                                int alt9 = 4;
                                         try
                                         {
                                             DebugEnterSubRule(9);
@@ -1397,8 +1347,7 @@ namespace Naninovel.NCalc
                                             {
                                                 case 1:
                                                     DebugEnterAlt(1);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:6: '<'
-                                                {
+                                                                                                    {
                                                     DebugLocation(151, 6);
                                                     char_literal12 = (IToken)Match(input, 32, Follow._32_in_relationalExpression485);
                                                     char_literal12_tree = (CommonTree)adaptor.Create(char_literal12);
@@ -1410,8 +1359,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 2:
                                                     DebugEnterAlt(2);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:152:6: '<='
-                                                {
+                                                                                                    {
                                                     DebugLocation(152, 6);
                                                     string_literal13 = (IToken)Match(input, 34, Follow._34_in_relationalExpression495);
                                                     string_literal13_tree = (CommonTree)adaptor.Create(string_literal13);
@@ -1423,8 +1371,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 3:
                                                     DebugEnterAlt(3);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:153:6: '>'
-                                                {
+                                                                                                    {
                                                     DebugLocation(153, 6);
                                                     char_literal14 = (IToken)Match(input, 38, Follow._38_in_relationalExpression506);
                                                     char_literal14_tree = (CommonTree)adaptor.Create(char_literal14);
@@ -1436,8 +1383,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 4:
                                                     DebugEnterAlt(4);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:154:6: '>='
-                                                {
+                                                                                                    {
                                                     DebugLocation(154, 6);
                                                     string_literal15 = (IToken)Match(input, 39, Follow._39_in_relationalExpression516);
                                                     string_literal15_tree = (CommonTree)adaptor.Create(string_literal15);
@@ -1508,8 +1454,7 @@ namespace Naninovel.NCalc
         partial void Leave_shiftExpression ();
 
         // $ANTLR start "shiftExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:159:1: shiftExpression returns [LogicalExpression value] : left= additiveExpression ( ( '<<' | '>>' ) right= additiveExpression )* ;
-        [GrammarRule("shiftExpression")]
+                [GrammarRule("shiftExpression")]
         private NCalcParser.shiftExpression_return shiftExpression ()
         {
             Enter_shiftExpression();
@@ -1536,10 +1481,8 @@ namespace Naninovel.NCalc
                 DebugLocation(159, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:163:2: (left= additiveExpression ( ( '<<' | '>>' ) right= additiveExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:163:4: left= additiveExpression ( ( '<<' | '>>' ) right= additiveExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(163, 8);
@@ -1551,8 +1494,7 @@ namespace Naninovel.NCalc
                         DebugLocation(163, 28);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(163, 54);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:163:54: ( ( '<<' | '>>' ) right= additiveExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(12);
                             while (true)
@@ -1573,11 +1515,9 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:4: ( '<<' | '>>' ) right= additiveExpression
-                                    {
+                                                                            {
                                         DebugLocation(164, 4);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:4: ( '<<' | '>>' )
-                                        int alt11 = 2;
+                                                                                int alt11 = 2;
                                         try
                                         {
                                             DebugEnterSubRule(11);
@@ -1607,8 +1547,7 @@ namespace Naninovel.NCalc
                                             {
                                                 case 1:
                                                     DebugEnterAlt(1);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:6: '<<'
-                                                {
+                                                                                                    {
                                                     DebugLocation(164, 6);
                                                     string_literal16 = (IToken)Match(input, 33, Follow._33_in_shiftExpression571);
                                                     string_literal16_tree = (CommonTree)adaptor.Create(string_literal16);
@@ -1620,8 +1559,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 2:
                                                     DebugEnterAlt(2);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:165:6: '>>'
-                                                {
+                                                                                                    {
                                                     DebugLocation(165, 6);
                                                     string_literal17 = (IToken)Match(input, 40, Follow._40_in_shiftExpression581);
                                                     string_literal17_tree = (CommonTree)adaptor.Create(string_literal17);
@@ -1692,8 +1630,7 @@ namespace Naninovel.NCalc
         partial void Leave_additiveExpression ();
 
         // $ANTLR start "additiveExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:170:1: additiveExpression returns [LogicalExpression value] : left= multiplicativeExpression ( ( '+' | '-' ) right= multiplicativeExpression )* ;
-        [GrammarRule("additiveExpression")]
+                [GrammarRule("additiveExpression")]
         private NCalcParser.additiveExpression_return additiveExpression ()
         {
             Enter_additiveExpression();
@@ -1720,10 +1657,8 @@ namespace Naninovel.NCalc
                 DebugLocation(170, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:174:2: (left= multiplicativeExpression ( ( '+' | '-' ) right= multiplicativeExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:174:4: left= multiplicativeExpression ( ( '+' | '-' ) right= multiplicativeExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(174, 8);
@@ -1735,8 +1670,7 @@ namespace Naninovel.NCalc
                         DebugLocation(174, 34);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(174, 60);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:174:60: ( ( '+' | '-' ) right= multiplicativeExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(14);
                             while (true)
@@ -1757,11 +1691,9 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:4: ( '+' | '-' ) right= multiplicativeExpression
-                                    {
+                                                                            {
                                         DebugLocation(175, 4);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:4: ( '+' | '-' )
-                                        int alt13 = 2;
+                                                                                int alt13 = 2;
                                         try
                                         {
                                             DebugEnterSubRule(13);
@@ -1791,8 +1723,7 @@ namespace Naninovel.NCalc
                                             {
                                                 case 1:
                                                     DebugEnterAlt(1);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:6: '+'
-                                                {
+                                                                                                    {
                                                     DebugLocation(175, 6);
                                                     char_literal18 = (IToken)Match(input, 27, Follow._27_in_additiveExpression636);
                                                     char_literal18_tree = (CommonTree)adaptor.Create(char_literal18);
@@ -1804,8 +1735,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 2:
                                                     DebugEnterAlt(2);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:176:6: '-'
-                                                {
+                                                                                                    {
                                                     DebugLocation(176, 6);
                                                     char_literal19 = (IToken)Match(input, 29, Follow._29_in_additiveExpression646);
                                                     char_literal19_tree = (CommonTree)adaptor.Create(char_literal19);
@@ -1876,8 +1806,7 @@ namespace Naninovel.NCalc
         partial void Leave_multiplicativeExpression ();
 
         // $ANTLR start "multiplicativeExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:181:1: multiplicativeExpression returns [LogicalExpression value] : left= unaryExpression ( ( '*' | '/' | '%' ) right= unaryExpression )* ;
-        [GrammarRule("multiplicativeExpression")]
+                [GrammarRule("multiplicativeExpression")]
         private NCalcParser.multiplicativeExpression_return multiplicativeExpression ()
         {
             Enter_multiplicativeExpression();
@@ -1906,10 +1835,8 @@ namespace Naninovel.NCalc
                 DebugLocation(181, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:185:2: (left= unaryExpression ( ( '*' | '/' | '%' ) right= unaryExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:185:4: left= unaryExpression ( ( '*' | '/' | '%' ) right= unaryExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(185, 8);
@@ -1921,8 +1848,7 @@ namespace Naninovel.NCalc
                         DebugLocation(185, 25);
                         retval.value = (left != null ? left.value : default(LogicalExpression));
                         DebugLocation(185, 52);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:185:52: ( ( '*' | '/' | '%' ) right= unaryExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(16);
                             while (true)
@@ -1943,11 +1869,9 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:4: ( '*' | '/' | '%' ) right= unaryExpression
-                                    {
+                                                                            {
                                         DebugLocation(186, 4);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:4: ( '*' | '/' | '%' )
-                                        int alt15 = 3;
+                                                                                int alt15 = 3;
                                         try
                                         {
                                             DebugEnterSubRule(15);
@@ -1985,8 +1909,7 @@ namespace Naninovel.NCalc
                                             {
                                                 case 1:
                                                     DebugEnterAlt(1);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:6: '*'
-                                                {
+                                                                                                    {
                                                     DebugLocation(186, 6);
                                                     char_literal20 = (IToken)Match(input, 26, Follow._26_in_multiplicativeExpression701);
                                                     char_literal20_tree = (CommonTree)adaptor.Create(char_literal20);
@@ -1998,8 +1921,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 2:
                                                     DebugEnterAlt(2);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:187:6: '/'
-                                                {
+                                                                                                    {
                                                     DebugLocation(187, 6);
                                                     char_literal21 = (IToken)Match(input, 30, Follow._30_in_multiplicativeExpression711);
                                                     char_literal21_tree = (CommonTree)adaptor.Create(char_literal21);
@@ -2011,8 +1933,7 @@ namespace Naninovel.NCalc
                                                     break;
                                                 case 3:
                                                     DebugEnterAlt(3);
-                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:188:6: '%'
-                                                {
+                                                                                                    {
                                                     DebugLocation(188, 6);
                                                     char_literal22 = (IToken)Match(input, 21, Follow._21_in_multiplicativeExpression721);
                                                     char_literal22_tree = (CommonTree)adaptor.Create(char_literal22);
@@ -2083,8 +2004,7 @@ namespace Naninovel.NCalc
         partial void Leave_unaryExpression ();
 
         // $ANTLR start "unaryExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:194:1: unaryExpression returns [LogicalExpression value] : ( primaryExpression | ( '!' | 'not' ) primaryExpression | ( '~' ) primaryExpression | '-' primaryExpression );
-        [GrammarRule("unaryExpression")]
+                [GrammarRule("unaryExpression")]
         private NCalcParser.unaryExpression_return unaryExpression ()
         {
             Enter_unaryExpression();
@@ -2113,8 +2033,7 @@ namespace Naninovel.NCalc
                 DebugLocation(194, 4);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:195:2: ( primaryExpression | ( '!' | 'not' ) primaryExpression | ( '~' ) primaryExpression | '-' primaryExpression )
-                    int alt17 = 4;
+                                        int alt17 = 4;
                     try
                     {
                         DebugEnterDecision(17, decisionCanBacktrack[17]);
@@ -2163,8 +2082,7 @@ namespace Naninovel.NCalc
                     {
                         case 1:
                             DebugEnterAlt(1);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:195:4: primaryExpression
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(195, 4);
@@ -2179,8 +2097,7 @@ namespace Naninovel.NCalc
                             break;
                         case 2:
                             DebugEnterAlt(2);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:196:8: ( '!' | 'not' ) primaryExpression
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(196, 8);
@@ -2210,15 +2127,12 @@ namespace Naninovel.NCalc
                             break;
                         case 3:
                             DebugEnterAlt(3);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:8: ( '~' ) primaryExpression
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(197, 8);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:8: ( '~' )
-                            DebugEnterAlt(1);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:9: '~'
-                            {
+                                                        DebugEnterAlt(1);
+                                                        {
                                 DebugLocation(197, 9);
                                 char_literal26 = (IToken)Match(input, 48, Follow._48_in_unaryExpression791);
                                 char_literal26_tree = (CommonTree)adaptor.Create(char_literal26);
@@ -2237,8 +2151,7 @@ namespace Naninovel.NCalc
                             break;
                         case 4:
                             DebugEnterAlt(4);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:198:8: '-' primaryExpression
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(198, 8);
@@ -2293,8 +2206,7 @@ namespace Naninovel.NCalc
         partial void Leave_primaryExpression ();
 
         // $ANTLR start "primaryExpression"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:201:1: primaryExpression returns [LogicalExpression value] : ( '(' logicalExpression ')' |expr= value | identifier ( arguments )? );
-        [GrammarRule("primaryExpression")]
+                [GrammarRule("primaryExpression")]
         private NCalcParser.primaryExpression_return primaryExpression ()
         {
             Enter_primaryExpression();
@@ -2321,8 +2233,7 @@ namespace Naninovel.NCalc
                 DebugLocation(201, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:202:2: ( '(' logicalExpression ')' |expr= value | identifier ( arguments )? )
-                    int alt19 = 3;
+                                        int alt19 = 3;
                     try
                     {
                         DebugEnterDecision(19, decisionCanBacktrack[19]);
@@ -2363,8 +2274,7 @@ namespace Naninovel.NCalc
                     {
                         case 1:
                             DebugEnterAlt(1);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:202:4: '(' logicalExpression ')'
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(202, 4);
@@ -2389,8 +2299,7 @@ namespace Naninovel.NCalc
                             break;
                         case 2:
                             DebugEnterAlt(2);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:203:4: expr= value
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(203, 8);
@@ -2405,8 +2314,7 @@ namespace Naninovel.NCalc
                             break;
                         case 3:
                             DebugEnterAlt(3);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:4: identifier ( arguments )?
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(204, 4);
@@ -2418,8 +2326,7 @@ namespace Naninovel.NCalc
                             DebugLocation(204, 15);
                             retval.value = (LogicalExpression)(identifier33 != null ? identifier33.value : default(Identifier));
                             DebugLocation(204, 66);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:66: ( arguments )?
-                            int alt18 = 2;
+                                                        int alt18 = 2;
                             try
                             {
                                 DebugEnterSubRule(18);
@@ -2438,8 +2345,7 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:67: arguments
-                                    {
+                                                                            {
                                         DebugLocation(204, 67);
                                         PushFollow(Follow._arguments_in_primaryExpression856);
                                         arguments34 = arguments();
@@ -2492,8 +2398,7 @@ namespace Naninovel.NCalc
         partial void Leave_value ();
 
         // $ANTLR start "value"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:207:1: value returns [ValueExpression value] : ( INTEGER | FLOAT | STRING | DATETIME | TRUE | FALSE );
-        [GrammarRule("value")]
+                [GrammarRule("value")]
         private NCalcParser.value_return value ()
         {
             Enter_value();
@@ -2524,8 +2429,7 @@ namespace Naninovel.NCalc
                 DebugLocation(207, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:208:2: ( INTEGER | FLOAT | STRING | DATETIME | TRUE | FALSE )
-                    int alt20 = 6;
+                                        int alt20 = 6;
                     try
                     {
                         DebugEnterDecision(20, decisionCanBacktrack[20]);
@@ -2575,8 +2479,7 @@ namespace Naninovel.NCalc
                     {
                         case 1:
                             DebugEnterAlt(1);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:208:5: INTEGER
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(208, 5);
@@ -2591,8 +2494,7 @@ namespace Naninovel.NCalc
                             break;
                         case 2:
                             DebugEnterAlt(2);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:209:4: FLOAT
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(209, 4);
@@ -2606,8 +2508,7 @@ namespace Naninovel.NCalc
                             break;
                         case 3:
                             DebugEnterAlt(3);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:210:4: STRING
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(210, 4);
@@ -2621,8 +2522,7 @@ namespace Naninovel.NCalc
                             break;
                         case 4:
                             DebugEnterAlt(4);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:211:5: DATETIME
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(211, 5);
@@ -2636,8 +2536,7 @@ namespace Naninovel.NCalc
                             break;
                         case 5:
                             DebugEnterAlt(5);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:212:4: TRUE
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(212, 4);
@@ -2651,8 +2550,7 @@ namespace Naninovel.NCalc
                             break;
                         case 6:
                             DebugEnterAlt(6);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:213:4: FALSE
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(213, 4);
@@ -2701,8 +2599,7 @@ namespace Naninovel.NCalc
         partial void Leave_identifier ();
 
         // $ANTLR start "identifier"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:216:1: identifier returns [Identifier value] : ( ID | NAME );
-        [GrammarRule("identifier")]
+                [GrammarRule("identifier")]
         private NCalcParser.identifier_return identifier ()
         {
             Enter_identifier();
@@ -2725,8 +2622,7 @@ namespace Naninovel.NCalc
                 DebugLocation(216, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:217:2: ( ID | NAME )
-                    int alt21 = 2;
+                                        int alt21 = 2;
                     try
                     {
                         DebugEnterDecision(21, decisionCanBacktrack[21]);
@@ -2753,8 +2649,7 @@ namespace Naninovel.NCalc
                     {
                         case 1:
                             DebugEnterAlt(1);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:217:5: ID
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(217, 5);
@@ -2768,8 +2663,7 @@ namespace Naninovel.NCalc
                             break;
                         case 2:
                             DebugEnterAlt(2);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:218:5: NAME
-                        {
+                                                    {
                             root_0 = (CommonTree)adaptor.Nil();
 
                             DebugLocation(218, 5);
@@ -2818,8 +2712,7 @@ namespace Naninovel.NCalc
         partial void Leave_expressionList ();
 
         // $ANTLR start "expressionList"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:221:1: expressionList returns [List<LogicalExpression> value] : first= logicalExpression ( ',' follow= logicalExpression )* ;
-        [GrammarRule("expressionList")]
+                [GrammarRule("expressionList")]
         private NCalcParser.expressionList_return expressionList ()
         {
             Enter_expressionList();
@@ -2844,10 +2737,8 @@ namespace Naninovel.NCalc
                 DebugLocation(221, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:225:2: (first= logicalExpression ( ',' follow= logicalExpression )* )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:225:4: first= logicalExpression ( ',' follow= logicalExpression )*
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(225, 9);
@@ -2859,8 +2750,7 @@ namespace Naninovel.NCalc
                         DebugLocation(225, 28);
                         expressions.Add((first != null ? first.value : default(LogicalExpression)));
                         DebugLocation(225, 62);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:225:62: ( ',' follow= logicalExpression )*
-                        try
+                                                try
                         {
                             DebugEnterSubRule(22);
                             while (true)
@@ -2881,8 +2771,7 @@ namespace Naninovel.NCalc
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:225:64: ',' follow= logicalExpression
-                                    {
+                                                                            {
                                         DebugLocation(225, 64);
                                         char_literal43 = (IToken)Match(input, 28, Follow._28_in_expressionList973);
                                         char_literal43_tree = (CommonTree)adaptor.Create(char_literal43);
@@ -2948,8 +2837,7 @@ namespace Naninovel.NCalc
         partial void Leave_arguments ();
 
         // $ANTLR start "arguments"
-        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:229:1: arguments returns [List<LogicalExpression> value] : '(' ( expressionList )? ')' ;
-        [GrammarRule("arguments")]
+                [GrammarRule("arguments")]
         private NCalcParser.arguments_return arguments ()
         {
             Enter_arguments();
@@ -2975,10 +2863,8 @@ namespace Naninovel.NCalc
                 DebugLocation(229, 1);
                 try
                 {
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:233:2: ( '(' ( expressionList )? ')' )
-                    DebugEnterAlt(1);
-                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:233:4: '(' ( expressionList )? ')'
-                    {
+                                        DebugEnterAlt(1);
+                                        {
                         root_0 = (CommonTree)adaptor.Nil();
 
                         DebugLocation(233, 4);
@@ -2987,8 +2873,7 @@ namespace Naninovel.NCalc
                         adaptor.AddChild(root_0, char_literal44_tree);
 
                         DebugLocation(233, 8);
-                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:233:8: ( expressionList )?
-                        int alt23 = 2;
+                                                int alt23 = 2;
                         try
                         {
                             DebugEnterSubRule(23);
@@ -3007,8 +2892,7 @@ namespace Naninovel.NCalc
                             {
                                 case 1:
                                     DebugEnterAlt(1);
-                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:233:10: expressionList
-                                {
+                                                                    {
                                     DebugLocation(233, 10);
                                     PushFollow(Follow._expressionList_in_arguments1010);
                                     expressionList45 = expressionList();
