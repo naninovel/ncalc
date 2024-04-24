@@ -1141,7 +1141,7 @@ namespace Naninovel.NCalc
                                 DebugEnterDecision(1, decisionCanBacktrack[1]);
                                 int LA1_0 = input.LA(1);
 
-                                if (char.IsLetterOrDigit((char)LA1_0) || input.LA(1) == '_')
+                                if (char.IsLetterOrDigit((char)LA1_0) || LA1_0 == '_')
                                 {
                                     alt1 = 1;
                                 }
