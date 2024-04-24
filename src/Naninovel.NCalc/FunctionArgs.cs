@@ -4,13 +4,12 @@ namespace Naninovel.NCalc
 {
     public class FunctionArgs : EventArgs
     {
-
         private object _result;
         public object Result
         {
             get { return _result; }
-            set 
-            { 
+            set
+            {
                 _result = value;
                 HasResult = true;
             }
@@ -26,7 +25,7 @@ namespace Naninovel.NCalc
             set { _parameters = value; }
         }
 
-        public object[] EvaluateParameters()
+        public object[] EvaluateParameters ()
         {
             var values = new object[_parameters.Length];
             for (int i = 0; i < values.Length; i++)

@@ -75,11 +75,9 @@ namespace Naninovel.Antlr.Runtime
         [CLSCompliant(false)]
         protected int _p = -1;
 
-        public BufferedTokenStream()
-        {
-        }
+        public BufferedTokenStream () { }
 
-        public BufferedTokenStream(ITokenSource tokenSource)
+        public BufferedTokenStream (ITokenSource tokenSource)
         {
             this._tokenSource = tokenSource;
         }
@@ -163,7 +161,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public virtual int Mark()
+        public virtual int Mark ()
         {
             if (_p == -1)
                 Setup();
@@ -171,28 +169,28 @@ namespace Naninovel.Antlr.Runtime
             return _lastMarker;
         }
 
-        public virtual void Release(int marker)
+        public virtual void Release (int marker)
         {
             // no resources to release
         }
 
-        public virtual void Rewind(int marker)
+        public virtual void Rewind (int marker)
         {
             Seek(marker);
         }
 
-        public virtual void Rewind()
+        public virtual void Rewind ()
         {
             Seek(_lastMarker);
         }
 
-        public virtual void Reset()
+        public virtual void Reset ()
         {
             _p = 0;
             _lastMarker = 0;
         }
 
-        public virtual void Seek(int index)
+        public virtual void Seek (int index)
         {
             _p = index;
         }
@@ -204,7 +202,7 @@ namespace Naninovel.Antlr.Runtime
          *
          *  Walk past any token not on the channel the parser is listening to.
          */
-        public virtual void Consume()
+        public virtual void Consume ()
         {
             if (_p == -1)
                 Setup();
@@ -213,7 +211,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         /** Make sure index i in tokens has a token. */
-        protected virtual void Sync(int i)
+        protected virtual void Sync (int i)
         {
             int n = i - _tokens.Count + 1; // how many more elements we need?
             if (n > 0)
@@ -221,7 +219,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         /** add n elements to buffer */
-        protected virtual void Fetch(int n)
+        protected virtual void Fetch (int n)
         {
             for (int i = 0; i < n; i++)
             {
@@ -233,7 +231,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public virtual IToken Get(int i)
+        public virtual IToken Get (int i)
         {
             if (i < 0 || i >= _tokens.Count)
             {
@@ -242,7 +240,7 @@ namespace Naninovel.Antlr.Runtime
             return _tokens[i];
         }
 
-#if false // why is this different from GetTokens(start, count) ?
+        #if false // why is this different from GetTokens(start, count) ?
         /// <summary>
         /// Get all tokens from start..(start+count-1) inclusively
         /// </summary>
@@ -270,14 +268,14 @@ namespace Naninovel.Antlr.Runtime
 
             return subset;
         }
-#endif
+        #endif
 
-        public virtual int LA(int i)
+        public virtual int LA (int i)
         {
             return LT(i).Type;
         }
 
-        protected virtual IToken LB(int k)
+        protected virtual IToken LB (int k)
         {
             if ((_p - k) < 0)
                 return null;
@@ -285,7 +283,7 @@ namespace Naninovel.Antlr.Runtime
             return _tokens[_p - k];
         }
 
-        public virtual IToken LT(int k)
+        public virtual IToken LT (int k)
         {
             if (_p == -1)
                 Setup();
@@ -308,18 +306,18 @@ namespace Naninovel.Antlr.Runtime
             return _tokens[_p + k - 1];
         }
 
-        protected virtual void Setup()
+        protected virtual void Setup ()
         {
             Sync(0);
             _p = 0;
         }
 
-        public virtual List<IToken> GetTokens()
+        public virtual List<IToken> GetTokens ()
         {
             return _tokens;
         }
 
-        public virtual List<IToken> GetTokens(int start, int stop)
+        public virtual List<IToken> GetTokens (int start, int stop)
         {
             return GetTokens(start, stop, default(BitSet));
         }
@@ -328,7 +326,7 @@ namespace Naninovel.Antlr.Runtime
          *  the token type BitSet.  Return null if no tokens were found.  This
          *  method looks at both on and off channel tokens.
          */
-        public virtual List<IToken> GetTokens(int start, int stop, BitSet types)
+        public virtual List<IToken> GetTokens (int start, int stop, BitSet types)
         {
             if (_p == -1)
                 Setup();
@@ -356,17 +354,17 @@ namespace Naninovel.Antlr.Runtime
             return filteredTokens;
         }
 
-        public virtual List<IToken> GetTokens(int start, int stop, IEnumerable<int> types)
+        public virtual List<IToken> GetTokens (int start, int stop, IEnumerable<int> types)
         {
             return GetTokens(start, stop, new BitSet(types));
         }
 
-        public virtual List<IToken> GetTokens(int start, int stop, int ttype)
+        public virtual List<IToken> GetTokens (int start, int stop, int ttype)
         {
             return GetTokens(start, stop, BitSet.Of(ttype));
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             if (_p == -1)
                 Setup();
@@ -375,7 +373,7 @@ namespace Naninovel.Antlr.Runtime
             return ToString(0, _tokens.Count - 1);
         }
 
-        public virtual string ToString(int start, int stop)
+        public virtual string ToString (int start, int stop)
         {
             if (start < 0 || stop < 0)
                 return null;
@@ -396,7 +394,7 @@ namespace Naninovel.Antlr.Runtime
             return buf.ToString();
         }
 
-        public virtual string ToString(IToken start, IToken stop)
+        public virtual string ToString (IToken start, IToken stop)
         {
             if (start != null && stop != null)
             {
@@ -405,7 +403,7 @@ namespace Naninovel.Antlr.Runtime
             return null;
         }
 
-        public virtual void Fill()
+        public virtual void Fill ()
         {
             if (_p == -1)
                 Setup();

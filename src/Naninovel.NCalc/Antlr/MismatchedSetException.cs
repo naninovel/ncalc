@@ -42,39 +42,33 @@ namespace Naninovel.Antlr.Runtime
     {
         private readonly BitSet _expecting;
 
-        public MismatchedSetException()
-        {
-        }
+        public MismatchedSetException () { }
 
-        public MismatchedSetException(string message)
-            : base(message)
-        {
-        }
+        public MismatchedSetException (string message)
+            : base(message) { }
 
-        public MismatchedSetException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+        public MismatchedSetException (string message, Exception innerException)
+            : base(message, innerException) { }
 
-        public MismatchedSetException( BitSet expecting, IIntStream input )
-            : base( input )
+        public MismatchedSetException (BitSet expecting, IIntStream input)
+            : base(input)
         {
             this._expecting = expecting;
         }
 
-        public MismatchedSetException(string message, BitSet expecting, IIntStream input)
+        public MismatchedSetException (string message, BitSet expecting, IIntStream input)
             : base(message, input)
         {
             this._expecting = expecting;
         }
 
-        public MismatchedSetException(string message, BitSet expecting, IIntStream input, Exception innerException)
+        public MismatchedSetException (string message, BitSet expecting, IIntStream input, Exception innerException)
             : base(message, input, innerException)
         {
             this._expecting = expecting;
         }
 
-        protected MismatchedSetException(SerializationInfo info, StreamingContext context)
+        protected MismatchedSetException (SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             if (info == null)
@@ -91,7 +85,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -100,7 +94,7 @@ namespace Naninovel.Antlr.Runtime
             info.AddValue("Expecting", _expecting);
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return "MismatchedSetException(" + UnexpectedType + "!=" + Expecting + ")";
         }

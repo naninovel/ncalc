@@ -13,54 +13,57 @@ namespace Naninovel.NCalc.Tests
             public decimal? FieldD { get; set; }
             public int? FieldE { get; set; }
 
-            public int Test(int a, int b)
+            public int Test (int a, int b)
             {
                 return a + b;
             }
 
-            public string Test(string a, string b)
+            public string Test (string a, string b)
             {
                 return a + b;
             }
 
-            public int Test(int a, int b, int c)
+            public int Test (int a, int b, int c)
             {
                 return a + b + c;
             }
 
-            public string Sum(string msg, params int[] numbers) {
+            public string Sum (string msg, params int[] numbers)
+            {
                 int total = 0;
-                foreach (var num in numbers) {
+                foreach (var num in numbers)
+                {
                     total += num;
                 }
                 return msg + total;
             }
 
-            public int Sum(params int[] numbers)
+            public int Sum (params int[] numbers)
             {
                 int total = 0;
-                foreach (var num in numbers) {
+                foreach (var num in numbers)
+                {
                     total += num;
                 }
                 return total;
             }
 
-            public int Sum(TestObject1 obj1, TestObject2 obj2)
+            public int Sum (TestObject1 obj1, TestObject2 obj2)
             {
                 return obj1.Count1 + obj2.Count2;
             }
 
-            public int Sum(TestObject2 obj1, TestObject1 obj2)
+            public int Sum (TestObject2 obj1, TestObject1 obj2)
             {
                 return obj1.Count2 + obj2.Count1;
             }
 
-            public int Sum(TestObject1 obj1, TestObject1 obj2)
+            public int Sum (TestObject1 obj1, TestObject1 obj2)
             {
                 return obj1.Count1 + obj2.Count1;
             }
 
-            public int Sum(TestObject2 obj1, TestObject2 obj2)
+            public int Sum (TestObject2 obj1, TestObject2 obj2)
             {
                 return obj1.Count2 + obj2.Count2;
             }
@@ -75,18 +78,15 @@ namespace Naninovel.NCalc.Tests
                 public int Count2 { get; set; }
             }
 
-
-            public TestObject1 CreateTestObject1(int count)
+            public TestObject1 CreateTestObject1 (int count)
             {
                 return new TestObject1() { Count1 = count };
             }
 
-            public TestObject2 CreateTestObject2(int count)
+            public TestObject2 CreateTestObject2 (int count)
             {
                 return new TestObject2() { Count2 = count };
             }
-
-
         }
 
         [Theory]
@@ -95,7 +95,7 @@ namespace Naninovel.NCalc.Tests
         [InlineData("2*2", 4)]
         [InlineData("10/2", 5)]
         [InlineData("7%2", 1)]
-        public void ShouldHandleIntegers(string input, int expected)
+        public void ShouldHandleIntegers (string input, int expected)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<int>();
@@ -104,7 +104,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleParameters()
+        public void ShouldHandleParameters ()
         {
             var expression = new Expression("[FieldA] > 5 && [FieldB] = 'test'");
             var sut = expression.ToLambda<Context, bool>();
@@ -114,7 +114,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleOverloadingSameParamCount()
+        public void ShouldHandleOverloadingSameParamCount ()
         {
             var expression = new Expression("Test('Hello', ' world!')");
             var sut = expression.ToLambda<Context, string>();
@@ -124,7 +124,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleOverloadingDifferentParamCount()
+        public void ShouldHandleOverloadingDifferentParamCount ()
         {
             var expression = new Expression("Test(Test(1, 2), 3, 4)");
             var sut = expression.ToLambda<Context, int>();
@@ -134,7 +134,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleOverloadingObjectParameters()
+        public void ShouldHandleOverloadingObjectParameters ()
         {
             var expression = new Expression("Sum(CreateTestObject1(2), CreateTestObject2(2)) + Sum(CreateTestObject2(1), CreateTestObject1(5))");
             var sut = expression.ToLambda<Context, int>();
@@ -143,9 +143,8 @@ namespace Naninovel.NCalc.Tests
             Assert.Equal(10, sut(context));
         }
 
-
         [Fact]
-        public void ShouldHandleParamsKeyword()
+        public void ShouldHandleParamsKeyword ()
         {
             var expression = new Expression("Sum(Test(1,1),2)");
             var sut = expression.ToLambda<Context, int>();
@@ -155,7 +154,8 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleMixedParamsKeyword() {
+        public void ShouldHandleMixedParamsKeyword ()
+        {
             var expression = new Expression("Sum('Your total is: ', Test(1,1), 2, 3)");
             var sut = expression.ToLambda<Context, string>();
             var context = new Context();
@@ -164,7 +164,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleCustomFunctions()
+        public void ShouldHandleCustomFunctions ()
         {
             var expression = new Expression("Test(Test(1, 2), 3)");
             var sut = expression.ToLambda<Context, int>();
@@ -174,7 +174,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void MissingMethod()
+        public void MissingMethod ()
         {
             var expression = new Expression("MissingMethod(1)");
             try
@@ -183,17 +183,15 @@ namespace Naninovel.NCalc.Tests
             }
             catch (System.MissingMethodException ex)
             {
-
                 System.Diagnostics.Debug.Write(ex);
                 Assert.True(true);
                 return;
             }
             Assert.True(false);
-
         }
 
         [Fact]
-        public void ShouldHandleTernaryOperator()
+        public void ShouldHandleTernaryOperator ()
         {
             var expression = new Expression("Test(1, 2) = 3 ? 1 : 2");
             var sut = expression.ToLambda<Context, int>();
@@ -203,7 +201,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void Issue1()
+        public void Issue1 ()
         {
             var expr = new Expression("2 + 2 - a - b - x");
 
@@ -222,7 +220,7 @@ namespace Naninovel.NCalc.Tests
         [Theory]
         [InlineData("if(true, true, false)")]
         [InlineData("in(3, 1, 2, 3, 4)")]
-        public void ShouldHandleBuiltInFunctions(string input)
+        public void ShouldHandleBuiltInFunctions (string input)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<bool>();
@@ -235,7 +233,7 @@ namespace Naninovel.NCalc.Tests
         [InlineData("[FieldC] > (1.34 * 2) % 3", false)]
         [InlineData("[FieldE] = 2", true)]
         [InlineData("[FieldD] > 0", false)]
-        public void ShouldHandleDataConversions(string input, bool expected)
+        public void ShouldHandleDataConversions (string input, bool expected)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<Context, bool>();
@@ -245,12 +243,12 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Theory]
-        [InlineData("Min(3,2)",2)]
+        [InlineData("Min(3,2)", 2)]
         [InlineData("Min(3.2,6.3)", 3.2)]
         [InlineData("Max(2.6,9.6)", 9.6)]
         [InlineData("Max(9,6)", 9.0)]
         [InlineData("Pow(5,2)", 25)]
-        public void ShouldHandleNumericBuiltInFunctions(string input, double expected)
+        public void ShouldHandleNumericBuiltInFunctions (string input, double expected)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<object>();
@@ -261,7 +259,7 @@ namespace Naninovel.NCalc.Tests
         [InlineData("if(true, 1, 0.0)", 1.0)]
         [InlineData("if(true, 1.0, 0)", 1.0)]
         [InlineData("if(true, 1.0, 0.0)", 1.0)]
-        public void ShouldHandleFloatIfFunction(string input, double expected)
+        public void ShouldHandleFloatIfFunction (string input, double expected)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<object>();
@@ -270,7 +268,7 @@ namespace Naninovel.NCalc.Tests
 
         [Theory]
         [InlineData("if(true, 1, 0)", 1)]
-        public void ShouldHandleIntIfFunction(string input, int expected)
+        public void ShouldHandleIntIfFunction (string input, int expected)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<object>();
@@ -279,7 +277,7 @@ namespace Naninovel.NCalc.Tests
 
         [Theory]
         [InlineData("if(true, 'a', 'b')", "a")]
-        public void ShouldHandleStringIfFunction(string input, string expected)
+        public void ShouldHandleStringIfFunction (string input, string expected)
         {
             var expression = new Expression(input);
             var sut = expression.ToLambda<object>();

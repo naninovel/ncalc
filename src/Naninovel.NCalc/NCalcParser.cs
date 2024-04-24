@@ -1,23 +1,20 @@
 // $ANTLR 3.3.0.7239 C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g 2011-08-08 11:08:01
 
 // The variable 'variable' is assigned but its value is never used.
+
 #pragma warning disable 219
 // Unreachable code detected.
 #pragma warning disable 162
-
 
 using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
 using Naninovel.NCalc.Domain;
 using System;
-
 using Naninovel.Antlr.Runtime;
 using Stack = System.Collections.Generic.Stack<object>;
 using List = System.Collections.IList;
 using ArrayList = System.Collections.Generic.List<object>;
-
-
 using Naninovel.Antlr.Runtime.Tree;
 using RewriteRuleITokenStream = Naninovel.Antlr.Runtime.Tree.RewriteRuleTokenStream;
 
@@ -28,8 +25,8 @@ namespace Naninovel.NCalc
     public partial class NCalcParser : Antlr.Runtime.Parser
     {
         internal static readonly string[] tokenNames = new string[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATETIME", "DIGIT", "E", "EscapeSequence", "FALSE", "FLOAT", "HexDigit", "ID", "INTEGER", "LETTER", "NAME", "STRING", "TRUE", "UnicodeEscape", "WS", "'!'", "'!='", "'%'", "'&&'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "':'", "'<'", "'<<'", "'<='", "'<>'", "'='", "'=='", "'>'", "'>='", "'>>'", "'?'", "'^'", "'and'", "'not'", "'or'", "'|'", "'||'", "'~'"
-    };
+            "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DATETIME", "DIGIT", "E", "EscapeSequence", "FALSE", "FLOAT", "HexDigit", "ID", "INTEGER", "LETTER", "NAME", "STRING", "TRUE", "UnicodeEscape", "WS", "'!'", "'!='", "'%'", "'&&'", "'&'", "'('", "')'", "'*'", "'+'", "','", "'-'", "'/'", "':'", "'<'", "'<<'", "'<='", "'<>'", "'='", "'=='", "'>'", "'>='", "'>>'", "'?'", "'^'", "'and'", "'not'", "'or'", "'|'", "'||'", "'~'"
+        };
         public const int EOF = -1;
         public const int DATETIME = 4;
         public const int DIGIT = 5;
@@ -80,7 +77,7 @@ namespace Naninovel.NCalc
         // delegates
         // delegators
 
-#if ANTLR_DEBUG
+        #if ANTLR_DEBUG
 		private static readonly bool[] decisionCanBacktrack =
 			new bool[]
 			{
@@ -89,13 +86,11 @@ namespace Naninovel.NCalc
 				false, false, false, false, false, false, false, false, false, false, 
 				false, false, false
 			};
-#else
+        #else
         private static readonly bool[] decisionCanBacktrack = new bool[0];
-#endif
+        #endif
         public NCalcParser (ITokenStream input)
-            : this(input, new RecognizerSharedState())
-        {
-        }
+            : this(input, new RecognizerSharedState()) { }
         public NCalcParser (ITokenStream input, RecognizerSharedState state)
             : base(input, state)
         {
@@ -126,13 +121,11 @@ namespace Naninovel.NCalc
         public override string[] TokenNames { get { return NCalcParser.tokenNames; } }
         public override string GrammarFileName { get { return "C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g"; } }
 
-
         private const char BS = '\\';
         private static NumberFormatInfo numberFormatInfo = new NumberFormatInfo();
 
         private string extractString (string text)
         {
-
             StringBuilder sb = new StringBuilder(text);
             int startIndex = 1; // Skip initial quote
             int slashIndex = -1;
@@ -148,17 +141,28 @@ namespace Naninovel.NCalc
                         char unicodeChar = Encoding.Unicode.GetChars(new byte[] { System.Convert.ToByte(hcode, 16), System.Convert.ToByte(lcode, 16) })[0];
                         sb.Remove(slashIndex, 6).Insert(slashIndex, unicodeChar);
                         break;
-                    case 'n': sb.Remove(slashIndex, 2).Insert(slashIndex, '\n'); break;
-                    case 'r': sb.Remove(slashIndex, 2).Insert(slashIndex, '\r'); break;
-                    case 't': sb.Remove(slashIndex, 2).Insert(slashIndex, '\t'); break;
-                    case '\'': sb.Remove(slashIndex, 2).Insert(slashIndex, '\''); break;
-                    case '"': sb.Remove(slashIndex, 2).Insert(slashIndex, '\"'); break;
-                    case '\\': sb.Remove(slashIndex, 2).Insert(slashIndex, '\\'); break;
+                    case 'n':
+                        sb.Remove(slashIndex, 2).Insert(slashIndex, '\n');
+                        break;
+                    case 'r':
+                        sb.Remove(slashIndex, 2).Insert(slashIndex, '\r');
+                        break;
+                    case 't':
+                        sb.Remove(slashIndex, 2).Insert(slashIndex, '\t');
+                        break;
+                    case '\'':
+                        sb.Remove(slashIndex, 2).Insert(slashIndex, '\'');
+                        break;
+                    case '"':
+                        sb.Remove(slashIndex, 2).Insert(slashIndex, '\"');
+                        break;
+                    case '\\':
+                        sb.Remove(slashIndex, 2).Insert(slashIndex, '\\');
+                        break;
                     default: throw new RecognitionException("Unvalid escape sequence: \\" + escapeType);
                 }
 
                 startIndex = slashIndex + 1;
-
             }
 
             sb.Remove(0, 1);
@@ -171,7 +175,6 @@ namespace Naninovel.NCalc
 
         public override void DisplayRecognitionError (String[] tokenNames, RecognitionException e)
         {
-
             base.DisplayRecognitionError(tokenNames, e);
 
             if (Errors == null)
@@ -183,7 +186,6 @@ namespace Naninovel.NCalc
             String msg = GetErrorMessage(e, tokenNames);
             Errors.Add(msg + " at " + hdr);
         }
-
 
         partial void OnCreated ();
         partial void EnterRule (string ruleName, int ruleIndex);
@@ -241,21 +243,18 @@ namespace Naninovel.NCalc
                         EOF2 = (IToken)Match(input, EOF, Follow._EOF_in_ncalcExpression58);
                         DebugLocation(78, 27);
                         retval.value = (logicalExpression1 != null ? logicalExpression1.value : default(LogicalExpression));
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -267,7 +266,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "ncalcExpression"); }
             return retval;
-
         }
         // $ANTLR end "ncalcExpression"
 
@@ -346,54 +344,48 @@ namespace Naninovel.NCalc
                                 case 1:
                                     DebugEnterAlt(1);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:82:59: '?' middle= conditionalExpression ':' right= conditionalExpression
-                                    {
-                                        DebugLocation(82, 59);
-                                        char_literal3 = (IToken)Match(input, 41, Follow._41_in_logicalExpression84);
-                                        char_literal3_tree = (CommonTree)adaptor.Create(char_literal3);
-                                        adaptor.AddChild(root_0, char_literal3_tree);
+                                {
+                                    DebugLocation(82, 59);
+                                    char_literal3 = (IToken)Match(input, 41, Follow._41_in_logicalExpression84);
+                                    char_literal3_tree = (CommonTree)adaptor.Create(char_literal3);
+                                    adaptor.AddChild(root_0, char_literal3_tree);
 
-                                        DebugLocation(82, 69);
-                                        PushFollow(Follow._conditionalExpression_in_logicalExpression88);
-                                        middle = conditionalExpression();
-                                        PopFollow();
+                                    DebugLocation(82, 69);
+                                    PushFollow(Follow._conditionalExpression_in_logicalExpression88);
+                                    middle = conditionalExpression();
+                                    PopFollow();
 
-                                        adaptor.AddChild(root_0, middle.Tree);
-                                        DebugLocation(82, 92);
-                                        char_literal4 = (IToken)Match(input, 31, Follow._31_in_logicalExpression90);
-                                        char_literal4_tree = (CommonTree)adaptor.Create(char_literal4);
-                                        adaptor.AddChild(root_0, char_literal4_tree);
+                                    adaptor.AddChild(root_0, middle.Tree);
+                                    DebugLocation(82, 92);
+                                    char_literal4 = (IToken)Match(input, 31, Follow._31_in_logicalExpression90);
+                                    char_literal4_tree = (CommonTree)adaptor.Create(char_literal4);
+                                    adaptor.AddChild(root_0, char_literal4_tree);
 
-                                        DebugLocation(82, 101);
-                                        PushFollow(Follow._conditionalExpression_in_logicalExpression94);
-                                        right = conditionalExpression();
-                                        PopFollow();
+                                    DebugLocation(82, 101);
+                                    PushFollow(Follow._conditionalExpression_in_logicalExpression94);
+                                    right = conditionalExpression();
+                                    PopFollow();
 
-                                        adaptor.AddChild(root_0, right.Tree);
-                                        DebugLocation(82, 124);
-                                        retval.value = new TernaryExpression((left != null ? left.value : default(LogicalExpression)), (middle != null ? middle.value : default(LogicalExpression)), (right != null ? right.value : default(LogicalExpression)));
-
-                                    }
+                                    adaptor.AddChild(root_0, right.Tree);
+                                    DebugLocation(82, 124);
+                                    retval.value = new TernaryExpression((left != null ? left.value : default(LogicalExpression)), (middle != null ? middle.value : default(LogicalExpression)), (right != null ? right.value : default(LogicalExpression)));
+                                }
                                     break;
-
                             }
                         }
                         finally { DebugExitSubRule(1); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -405,7 +397,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "logicalExpression"); }
             return retval;
-
         }
         // $ANTLR end "logicalExpression"
 
@@ -438,7 +429,6 @@ namespace Naninovel.NCalc
             NCalcParser.conditionalExpression_return right = default(NCalcParser.conditionalExpression_return);
 
             CommonTree set5_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -479,8 +469,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt2 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(2); }
                                 switch (alt2)
@@ -488,34 +476,33 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:90:4: ( '||' | 'or' ) right= conditionalExpression
+                                    {
+                                        DebugLocation(90, 4);
+                                        set5 = (IToken)input.LT(1);
+                                        if (input.LA(1) == 45 || input.LA(1) == 47)
                                         {
-                                            DebugLocation(90, 4);
-                                            set5 = (IToken)input.LT(1);
-                                            if (input.LA(1) == 45 || input.LA(1) == 47)
-                                            {
-                                                input.Consume();
-                                                adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set5));
-                                                state.errorRecovery = false;
-                                            }
-                                            else
-                                            {
-                                                MismatchedSetException mse = new MismatchedSetException(null, input);
-                                                DebugRecognitionException(mse);
-                                                throw mse;
-                                            }
-
-                                            DebugLocation(90, 18);
-                                            type = BinaryExpressionType.Or;
-                                            DebugLocation(91, 9);
-                                            PushFollow(Follow._conditionalExpression_in_conditionalExpression146);
-                                            right = conditionalExpression();
-                                            PopFollow();
-
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(91, 32);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
+                                            input.Consume();
+                                            adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set5));
+                                            state.errorRecovery = false;
                                         }
+                                        else
+                                        {
+                                            MismatchedSetException mse = new MismatchedSetException(null, input);
+                                            DebugRecognitionException(mse);
+                                            throw mse;
+                                        }
+
+                                        DebugLocation(90, 18);
+                                        type = BinaryExpressionType.Or;
+                                        DebugLocation(91, 9);
+                                        PushFollow(Follow._conditionalExpression_in_conditionalExpression146);
+                                        right = conditionalExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(91, 32);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -523,27 +510,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop2:
-                            ;
-
+                            loop2: ;
                         }
                         finally { DebugExitSubRule(2); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -555,7 +536,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "conditionalExpression"); }
             return retval;
-
         }
         // $ANTLR end "conditionalExpression"
 
@@ -588,7 +568,6 @@ namespace Naninovel.NCalc
             NCalcParser.bitwiseOrExpression_return right = default(NCalcParser.bitwiseOrExpression_return);
 
             CommonTree set6_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -629,8 +608,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt3 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(3); }
                                 switch (alt3)
@@ -638,34 +615,33 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:100:4: ( '&&' | 'and' ) right= bitwiseOrExpression
+                                    {
+                                        DebugLocation(100, 4);
+                                        set6 = (IToken)input.LT(1);
+                                        if (input.LA(1) == 22 || input.LA(1) == 43)
                                         {
-                                            DebugLocation(100, 4);
-                                            set6 = (IToken)input.LT(1);
-                                            if (input.LA(1) == 22 || input.LA(1) == 43)
-                                            {
-                                                input.Consume();
-                                                adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set6));
-                                                state.errorRecovery = false;
-                                            }
-                                            else
-                                            {
-                                                MismatchedSetException mse = new MismatchedSetException(null, input);
-                                                DebugRecognitionException(mse);
-                                                throw mse;
-                                            }
-
-                                            DebugLocation(100, 19);
-                                            type = BinaryExpressionType.And;
-                                            DebugLocation(101, 9);
-                                            PushFollow(Follow._bitwiseOrExpression_in_booleanAndExpression205);
-                                            right = bitwiseOrExpression();
-                                            PopFollow();
-
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(101, 30);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
+                                            input.Consume();
+                                            adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set6));
+                                            state.errorRecovery = false;
                                         }
+                                        else
+                                        {
+                                            MismatchedSetException mse = new MismatchedSetException(null, input);
+                                            DebugRecognitionException(mse);
+                                            throw mse;
+                                        }
+
+                                        DebugLocation(100, 19);
+                                        type = BinaryExpressionType.And;
+                                        DebugLocation(101, 9);
+                                        PushFollow(Follow._bitwiseOrExpression_in_booleanAndExpression205);
+                                        right = bitwiseOrExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(101, 30);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -673,27 +649,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop3:
-                            ;
-
+                            loop3: ;
                         }
                         finally { DebugExitSubRule(3); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -705,7 +675,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "booleanAndExpression"); }
             return retval;
-
         }
         // $ANTLR end "booleanAndExpression"
 
@@ -738,7 +707,6 @@ namespace Naninovel.NCalc
             NCalcParser.bitwiseOrExpression_return right = default(NCalcParser.bitwiseOrExpression_return);
 
             CommonTree char_literal7_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -779,8 +747,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt4 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(4); }
                                 switch (alt4)
@@ -788,24 +754,23 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:110:4: '|' right= bitwiseOrExpression
-                                        {
-                                            DebugLocation(110, 4);
-                                            char_literal7 = (IToken)Match(input, 46, Follow._46_in_bitwiseOrExpression246);
-                                            char_literal7_tree = (CommonTree)adaptor.Create(char_literal7);
-                                            adaptor.AddChild(root_0, char_literal7_tree);
+                                    {
+                                        DebugLocation(110, 4);
+                                        char_literal7 = (IToken)Match(input, 46, Follow._46_in_bitwiseOrExpression246);
+                                        char_literal7_tree = (CommonTree)adaptor.Create(char_literal7);
+                                        adaptor.AddChild(root_0, char_literal7_tree);
 
-                                            DebugLocation(110, 8);
-                                            type = BinaryExpressionType.BitwiseOr;
-                                            DebugLocation(111, 9);
-                                            PushFollow(Follow._bitwiseOrExpression_in_bitwiseOrExpression256);
-                                            right = bitwiseOrExpression();
-                                            PopFollow();
+                                        DebugLocation(110, 8);
+                                        type = BinaryExpressionType.BitwiseOr;
+                                        DebugLocation(111, 9);
+                                        PushFollow(Follow._bitwiseOrExpression_in_bitwiseOrExpression256);
+                                        right = bitwiseOrExpression();
+                                        PopFollow();
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(111, 30);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
-                                        }
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(111, 30);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -813,27 +778,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop4:
-                            ;
-
+                            loop4: ;
                         }
                         finally { DebugExitSubRule(4); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -845,7 +804,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "bitwiseOrExpression"); }
             return retval;
-
         }
         // $ANTLR end "bitwiseOrExpression"
 
@@ -878,7 +836,6 @@ namespace Naninovel.NCalc
             NCalcParser.bitwiseAndExpression_return right = default(NCalcParser.bitwiseAndExpression_return);
 
             CommonTree char_literal8_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -919,8 +876,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt5 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(5); }
                                 switch (alt5)
@@ -928,24 +883,23 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:120:4: '^' right= bitwiseAndExpression
-                                        {
-                                            DebugLocation(120, 4);
-                                            char_literal8 = (IToken)Match(input, 42, Follow._42_in_bitwiseXOrExpression299);
-                                            char_literal8_tree = (CommonTree)adaptor.Create(char_literal8);
-                                            adaptor.AddChild(root_0, char_literal8_tree);
+                                    {
+                                        DebugLocation(120, 4);
+                                        char_literal8 = (IToken)Match(input, 42, Follow._42_in_bitwiseXOrExpression299);
+                                        char_literal8_tree = (CommonTree)adaptor.Create(char_literal8);
+                                        adaptor.AddChild(root_0, char_literal8_tree);
 
-                                            DebugLocation(120, 8);
-                                            type = BinaryExpressionType.BitwiseXOr;
-                                            DebugLocation(121, 9);
-                                            PushFollow(Follow._bitwiseAndExpression_in_bitwiseXOrExpression309);
-                                            right = bitwiseAndExpression();
-                                            PopFollow();
+                                        DebugLocation(120, 8);
+                                        type = BinaryExpressionType.BitwiseXOr;
+                                        DebugLocation(121, 9);
+                                        PushFollow(Follow._bitwiseAndExpression_in_bitwiseXOrExpression309);
+                                        right = bitwiseAndExpression();
+                                        PopFollow();
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(121, 31);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
-                                        }
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(121, 31);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -953,27 +907,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop5:
-                            ;
-
+                            loop5: ;
                         }
                         finally { DebugExitSubRule(5); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -985,7 +933,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "bitwiseXOrExpression"); }
             return retval;
-
         }
         // $ANTLR end "bitwiseXOrExpression"
 
@@ -1018,7 +965,6 @@ namespace Naninovel.NCalc
             NCalcParser.equalityExpression_return right = default(NCalcParser.equalityExpression_return);
 
             CommonTree char_literal9_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -1059,8 +1005,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt6 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(6); }
                                 switch (alt6)
@@ -1068,24 +1012,23 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:130:4: '&' right= equalityExpression
-                                        {
-                                            DebugLocation(130, 4);
-                                            char_literal9 = (IToken)Match(input, 23, Follow._23_in_bitwiseAndExpression350);
-                                            char_literal9_tree = (CommonTree)adaptor.Create(char_literal9);
-                                            adaptor.AddChild(root_0, char_literal9_tree);
+                                    {
+                                        DebugLocation(130, 4);
+                                        char_literal9 = (IToken)Match(input, 23, Follow._23_in_bitwiseAndExpression350);
+                                        char_literal9_tree = (CommonTree)adaptor.Create(char_literal9);
+                                        adaptor.AddChild(root_0, char_literal9_tree);
 
-                                            DebugLocation(130, 8);
-                                            type = BinaryExpressionType.BitwiseAnd;
-                                            DebugLocation(131, 9);
-                                            PushFollow(Follow._equalityExpression_in_bitwiseAndExpression360);
-                                            right = equalityExpression();
-                                            PopFollow();
+                                        DebugLocation(130, 8);
+                                        type = BinaryExpressionType.BitwiseAnd;
+                                        DebugLocation(131, 9);
+                                        PushFollow(Follow._equalityExpression_in_bitwiseAndExpression360);
+                                        right = equalityExpression();
+                                        PopFollow();
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(131, 29);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
-                                        }
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(131, 29);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -1093,27 +1036,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop6:
-                            ;
-
+                            loop6: ;
                         }
                         finally { DebugExitSubRule(6); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -1125,7 +1062,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "bitwiseAndExpression"); }
             return retval;
-
         }
         // $ANTLR end "bitwiseAndExpression"
 
@@ -1160,7 +1096,6 @@ namespace Naninovel.NCalc
 
             CommonTree set10_tree = null;
             CommonTree set11_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -1201,8 +1136,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt8 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(8); }
                                 switch (alt8)
@@ -1210,100 +1143,96 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:4: ( ( '==' | '=' ) | ( '!=' | '<>' ) ) right= relationalExpression
+                                    {
+                                        DebugLocation(140, 4);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:4: ( ( '==' | '=' ) | ( '!=' | '<>' ) )
+                                        int alt7 = 2;
+                                        try
                                         {
-                                            DebugLocation(140, 4);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:4: ( ( '==' | '=' ) | ( '!=' | '<>' ) )
-                                            int alt7 = 2;
+                                            DebugEnterSubRule(7);
                                             try
                                             {
-                                                DebugEnterSubRule(7);
-                                                try
-                                                {
-                                                    DebugEnterDecision(7, decisionCanBacktrack[7]);
-                                                    int LA7_0 = input.LA(1);
+                                                DebugEnterDecision(7, decisionCanBacktrack[7]);
+                                                int LA7_0 = input.LA(1);
 
-                                                    if (((LA7_0 >= 36 && LA7_0 <= 37)))
+                                                if (((LA7_0 >= 36 && LA7_0 <= 37)))
+                                                {
+                                                    alt7 = 1;
+                                                }
+                                                else if ((LA7_0 == 20 || LA7_0 == 35))
+                                                {
+                                                    alt7 = 2;
+                                                }
+                                                else
+                                                {
+                                                    NoViableAltException nvae = new NoViableAltException("", 7, 0, input);
+
+                                                    DebugRecognitionException(nvae);
+                                                    throw nvae;
+                                                }
+                                            }
+                                            finally { DebugExitDecision(7); }
+                                            switch (alt7)
+                                            {
+                                                case 1:
+                                                    DebugEnterAlt(1);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:6: ( '==' | '=' )
+                                                {
+                                                    DebugLocation(140, 6);
+                                                    set10 = (IToken)input.LT(1);
+                                                    if ((input.LA(1) >= 36 && input.LA(1) <= 37))
                                                     {
-                                                        alt7 = 1;
-                                                    }
-                                                    else if ((LA7_0 == 20 || LA7_0 == 35))
-                                                    {
-                                                        alt7 = 2;
+                                                        input.Consume();
+                                                        adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set10));
+                                                        state.errorRecovery = false;
                                                     }
                                                     else
                                                     {
-                                                        NoViableAltException nvae = new NoViableAltException("", 7, 0, input);
-
-                                                        DebugRecognitionException(nvae);
-                                                        throw nvae;
+                                                        MismatchedSetException mse = new MismatchedSetException(null, input);
+                                                        DebugRecognitionException(mse);
+                                                        throw mse;
                                                     }
+
+                                                    DebugLocation(140, 20);
+                                                    type = BinaryExpressionType.Equal;
                                                 }
-                                                finally { DebugExitDecision(7); }
-                                                switch (alt7)
+                                                    break;
+                                                case 2:
+                                                    DebugEnterAlt(2);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:141:6: ( '!=' | '<>' )
                                                 {
-                                                    case 1:
-                                                        DebugEnterAlt(1);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:140:6: ( '==' | '=' )
-                                                        {
-                                                            DebugLocation(140, 6);
-                                                            set10 = (IToken)input.LT(1);
-                                                            if ((input.LA(1) >= 36 && input.LA(1) <= 37))
-                                                            {
-                                                                input.Consume();
-                                                                adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set10));
-                                                                state.errorRecovery = false;
-                                                            }
-                                                            else
-                                                            {
-                                                                MismatchedSetException mse = new MismatchedSetException(null, input);
-                                                                DebugRecognitionException(mse);
-                                                                throw mse;
-                                                            }
+                                                    DebugLocation(141, 6);
+                                                    set11 = (IToken)input.LT(1);
+                                                    if (input.LA(1) == 20 || input.LA(1) == 35)
+                                                    {
+                                                        input.Consume();
+                                                        adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set11));
+                                                        state.errorRecovery = false;
+                                                    }
+                                                    else
+                                                    {
+                                                        MismatchedSetException mse = new MismatchedSetException(null, input);
+                                                        DebugRecognitionException(mse);
+                                                        throw mse;
+                                                    }
 
-                                                            DebugLocation(140, 20);
-                                                            type = BinaryExpressionType.Equal;
-
-                                                        }
-                                                        break;
-                                                    case 2:
-                                                        DebugEnterAlt(2);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:141:6: ( '!=' | '<>' )
-                                                        {
-                                                            DebugLocation(141, 6);
-                                                            set11 = (IToken)input.LT(1);
-                                                            if (input.LA(1) == 20 || input.LA(1) == 35)
-                                                            {
-                                                                input.Consume();
-                                                                adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set11));
-                                                                state.errorRecovery = false;
-                                                            }
-                                                            else
-                                                            {
-                                                                MismatchedSetException mse = new MismatchedSetException(null, input);
-                                                                DebugRecognitionException(mse);
-                                                                throw mse;
-                                                            }
-
-                                                            DebugLocation(141, 21);
-                                                            type = BinaryExpressionType.NotEqual;
-
-                                                        }
-                                                        break;
-
+                                                    DebugLocation(141, 21);
+                                                    type = BinaryExpressionType.NotEqual;
                                                 }
+                                                    break;
                                             }
-                                            finally { DebugExitSubRule(7); }
-
-                                            DebugLocation(142, 9);
-                                            PushFollow(Follow._relationalExpression_in_equalityExpression441);
-                                            right = relationalExpression();
-                                            PopFollow();
-
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(142, 31);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
                                         }
+                                        finally { DebugExitSubRule(7); }
+
+                                        DebugLocation(142, 9);
+                                        PushFollow(Follow._relationalExpression_in_equalityExpression441);
+                                        right = relationalExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(142, 31);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -1311,27 +1240,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop8:
-                            ;
-
+                            loop8: ;
                         }
                         finally { DebugExitSubRule(8); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -1343,7 +1266,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "equalityExpression"); }
             return retval;
-
         }
         // $ANTLR end "equalityExpression"
 
@@ -1382,7 +1304,6 @@ namespace Naninovel.NCalc
             CommonTree string_literal13_tree = null;
             CommonTree char_literal14_tree = null;
             CommonTree string_literal15_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -1423,8 +1344,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt10 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(10); }
                                 switch (alt10)
@@ -1432,122 +1351,115 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:4: ( '<' | '<=' | '>' | '>=' ) right= shiftExpression
+                                    {
+                                        DebugLocation(151, 4);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:4: ( '<' | '<=' | '>' | '>=' )
+                                        int alt9 = 4;
+                                        try
                                         {
-                                            DebugLocation(151, 4);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:4: ( '<' | '<=' | '>' | '>=' )
-                                            int alt9 = 4;
+                                            DebugEnterSubRule(9);
                                             try
                                             {
-                                                DebugEnterSubRule(9);
-                                                try
+                                                DebugEnterDecision(9, decisionCanBacktrack[9]);
+                                                switch (input.LA(1))
                                                 {
-                                                    DebugEnterDecision(9, decisionCanBacktrack[9]);
-                                                    switch (input.LA(1))
+                                                    case 32:
                                                     {
-                                                        case 32:
-                                                            {
-                                                                alt9 = 1;
-                                                            }
-                                                            break;
-                                                        case 34:
-                                                            {
-                                                                alt9 = 2;
-                                                            }
-                                                            break;
-                                                        case 38:
-                                                            {
-                                                                alt9 = 3;
-                                                            }
-                                                            break;
-                                                        case 39:
-                                                            {
-                                                                alt9 = 4;
-                                                            }
-                                                            break;
-                                                        default:
-                                                            {
-                                                                NoViableAltException nvae = new NoViableAltException("", 9, 0, input);
-
-                                                                DebugRecognitionException(nvae);
-                                                                throw nvae;
-                                                            }
+                                                        alt9 = 1;
                                                     }
-
-                                                }
-                                                finally { DebugExitDecision(9); }
-                                                switch (alt9)
-                                                {
-                                                    case 1:
-                                                        DebugEnterAlt(1);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:6: '<'
-                                                        {
-                                                            DebugLocation(151, 6);
-                                                            char_literal12 = (IToken)Match(input, 32, Follow._32_in_relationalExpression485);
-                                                            char_literal12_tree = (CommonTree)adaptor.Create(char_literal12);
-                                                            adaptor.AddChild(root_0, char_literal12_tree);
-
-                                                            DebugLocation(151, 10);
-                                                            type = BinaryExpressionType.Lesser;
-
-                                                        }
                                                         break;
-                                                    case 2:
-                                                        DebugEnterAlt(2);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:152:6: '<='
-                                                        {
-                                                            DebugLocation(152, 6);
-                                                            string_literal13 = (IToken)Match(input, 34, Follow._34_in_relationalExpression495);
-                                                            string_literal13_tree = (CommonTree)adaptor.Create(string_literal13);
-                                                            adaptor.AddChild(root_0, string_literal13_tree);
-
-                                                            DebugLocation(152, 11);
-                                                            type = BinaryExpressionType.LesserOrEqual;
-
-                                                        }
+                                                    case 34:
+                                                    {
+                                                        alt9 = 2;
+                                                    }
                                                         break;
-                                                    case 3:
-                                                        DebugEnterAlt(3);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:153:6: '>'
-                                                        {
-                                                            DebugLocation(153, 6);
-                                                            char_literal14 = (IToken)Match(input, 38, Follow._38_in_relationalExpression506);
-                                                            char_literal14_tree = (CommonTree)adaptor.Create(char_literal14);
-                                                            adaptor.AddChild(root_0, char_literal14_tree);
-
-                                                            DebugLocation(153, 10);
-                                                            type = BinaryExpressionType.Greater;
-
-                                                        }
+                                                    case 38:
+                                                    {
+                                                        alt9 = 3;
+                                                    }
                                                         break;
-                                                    case 4:
-                                                        DebugEnterAlt(4);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:154:6: '>='
-                                                        {
-                                                            DebugLocation(154, 6);
-                                                            string_literal15 = (IToken)Match(input, 39, Follow._39_in_relationalExpression516);
-                                                            string_literal15_tree = (CommonTree)adaptor.Create(string_literal15);
-                                                            adaptor.AddChild(root_0, string_literal15_tree);
-
-                                                            DebugLocation(154, 11);
-                                                            type = BinaryExpressionType.GreaterOrEqual;
-
-                                                        }
+                                                    case 39:
+                                                    {
+                                                        alt9 = 4;
+                                                    }
                                                         break;
+                                                    default:
+                                                    {
+                                                        NoViableAltException nvae = new NoViableAltException("", 9, 0, input);
 
+                                                        DebugRecognitionException(nvae);
+                                                        throw nvae;
+                                                    }
                                                 }
                                             }
-                                            finally { DebugExitSubRule(9); }
+                                            finally { DebugExitDecision(9); }
+                                            switch (alt9)
+                                            {
+                                                case 1:
+                                                    DebugEnterAlt(1);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:151:6: '<'
+                                                {
+                                                    DebugLocation(151, 6);
+                                                    char_literal12 = (IToken)Match(input, 32, Follow._32_in_relationalExpression485);
+                                                    char_literal12_tree = (CommonTree)adaptor.Create(char_literal12);
+                                                    adaptor.AddChild(root_0, char_literal12_tree);
 
-                                            DebugLocation(155, 9);
-                                            PushFollow(Follow._shiftExpression_in_relationalExpression528);
-                                            right = shiftExpression();
-                                            PopFollow();
+                                                    DebugLocation(151, 10);
+                                                    type = BinaryExpressionType.Lesser;
+                                                }
+                                                    break;
+                                                case 2:
+                                                    DebugEnterAlt(2);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:152:6: '<='
+                                                {
+                                                    DebugLocation(152, 6);
+                                                    string_literal13 = (IToken)Match(input, 34, Follow._34_in_relationalExpression495);
+                                                    string_literal13_tree = (CommonTree)adaptor.Create(string_literal13);
+                                                    adaptor.AddChild(root_0, string_literal13_tree);
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(155, 26);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                                    DebugLocation(152, 11);
+                                                    type = BinaryExpressionType.LesserOrEqual;
+                                                }
+                                                    break;
+                                                case 3:
+                                                    DebugEnterAlt(3);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:153:6: '>'
+                                                {
+                                                    DebugLocation(153, 6);
+                                                    char_literal14 = (IToken)Match(input, 38, Follow._38_in_relationalExpression506);
+                                                    char_literal14_tree = (CommonTree)adaptor.Create(char_literal14);
+                                                    adaptor.AddChild(root_0, char_literal14_tree);
 
+                                                    DebugLocation(153, 10);
+                                                    type = BinaryExpressionType.Greater;
+                                                }
+                                                    break;
+                                                case 4:
+                                                    DebugEnterAlt(4);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:154:6: '>='
+                                                {
+                                                    DebugLocation(154, 6);
+                                                    string_literal15 = (IToken)Match(input, 39, Follow._39_in_relationalExpression516);
+                                                    string_literal15_tree = (CommonTree)adaptor.Create(string_literal15);
+                                                    adaptor.AddChild(root_0, string_literal15_tree);
+
+                                                    DebugLocation(154, 11);
+                                                    type = BinaryExpressionType.GreaterOrEqual;
+                                                }
+                                                    break;
+                                            }
                                         }
+                                        finally { DebugExitSubRule(9); }
+
+                                        DebugLocation(155, 9);
+                                        PushFollow(Follow._shiftExpression_in_relationalExpression528);
+                                        right = shiftExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(155, 26);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -1555,27 +1467,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop10:
-                            ;
-
+                            loop10: ;
                         }
                         finally { DebugExitSubRule(10); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -1587,7 +1493,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "relationalExpression"); }
             return retval;
-
         }
         // $ANTLR end "relationalExpression"
 
@@ -1622,7 +1527,6 @@ namespace Naninovel.NCalc
 
             CommonTree string_literal16_tree = null;
             CommonTree string_literal17_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -1663,8 +1567,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt12 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(12); }
                                 switch (alt12)
@@ -1672,80 +1574,76 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:4: ( '<<' | '>>' ) right= additiveExpression
+                                    {
+                                        DebugLocation(164, 4);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:4: ( '<<' | '>>' )
+                                        int alt11 = 2;
+                                        try
                                         {
-                                            DebugLocation(164, 4);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:4: ( '<<' | '>>' )
-                                            int alt11 = 2;
+                                            DebugEnterSubRule(11);
                                             try
                                             {
-                                                DebugEnterSubRule(11);
-                                                try
+                                                DebugEnterDecision(11, decisionCanBacktrack[11]);
+                                                int LA11_0 = input.LA(1);
+
+                                                if ((LA11_0 == 33))
                                                 {
-                                                    DebugEnterDecision(11, decisionCanBacktrack[11]);
-                                                    int LA11_0 = input.LA(1);
-
-                                                    if ((LA11_0 == 33))
-                                                    {
-                                                        alt11 = 1;
-                                                    }
-                                                    else if ((LA11_0 == 40))
-                                                    {
-                                                        alt11 = 2;
-                                                    }
-                                                    else
-                                                    {
-                                                        NoViableAltException nvae = new NoViableAltException("", 11, 0, input);
-
-                                                        DebugRecognitionException(nvae);
-                                                        throw nvae;
-                                                    }
+                                                    alt11 = 1;
                                                 }
-                                                finally { DebugExitDecision(11); }
-                                                switch (alt11)
+                                                else if ((LA11_0 == 40))
                                                 {
-                                                    case 1:
-                                                        DebugEnterAlt(1);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:6: '<<'
-                                                        {
-                                                            DebugLocation(164, 6);
-                                                            string_literal16 = (IToken)Match(input, 33, Follow._33_in_shiftExpression571);
-                                                            string_literal16_tree = (CommonTree)adaptor.Create(string_literal16);
-                                                            adaptor.AddChild(root_0, string_literal16_tree);
+                                                    alt11 = 2;
+                                                }
+                                                else
+                                                {
+                                                    NoViableAltException nvae = new NoViableAltException("", 11, 0, input);
 
-                                                            DebugLocation(164, 11);
-                                                            type = BinaryExpressionType.LeftShift;
-
-                                                        }
-                                                        break;
-                                                    case 2:
-                                                        DebugEnterAlt(2);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:165:6: '>>'
-                                                        {
-                                                            DebugLocation(165, 6);
-                                                            string_literal17 = (IToken)Match(input, 40, Follow._40_in_shiftExpression581);
-                                                            string_literal17_tree = (CommonTree)adaptor.Create(string_literal17);
-                                                            adaptor.AddChild(root_0, string_literal17_tree);
-
-                                                            DebugLocation(165, 11);
-                                                            type = BinaryExpressionType.RightShift;
-
-                                                        }
-                                                        break;
-
+                                                    DebugRecognitionException(nvae);
+                                                    throw nvae;
                                                 }
                                             }
-                                            finally { DebugExitSubRule(11); }
+                                            finally { DebugExitDecision(11); }
+                                            switch (alt11)
+                                            {
+                                                case 1:
+                                                    DebugEnterAlt(1);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:164:6: '<<'
+                                                {
+                                                    DebugLocation(164, 6);
+                                                    string_literal16 = (IToken)Match(input, 33, Follow._33_in_shiftExpression571);
+                                                    string_literal16_tree = (CommonTree)adaptor.Create(string_literal16);
+                                                    adaptor.AddChild(root_0, string_literal16_tree);
 
-                                            DebugLocation(166, 9);
-                                            PushFollow(Follow._additiveExpression_in_shiftExpression593);
-                                            right = additiveExpression();
-                                            PopFollow();
+                                                    DebugLocation(164, 11);
+                                                    type = BinaryExpressionType.LeftShift;
+                                                }
+                                                    break;
+                                                case 2:
+                                                    DebugEnterAlt(2);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:165:6: '>>'
+                                                {
+                                                    DebugLocation(165, 6);
+                                                    string_literal17 = (IToken)Match(input, 40, Follow._40_in_shiftExpression581);
+                                                    string_literal17_tree = (CommonTree)adaptor.Create(string_literal17);
+                                                    adaptor.AddChild(root_0, string_literal17_tree);
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(166, 29);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
+                                                    DebugLocation(165, 11);
+                                                    type = BinaryExpressionType.RightShift;
+                                                }
+                                                    break;
+                                            }
                                         }
+                                        finally { DebugExitSubRule(11); }
+
+                                        DebugLocation(166, 9);
+                                        PushFollow(Follow._additiveExpression_in_shiftExpression593);
+                                        right = additiveExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(166, 29);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -1753,27 +1651,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop12:
-                            ;
-
+                            loop12: ;
                         }
                         finally { DebugExitSubRule(12); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -1785,7 +1677,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "shiftExpression"); }
             return retval;
-
         }
         // $ANTLR end "shiftExpression"
 
@@ -1820,7 +1711,6 @@ namespace Naninovel.NCalc
 
             CommonTree char_literal18_tree = null;
             CommonTree char_literal19_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -1861,8 +1751,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt14 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(14); }
                                 switch (alt14)
@@ -1870,80 +1758,76 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:4: ( '+' | '-' ) right= multiplicativeExpression
+                                    {
+                                        DebugLocation(175, 4);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:4: ( '+' | '-' )
+                                        int alt13 = 2;
+                                        try
                                         {
-                                            DebugLocation(175, 4);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:4: ( '+' | '-' )
-                                            int alt13 = 2;
+                                            DebugEnterSubRule(13);
                                             try
                                             {
-                                                DebugEnterSubRule(13);
-                                                try
+                                                DebugEnterDecision(13, decisionCanBacktrack[13]);
+                                                int LA13_0 = input.LA(1);
+
+                                                if ((LA13_0 == 27))
                                                 {
-                                                    DebugEnterDecision(13, decisionCanBacktrack[13]);
-                                                    int LA13_0 = input.LA(1);
-
-                                                    if ((LA13_0 == 27))
-                                                    {
-                                                        alt13 = 1;
-                                                    }
-                                                    else if ((LA13_0 == 29))
-                                                    {
-                                                        alt13 = 2;
-                                                    }
-                                                    else
-                                                    {
-                                                        NoViableAltException nvae = new NoViableAltException("", 13, 0, input);
-
-                                                        DebugRecognitionException(nvae);
-                                                        throw nvae;
-                                                    }
+                                                    alt13 = 1;
                                                 }
-                                                finally { DebugExitDecision(13); }
-                                                switch (alt13)
+                                                else if ((LA13_0 == 29))
                                                 {
-                                                    case 1:
-                                                        DebugEnterAlt(1);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:6: '+'
-                                                        {
-                                                            DebugLocation(175, 6);
-                                                            char_literal18 = (IToken)Match(input, 27, Follow._27_in_additiveExpression636);
-                                                            char_literal18_tree = (CommonTree)adaptor.Create(char_literal18);
-                                                            adaptor.AddChild(root_0, char_literal18_tree);
+                                                    alt13 = 2;
+                                                }
+                                                else
+                                                {
+                                                    NoViableAltException nvae = new NoViableAltException("", 13, 0, input);
 
-                                                            DebugLocation(175, 10);
-                                                            type = BinaryExpressionType.Plus;
-
-                                                        }
-                                                        break;
-                                                    case 2:
-                                                        DebugEnterAlt(2);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:176:6: '-'
-                                                        {
-                                                            DebugLocation(176, 6);
-                                                            char_literal19 = (IToken)Match(input, 29, Follow._29_in_additiveExpression646);
-                                                            char_literal19_tree = (CommonTree)adaptor.Create(char_literal19);
-                                                            adaptor.AddChild(root_0, char_literal19_tree);
-
-                                                            DebugLocation(176, 10);
-                                                            type = BinaryExpressionType.Minus;
-
-                                                        }
-                                                        break;
-
+                                                    DebugRecognitionException(nvae);
+                                                    throw nvae;
                                                 }
                                             }
-                                            finally { DebugExitSubRule(13); }
+                                            finally { DebugExitDecision(13); }
+                                            switch (alt13)
+                                            {
+                                                case 1:
+                                                    DebugEnterAlt(1);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:175:6: '+'
+                                                {
+                                                    DebugLocation(175, 6);
+                                                    char_literal18 = (IToken)Match(input, 27, Follow._27_in_additiveExpression636);
+                                                    char_literal18_tree = (CommonTree)adaptor.Create(char_literal18);
+                                                    adaptor.AddChild(root_0, char_literal18_tree);
 
-                                            DebugLocation(177, 9);
-                                            PushFollow(Follow._multiplicativeExpression_in_additiveExpression658);
-                                            right = multiplicativeExpression();
-                                            PopFollow();
+                                                    DebugLocation(175, 10);
+                                                    type = BinaryExpressionType.Plus;
+                                                }
+                                                    break;
+                                                case 2:
+                                                    DebugEnterAlt(2);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:176:6: '-'
+                                                {
+                                                    DebugLocation(176, 6);
+                                                    char_literal19 = (IToken)Match(input, 29, Follow._29_in_additiveExpression646);
+                                                    char_literal19_tree = (CommonTree)adaptor.Create(char_literal19);
+                                                    adaptor.AddChild(root_0, char_literal19_tree);
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(177, 35);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
-
+                                                    DebugLocation(176, 10);
+                                                    type = BinaryExpressionType.Minus;
+                                                }
+                                                    break;
+                                            }
                                         }
+                                        finally { DebugExitSubRule(13); }
+
+                                        DebugLocation(177, 9);
+                                        PushFollow(Follow._multiplicativeExpression_in_additiveExpression658);
+                                        right = multiplicativeExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(177, 35);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -1951,27 +1835,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop14:
-                            ;
-
+                            loop14: ;
                         }
                         finally { DebugExitSubRule(14); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -1983,7 +1861,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "additiveExpression"); }
             return retval;
-
         }
         // $ANTLR end "additiveExpression"
 
@@ -2020,7 +1897,6 @@ namespace Naninovel.NCalc
             CommonTree char_literal20_tree = null;
             CommonTree char_literal21_tree = null;
             CommonTree char_literal22_tree = null;
-
 
             BinaryExpressionType type = BinaryExpressionType.Unknown;
 
@@ -2061,8 +1937,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt16 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(16); }
                                 switch (alt16)
@@ -2070,103 +1944,97 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:4: ( '*' | '/' | '%' ) right= unaryExpression
+                                    {
+                                        DebugLocation(186, 4);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:4: ( '*' | '/' | '%' )
+                                        int alt15 = 3;
+                                        try
                                         {
-                                            DebugLocation(186, 4);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:4: ( '*' | '/' | '%' )
-                                            int alt15 = 3;
+                                            DebugEnterSubRule(15);
                                             try
                                             {
-                                                DebugEnterSubRule(15);
-                                                try
+                                                DebugEnterDecision(15, decisionCanBacktrack[15]);
+                                                switch (input.LA(1))
                                                 {
-                                                    DebugEnterDecision(15, decisionCanBacktrack[15]);
-                                                    switch (input.LA(1))
+                                                    case 26:
                                                     {
-                                                        case 26:
-                                                            {
-                                                                alt15 = 1;
-                                                            }
-                                                            break;
-                                                        case 30:
-                                                            {
-                                                                alt15 = 2;
-                                                            }
-                                                            break;
-                                                        case 21:
-                                                            {
-                                                                alt15 = 3;
-                                                            }
-                                                            break;
-                                                        default:
-                                                            {
-                                                                NoViableAltException nvae = new NoViableAltException("", 15, 0, input);
-
-                                                                DebugRecognitionException(nvae);
-                                                                throw nvae;
-                                                            }
+                                                        alt15 = 1;
                                                     }
-
-                                                }
-                                                finally { DebugExitDecision(15); }
-                                                switch (alt15)
-                                                {
-                                                    case 1:
-                                                        DebugEnterAlt(1);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:6: '*'
-                                                        {
-                                                            DebugLocation(186, 6);
-                                                            char_literal20 = (IToken)Match(input, 26, Follow._26_in_multiplicativeExpression701);
-                                                            char_literal20_tree = (CommonTree)adaptor.Create(char_literal20);
-                                                            adaptor.AddChild(root_0, char_literal20_tree);
-
-                                                            DebugLocation(186, 10);
-                                                            type = BinaryExpressionType.Times;
-
-                                                        }
                                                         break;
-                                                    case 2:
-                                                        DebugEnterAlt(2);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:187:6: '/'
-                                                        {
-                                                            DebugLocation(187, 6);
-                                                            char_literal21 = (IToken)Match(input, 30, Follow._30_in_multiplicativeExpression711);
-                                                            char_literal21_tree = (CommonTree)adaptor.Create(char_literal21);
-                                                            adaptor.AddChild(root_0, char_literal21_tree);
-
-                                                            DebugLocation(187, 10);
-                                                            type = BinaryExpressionType.Div;
-
-                                                        }
+                                                    case 30:
+                                                    {
+                                                        alt15 = 2;
+                                                    }
                                                         break;
-                                                    case 3:
-                                                        DebugEnterAlt(3);
-                                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:188:6: '%'
-                                                        {
-                                                            DebugLocation(188, 6);
-                                                            char_literal22 = (IToken)Match(input, 21, Follow._21_in_multiplicativeExpression721);
-                                                            char_literal22_tree = (CommonTree)adaptor.Create(char_literal22);
-                                                            adaptor.AddChild(root_0, char_literal22_tree);
-
-                                                            DebugLocation(188, 10);
-                                                            type = BinaryExpressionType.Modulo;
-
-                                                        }
+                                                    case 21:
+                                                    {
+                                                        alt15 = 3;
+                                                    }
                                                         break;
+                                                    default:
+                                                    {
+                                                        NoViableAltException nvae = new NoViableAltException("", 15, 0, input);
 
+                                                        DebugRecognitionException(nvae);
+                                                        throw nvae;
+                                                    }
                                                 }
                                             }
-                                            finally { DebugExitSubRule(15); }
+                                            finally { DebugExitDecision(15); }
+                                            switch (alt15)
+                                            {
+                                                case 1:
+                                                    DebugEnterAlt(1);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:186:6: '*'
+                                                {
+                                                    DebugLocation(186, 6);
+                                                    char_literal20 = (IToken)Match(input, 26, Follow._26_in_multiplicativeExpression701);
+                                                    char_literal20_tree = (CommonTree)adaptor.Create(char_literal20);
+                                                    adaptor.AddChild(root_0, char_literal20_tree);
 
-                                            DebugLocation(189, 9);
-                                            PushFollow(Follow._unaryExpression_in_multiplicativeExpression733);
-                                            right = unaryExpression();
-                                            PopFollow();
+                                                    DebugLocation(186, 10);
+                                                    type = BinaryExpressionType.Times;
+                                                }
+                                                    break;
+                                                case 2:
+                                                    DebugEnterAlt(2);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:187:6: '/'
+                                                {
+                                                    DebugLocation(187, 6);
+                                                    char_literal21 = (IToken)Match(input, 30, Follow._30_in_multiplicativeExpression711);
+                                                    char_literal21_tree = (CommonTree)adaptor.Create(char_literal21);
+                                                    adaptor.AddChild(root_0, char_literal21_tree);
 
-                                            adaptor.AddChild(root_0, right.Tree);
-                                            DebugLocation(189, 26);
-                                            retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                                    DebugLocation(187, 10);
+                                                    type = BinaryExpressionType.Div;
+                                                }
+                                                    break;
+                                                case 3:
+                                                    DebugEnterAlt(3);
+                                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:188:6: '%'
+                                                {
+                                                    DebugLocation(188, 6);
+                                                    char_literal22 = (IToken)Match(input, 21, Follow._21_in_multiplicativeExpression721);
+                                                    char_literal22_tree = (CommonTree)adaptor.Create(char_literal22);
+                                                    adaptor.AddChild(root_0, char_literal22_tree);
 
+                                                    DebugLocation(188, 10);
+                                                    type = BinaryExpressionType.Modulo;
+                                                }
+                                                    break;
+                                            }
                                         }
+                                        finally { DebugExitSubRule(15); }
+
+                                        DebugLocation(189, 9);
+                                        PushFollow(Follow._unaryExpression_in_multiplicativeExpression733);
+                                        right = unaryExpression();
+                                        PopFollow();
+
+                                        adaptor.AddChild(root_0, right.Tree);
+                                        DebugLocation(189, 26);
+                                        retval.value = new BinaryExpression(type, retval.value, (right != null ? right.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -2174,27 +2042,21 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop16:
-                            ;
-
+                            loop16: ;
                         }
                         finally { DebugExitSubRule(16); }
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -2206,7 +2068,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "multiplicativeExpression"); }
             return retval;
-
         }
         // $ANTLR end "multiplicativeExpression"
 
@@ -2268,35 +2129,34 @@ namespace Naninovel.NCalc
                             case STRING:
                             case TRUE:
                             case 24:
-                                {
-                                    alt17 = 1;
-                                }
+                            {
+                                alt17 = 1;
+                            }
                                 break;
                             case 19:
                             case 44:
-                                {
-                                    alt17 = 2;
-                                }
+                            {
+                                alt17 = 2;
+                            }
                                 break;
                             case 48:
-                                {
-                                    alt17 = 3;
-                                }
+                            {
+                                alt17 = 3;
+                            }
                                 break;
                             case 29:
-                                {
-                                    alt17 = 4;
-                                }
+                            {
+                                alt17 = 4;
+                            }
                                 break;
                             default:
-                                {
-                                    NoViableAltException nvae = new NoViableAltException("", 17, 0, input);
+                            {
+                                NoViableAltException nvae = new NoViableAltException("", 17, 0, input);
 
-                                    DebugRecognitionException(nvae);
-                                    throw nvae;
-                                }
+                                DebugRecognitionException(nvae);
+                                throw nvae;
+                            }
                         }
-
                     }
                     finally { DebugExitDecision(17); }
                     switch (alt17)
@@ -2304,118 +2164,109 @@ namespace Naninovel.NCalc
                         case 1:
                             DebugEnterAlt(1);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:195:4: primaryExpression
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(195, 4);
-                                PushFollow(Follow._primaryExpression_in_unaryExpression760);
-                                primaryExpression23 = primaryExpression();
-                                PopFollow();
+                            DebugLocation(195, 4);
+                            PushFollow(Follow._primaryExpression_in_unaryExpression760);
+                            primaryExpression23 = primaryExpression();
+                            PopFollow();
 
-                                adaptor.AddChild(root_0, primaryExpression23.Tree);
-                                DebugLocation(195, 22);
-                                retval.value = (primaryExpression23 != null ? primaryExpression23.value : default(LogicalExpression));
-
-                            }
+                            adaptor.AddChild(root_0, primaryExpression23.Tree);
+                            DebugLocation(195, 22);
+                            retval.value = (primaryExpression23 != null ? primaryExpression23.value : default(LogicalExpression));
+                        }
                             break;
                         case 2:
                             DebugEnterAlt(2);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:196:8: ( '!' | 'not' ) primaryExpression
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
+
+                            DebugLocation(196, 8);
+                            set24 = (IToken)input.LT(1);
+                            if (input.LA(1) == 19 || input.LA(1) == 44)
                             {
-                                root_0 = (CommonTree)adaptor.Nil();
-
-                                DebugLocation(196, 8);
-                                set24 = (IToken)input.LT(1);
-                                if (input.LA(1) == 19 || input.LA(1) == 44)
-                                {
-                                    input.Consume();
-                                    adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set24));
-                                    state.errorRecovery = false;
-                                }
-                                else
-                                {
-                                    MismatchedSetException mse = new MismatchedSetException(null, input);
-                                    DebugRecognitionException(mse);
-                                    throw mse;
-                                }
-
-                                DebugLocation(196, 22);
-                                PushFollow(Follow._primaryExpression_in_unaryExpression779);
-                                primaryExpression25 = primaryExpression();
-                                PopFollow();
-
-                                adaptor.AddChild(root_0, primaryExpression25.Tree);
-                                DebugLocation(196, 40);
-                                retval.value = new UnaryExpression(UnaryExpressionType.Not, (primaryExpression25 != null ? primaryExpression25.value : default(LogicalExpression)));
-
+                                input.Consume();
+                                adaptor.AddChild(root_0, (CommonTree)adaptor.Create(set24));
+                                state.errorRecovery = false;
                             }
+                            else
+                            {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
+                                DebugRecognitionException(mse);
+                                throw mse;
+                            }
+
+                            DebugLocation(196, 22);
+                            PushFollow(Follow._primaryExpression_in_unaryExpression779);
+                            primaryExpression25 = primaryExpression();
+                            PopFollow();
+
+                            adaptor.AddChild(root_0, primaryExpression25.Tree);
+                            DebugLocation(196, 40);
+                            retval.value = new UnaryExpression(UnaryExpressionType.Not, (primaryExpression25 != null ? primaryExpression25.value : default(LogicalExpression)));
+                        }
                             break;
                         case 3:
                             DebugEnterAlt(3);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:8: ( '~' ) primaryExpression
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
+
+                            DebugLocation(197, 8);
+                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:8: ( '~' )
+                            DebugEnterAlt(1);
+                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:9: '~'
                             {
-                                root_0 = (CommonTree)adaptor.Nil();
-
-                                DebugLocation(197, 8);
-                                // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:8: ( '~' )
-                                DebugEnterAlt(1);
-                                // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:197:9: '~'
-                                {
-                                    DebugLocation(197, 9);
-                                    char_literal26 = (IToken)Match(input, 48, Follow._48_in_unaryExpression791);
-                                    char_literal26_tree = (CommonTree)adaptor.Create(char_literal26);
-                                    adaptor.AddChild(root_0, char_literal26_tree);
-
-
-                                }
-
-                                DebugLocation(197, 14);
-                                PushFollow(Follow._primaryExpression_in_unaryExpression794);
-                                primaryExpression27 = primaryExpression();
-                                PopFollow();
-
-                                adaptor.AddChild(root_0, primaryExpression27.Tree);
-                                DebugLocation(197, 32);
-                                retval.value = new UnaryExpression(UnaryExpressionType.BitwiseNot, (primaryExpression27 != null ? primaryExpression27.value : default(LogicalExpression)));
-
+                                DebugLocation(197, 9);
+                                char_literal26 = (IToken)Match(input, 48, Follow._48_in_unaryExpression791);
+                                char_literal26_tree = (CommonTree)adaptor.Create(char_literal26);
+                                adaptor.AddChild(root_0, char_literal26_tree);
                             }
+
+                            DebugLocation(197, 14);
+                            PushFollow(Follow._primaryExpression_in_unaryExpression794);
+                            primaryExpression27 = primaryExpression();
+                            PopFollow();
+
+                            adaptor.AddChild(root_0, primaryExpression27.Tree);
+                            DebugLocation(197, 32);
+                            retval.value = new UnaryExpression(UnaryExpressionType.BitwiseNot, (primaryExpression27 != null ? primaryExpression27.value : default(LogicalExpression)));
+                        }
                             break;
                         case 4:
                             DebugEnterAlt(4);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:198:8: '-' primaryExpression
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(198, 8);
-                                char_literal28 = (IToken)Match(input, 29, Follow._29_in_unaryExpression805);
-                                char_literal28_tree = (CommonTree)adaptor.Create(char_literal28);
-                                adaptor.AddChild(root_0, char_literal28_tree);
+                            DebugLocation(198, 8);
+                            char_literal28 = (IToken)Match(input, 29, Follow._29_in_unaryExpression805);
+                            char_literal28_tree = (CommonTree)adaptor.Create(char_literal28);
+                            adaptor.AddChild(root_0, char_literal28_tree);
 
-                                DebugLocation(198, 12);
-                                PushFollow(Follow._primaryExpression_in_unaryExpression807);
-                                primaryExpression29 = primaryExpression();
-                                PopFollow();
+                            DebugLocation(198, 12);
+                            PushFollow(Follow._primaryExpression_in_unaryExpression807);
+                            primaryExpression29 = primaryExpression();
+                            PopFollow();
 
-                                adaptor.AddChild(root_0, primaryExpression29.Tree);
-                                DebugLocation(198, 30);
-                                retval.value = new UnaryExpression(UnaryExpressionType.Negate, (primaryExpression29 != null ? primaryExpression29.value : default(LogicalExpression)));
-
-                            }
+                            adaptor.AddChild(root_0, primaryExpression29.Tree);
+                            DebugLocation(198, 30);
+                            retval.value = new UnaryExpression(UnaryExpressionType.Negate, (primaryExpression29 != null ? primaryExpression29.value : default(LogicalExpression)));
+                        }
                             break;
-
                     }
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -2427,7 +2278,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "unaryExpression"); }
             return retval;
-
         }
         // $ANTLR end "unaryExpression"
 
@@ -2479,9 +2329,9 @@ namespace Naninovel.NCalc
                         switch (input.LA(1))
                         {
                             case 24:
-                                {
-                                    alt19 = 1;
-                                }
+                            {
+                                alt19 = 1;
+                            }
                                 break;
                             case DATETIME:
                             case FALSE:
@@ -2489,25 +2339,24 @@ namespace Naninovel.NCalc
                             case INTEGER:
                             case STRING:
                             case TRUE:
-                                {
-                                    alt19 = 2;
-                                }
+                            {
+                                alt19 = 2;
+                            }
                                 break;
                             case ID:
                             case NAME:
-                                {
-                                    alt19 = 3;
-                                }
+                            {
+                                alt19 = 3;
+                            }
                                 break;
                             default:
-                                {
-                                    NoViableAltException nvae = new NoViableAltException("", 19, 0, input);
+                            {
+                                NoViableAltException nvae = new NoViableAltException("", 19, 0, input);
 
-                                    DebugRecognitionException(nvae);
-                                    throw nvae;
-                                }
+                                DebugRecognitionException(nvae);
+                                throw nvae;
+                            }
                         }
-
                     }
                     finally { DebugExitDecision(19); }
                     switch (alt19)
@@ -2515,117 +2364,108 @@ namespace Naninovel.NCalc
                         case 1:
                             DebugEnterAlt(1);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:202:4: '(' logicalExpression ')'
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(202, 4);
-                                char_literal30 = (IToken)Match(input, 24, Follow._24_in_primaryExpression829);
-                                char_literal30_tree = (CommonTree)adaptor.Create(char_literal30);
-                                adaptor.AddChild(root_0, char_literal30_tree);
+                            DebugLocation(202, 4);
+                            char_literal30 = (IToken)Match(input, 24, Follow._24_in_primaryExpression829);
+                            char_literal30_tree = (CommonTree)adaptor.Create(char_literal30);
+                            adaptor.AddChild(root_0, char_literal30_tree);
 
-                                DebugLocation(202, 8);
-                                PushFollow(Follow._logicalExpression_in_primaryExpression831);
-                                logicalExpression31 = logicalExpression();
-                                PopFollow();
+                            DebugLocation(202, 8);
+                            PushFollow(Follow._logicalExpression_in_primaryExpression831);
+                            logicalExpression31 = logicalExpression();
+                            PopFollow();
 
-                                adaptor.AddChild(root_0, logicalExpression31.Tree);
-                                DebugLocation(202, 26);
-                                char_literal32 = (IToken)Match(input, 25, Follow._25_in_primaryExpression833);
-                                char_literal32_tree = (CommonTree)adaptor.Create(char_literal32);
-                                adaptor.AddChild(root_0, char_literal32_tree);
+                            adaptor.AddChild(root_0, logicalExpression31.Tree);
+                            DebugLocation(202, 26);
+                            char_literal32 = (IToken)Match(input, 25, Follow._25_in_primaryExpression833);
+                            char_literal32_tree = (CommonTree)adaptor.Create(char_literal32);
+                            adaptor.AddChild(root_0, char_literal32_tree);
 
-                                DebugLocation(202, 31);
-                                retval.value = (logicalExpression31 != null ? logicalExpression31.value : default(LogicalExpression));
-
-                            }
+                            DebugLocation(202, 31);
+                            retval.value = (logicalExpression31 != null ? logicalExpression31.value : default(LogicalExpression));
+                        }
                             break;
                         case 2:
                             DebugEnterAlt(2);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:203:4: expr= value
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(203, 8);
-                                PushFollow(Follow._value_in_primaryExpression843);
-                                expr = value();
-                                PopFollow();
+                            DebugLocation(203, 8);
+                            PushFollow(Follow._value_in_primaryExpression843);
+                            expr = value();
+                            PopFollow();
 
-                                adaptor.AddChild(root_0, expr.Tree);
-                                DebugLocation(203, 16);
-                                retval.value = (expr != null ? expr.value : default(ValueExpression));
-
-                            }
+                            adaptor.AddChild(root_0, expr.Tree);
+                            DebugLocation(203, 16);
+                            retval.value = (expr != null ? expr.value : default(ValueExpression));
+                        }
                             break;
                         case 3:
                             DebugEnterAlt(3);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:4: identifier ( arguments )?
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
+
+                            DebugLocation(204, 4);
+                            PushFollow(Follow._identifier_in_primaryExpression851);
+                            identifier33 = identifier();
+                            PopFollow();
+
+                            adaptor.AddChild(root_0, identifier33.Tree);
+                            DebugLocation(204, 15);
+                            retval.value = (LogicalExpression)(identifier33 != null ? identifier33.value : default(Identifier));
+                            DebugLocation(204, 66);
+                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:66: ( arguments )?
+                            int alt18 = 2;
+                            try
                             {
-                                root_0 = (CommonTree)adaptor.Nil();
-
-                                DebugLocation(204, 4);
-                                PushFollow(Follow._identifier_in_primaryExpression851);
-                                identifier33 = identifier();
-                                PopFollow();
-
-                                adaptor.AddChild(root_0, identifier33.Tree);
-                                DebugLocation(204, 15);
-                                retval.value = (LogicalExpression)(identifier33 != null ? identifier33.value : default(Identifier));
-                                DebugLocation(204, 66);
-                                // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:66: ( arguments )?
-                                int alt18 = 2;
+                                DebugEnterSubRule(18);
                                 try
                                 {
-                                    DebugEnterSubRule(18);
-                                    try
+                                    DebugEnterDecision(18, decisionCanBacktrack[18]);
+                                    int LA18_0 = input.LA(1);
+
+                                    if ((LA18_0 == 24))
                                     {
-                                        DebugEnterDecision(18, decisionCanBacktrack[18]);
-                                        int LA18_0 = input.LA(1);
-
-                                        if ((LA18_0 == 24))
-                                        {
-                                            alt18 = 1;
-                                        }
-                                    }
-                                    finally { DebugExitDecision(18); }
-                                    switch (alt18)
-                                    {
-                                        case 1:
-                                            DebugEnterAlt(1);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:67: arguments
-                                            {
-                                                DebugLocation(204, 67);
-                                                PushFollow(Follow._arguments_in_primaryExpression856);
-                                                arguments34 = arguments();
-                                                PopFollow();
-
-                                                adaptor.AddChild(root_0, arguments34.Tree);
-                                                DebugLocation(204, 77);
-                                                retval.value = new Function((identifier33 != null ? identifier33.value : default(Identifier)), ((arguments34 != null ? arguments34.value : default(List<LogicalExpression>))).ToArray());
-
-                                            }
-                                            break;
-
+                                        alt18 = 1;
                                     }
                                 }
-                                finally { DebugExitSubRule(18); }
+                                finally { DebugExitDecision(18); }
+                                switch (alt18)
+                                {
+                                    case 1:
+                                        DebugEnterAlt(1);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:204:67: arguments
+                                    {
+                                        DebugLocation(204, 67);
+                                        PushFollow(Follow._arguments_in_primaryExpression856);
+                                        arguments34 = arguments();
+                                        PopFollow();
 
-
+                                        adaptor.AddChild(root_0, arguments34.Tree);
+                                        DebugLocation(204, 77);
+                                        retval.value = new Function((identifier33 != null ? identifier33.value : default(Identifier)), ((arguments34 != null ? arguments34.value : default(List<LogicalExpression>))).ToArray());
+                                    }
+                                        break;
+                                }
                             }
+                            finally { DebugExitSubRule(18); }
+                        }
                             break;
-
                     }
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -2637,7 +2477,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "primaryExpression"); }
             return retval;
-
         }
         // $ANTLR end "primaryExpression"
 
@@ -2693,44 +2532,43 @@ namespace Naninovel.NCalc
                         switch (input.LA(1))
                         {
                             case INTEGER:
-                                {
-                                    alt20 = 1;
-                                }
+                            {
+                                alt20 = 1;
+                            }
                                 break;
                             case FLOAT:
-                                {
-                                    alt20 = 2;
-                                }
+                            {
+                                alt20 = 2;
+                            }
                                 break;
                             case STRING:
-                                {
-                                    alt20 = 3;
-                                }
+                            {
+                                alt20 = 3;
+                            }
                                 break;
                             case DATETIME:
-                                {
-                                    alt20 = 4;
-                                }
+                            {
+                                alt20 = 4;
+                            }
                                 break;
                             case TRUE:
-                                {
-                                    alt20 = 5;
-                                }
+                            {
+                                alt20 = 5;
+                            }
                                 break;
                             case FALSE:
-                                {
-                                    alt20 = 6;
-                                }
+                            {
+                                alt20 = 6;
+                            }
                                 break;
                             default:
-                                {
-                                    NoViableAltException nvae = new NoViableAltException("", 20, 0, input);
+                            {
+                                NoViableAltException nvae = new NoViableAltException("", 20, 0, input);
 
-                                    DebugRecognitionException(nvae);
-                                    throw nvae;
-                                }
+                                DebugRecognitionException(nvae);
+                                throw nvae;
+                            }
                         }
-
                     }
                     finally { DebugExitDecision(20); }
                     switch (alt20)
@@ -2738,113 +2576,105 @@ namespace Naninovel.NCalc
                         case 1:
                             DebugEnterAlt(1);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:208:5: INTEGER
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(208, 5);
-                                INTEGER35 = (IToken)Match(input, INTEGER, Follow._INTEGER_in_value876);
-                                INTEGER35_tree = (CommonTree)adaptor.Create(INTEGER35);
-                                adaptor.AddChild(root_0, INTEGER35_tree);
+                            DebugLocation(208, 5);
+                            INTEGER35 = (IToken)Match(input, INTEGER, Follow._INTEGER_in_value876);
+                            INTEGER35_tree = (CommonTree)adaptor.Create(INTEGER35);
+                            adaptor.AddChild(root_0, INTEGER35_tree);
 
-                                DebugLocation(208, 14);
-                                try { retval.value = new ValueExpression(int.Parse((INTEGER35 != null ? INTEGER35.Text : null))); } catch (System.OverflowException) { retval.value = new ValueExpression(long.Parse((INTEGER35 != null ? INTEGER35.Text : null))); }
-
-                            }
+                            DebugLocation(208, 14);
+                            try { retval.value = new ValueExpression(int.Parse((INTEGER35 != null ? INTEGER35.Text : null))); }
+                            catch (System.OverflowException) { retval.value = new ValueExpression(long.Parse((INTEGER35 != null ? INTEGER35.Text : null))); }
+                        }
                             break;
                         case 2:
                             DebugEnterAlt(2);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:209:4: FLOAT
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(209, 4);
-                                FLOAT36 = (IToken)Match(input, FLOAT, Follow._FLOAT_in_value884);
-                                FLOAT36_tree = (CommonTree)adaptor.Create(FLOAT36);
-                                adaptor.AddChild(root_0, FLOAT36_tree);
+                            DebugLocation(209, 4);
+                            FLOAT36 = (IToken)Match(input, FLOAT, Follow._FLOAT_in_value884);
+                            FLOAT36_tree = (CommonTree)adaptor.Create(FLOAT36);
+                            adaptor.AddChild(root_0, FLOAT36_tree);
 
-                                DebugLocation(209, 11);
-                                retval.value = new ValueExpression(double.Parse((FLOAT36 != null ? FLOAT36.Text : null), NumberStyles.Float, numberFormatInfo));
-
-                            }
+                            DebugLocation(209, 11);
+                            retval.value = new ValueExpression(double.Parse((FLOAT36 != null ? FLOAT36.Text : null), NumberStyles.Float, numberFormatInfo));
+                        }
                             break;
                         case 3:
                             DebugEnterAlt(3);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:210:4: STRING
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(210, 4);
-                                STRING37 = (IToken)Match(input, STRING, Follow._STRING_in_value892);
-                                STRING37_tree = (CommonTree)adaptor.Create(STRING37);
-                                adaptor.AddChild(root_0, STRING37_tree);
+                            DebugLocation(210, 4);
+                            STRING37 = (IToken)Match(input, STRING, Follow._STRING_in_value892);
+                            STRING37_tree = (CommonTree)adaptor.Create(STRING37);
+                            adaptor.AddChild(root_0, STRING37_tree);
 
-                                DebugLocation(210, 12);
-                                retval.value = new ValueExpression(extractString((STRING37 != null ? STRING37.Text : null)));
-
-                            }
+                            DebugLocation(210, 12);
+                            retval.value = new ValueExpression(extractString((STRING37 != null ? STRING37.Text : null)));
+                        }
                             break;
                         case 4:
                             DebugEnterAlt(4);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:211:5: DATETIME
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(211, 5);
-                                DATETIME38 = (IToken)Match(input, DATETIME, Follow._DATETIME_in_value901);
-                                DATETIME38_tree = (CommonTree)adaptor.Create(DATETIME38);
-                                adaptor.AddChild(root_0, DATETIME38_tree);
+                            DebugLocation(211, 5);
+                            DATETIME38 = (IToken)Match(input, DATETIME, Follow._DATETIME_in_value901);
+                            DATETIME38_tree = (CommonTree)adaptor.Create(DATETIME38);
+                            adaptor.AddChild(root_0, DATETIME38_tree);
 
-                                DebugLocation(211, 14);
-                                retval.value = new ValueExpression(DateTime.Parse((DATETIME38 != null ? DATETIME38.Text : null).Substring(1, (DATETIME38 != null ? DATETIME38.Text : null).Length - 2)));
-
-                            }
+                            DebugLocation(211, 14);
+                            retval.value = new ValueExpression(DateTime.Parse((DATETIME38 != null ? DATETIME38.Text : null).Substring(1, (DATETIME38 != null ? DATETIME38.Text : null).Length - 2)));
+                        }
                             break;
                         case 5:
                             DebugEnterAlt(5);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:212:4: TRUE
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(212, 4);
-                                TRUE39 = (IToken)Match(input, TRUE, Follow._TRUE_in_value908);
-                                TRUE39_tree = (CommonTree)adaptor.Create(TRUE39);
-                                adaptor.AddChild(root_0, TRUE39_tree);
+                            DebugLocation(212, 4);
+                            TRUE39 = (IToken)Match(input, TRUE, Follow._TRUE_in_value908);
+                            TRUE39_tree = (CommonTree)adaptor.Create(TRUE39);
+                            adaptor.AddChild(root_0, TRUE39_tree);
 
-                                DebugLocation(212, 10);
-                                retval.value = new ValueExpression(true);
-
-                            }
+                            DebugLocation(212, 10);
+                            retval.value = new ValueExpression(true);
+                        }
                             break;
                         case 6:
                             DebugEnterAlt(6);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:213:4: FALSE
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(213, 4);
-                                FALSE40 = (IToken)Match(input, FALSE, Follow._FALSE_in_value916);
-                                FALSE40_tree = (CommonTree)adaptor.Create(FALSE40);
-                                adaptor.AddChild(root_0, FALSE40_tree);
+                            DebugLocation(213, 4);
+                            FALSE40 = (IToken)Match(input, FALSE, Follow._FALSE_in_value916);
+                            FALSE40_tree = (CommonTree)adaptor.Create(FALSE40);
+                            adaptor.AddChild(root_0, FALSE40_tree);
 
-                                DebugLocation(213, 11);
-                                retval.value = new ValueExpression(false);
-
-                            }
+                            DebugLocation(213, 11);
+                            retval.value = new ValueExpression(false);
+                        }
                             break;
-
                     }
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -2856,7 +2686,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "value"); }
             return retval;
-
         }
         // $ANTLR end "value"
 
@@ -2925,49 +2754,44 @@ namespace Naninovel.NCalc
                         case 1:
                             DebugEnterAlt(1);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:217:5: ID
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(217, 5);
-                                ID41 = (IToken)Match(input, ID, Follow._ID_in_identifier934);
-                                ID41_tree = (CommonTree)adaptor.Create(ID41);
-                                adaptor.AddChild(root_0, ID41_tree);
+                            DebugLocation(217, 5);
+                            ID41 = (IToken)Match(input, ID, Follow._ID_in_identifier934);
+                            ID41_tree = (CommonTree)adaptor.Create(ID41);
+                            adaptor.AddChild(root_0, ID41_tree);
 
-                                DebugLocation(217, 8);
-                                retval.value = new Identifier((ID41 != null ? ID41.Text : null));
-
-                            }
+                            DebugLocation(217, 8);
+                            retval.value = new Identifier((ID41 != null ? ID41.Text : null));
+                        }
                             break;
                         case 2:
                             DebugEnterAlt(2);
                             // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:218:5: NAME
-                            {
-                                root_0 = (CommonTree)adaptor.Nil();
+                        {
+                            root_0 = (CommonTree)adaptor.Nil();
 
-                                DebugLocation(218, 5);
-                                NAME42 = (IToken)Match(input, NAME, Follow._NAME_in_identifier942);
-                                NAME42_tree = (CommonTree)adaptor.Create(NAME42);
-                                adaptor.AddChild(root_0, NAME42_tree);
+                            DebugLocation(218, 5);
+                            NAME42 = (IToken)Match(input, NAME, Follow._NAME_in_identifier942);
+                            NAME42_tree = (CommonTree)adaptor.Create(NAME42);
+                            adaptor.AddChild(root_0, NAME42_tree);
 
-                                DebugLocation(218, 10);
-                                retval.value = new Identifier((NAME42 != null ? NAME42.Text : null).Substring(1, (NAME42 != null ? NAME42.Text : null).Length - 2));
-
-                            }
+                            DebugLocation(218, 10);
+                            retval.value = new Identifier((NAME42 != null ? NAME42.Text : null).Substring(1, (NAME42 != null ? NAME42.Text : null).Length - 2));
+                        }
                             break;
-
                     }
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -2979,7 +2803,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "identifier"); }
             return retval;
-
         }
         // $ANTLR end "identifier"
 
@@ -3012,7 +2835,6 @@ namespace Naninovel.NCalc
             NCalcParser.logicalExpression_return follow = default(NCalcParser.logicalExpression_return);
 
             CommonTree char_literal43_tree = null;
-
 
             List<LogicalExpression> expressions = new List<LogicalExpression>();
 
@@ -3053,8 +2875,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt22 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(22); }
                                 switch (alt22)
@@ -3062,22 +2882,21 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:225:64: ',' follow= logicalExpression
-                                        {
-                                            DebugLocation(225, 64);
-                                            char_literal43 = (IToken)Match(input, 28, Follow._28_in_expressionList973);
-                                            char_literal43_tree = (CommonTree)adaptor.Create(char_literal43);
-                                            adaptor.AddChild(root_0, char_literal43_tree);
+                                    {
+                                        DebugLocation(225, 64);
+                                        char_literal43 = (IToken)Match(input, 28, Follow._28_in_expressionList973);
+                                        char_literal43_tree = (CommonTree)adaptor.Create(char_literal43);
+                                        adaptor.AddChild(root_0, char_literal43_tree);
 
-                                            DebugLocation(225, 74);
-                                            PushFollow(Follow._logicalExpression_in_expressionList977);
-                                            follow = logicalExpression();
-                                            PopFollow();
+                                        DebugLocation(225, 74);
+                                        PushFollow(Follow._logicalExpression_in_expressionList977);
+                                        follow = logicalExpression();
+                                        PopFollow();
 
-                                            adaptor.AddChild(root_0, follow.Tree);
-                                            DebugLocation(225, 93);
-                                            expressions.Add((follow != null ? follow.value : default(LogicalExpression)));
-
-                                        }
+                                        adaptor.AddChild(root_0, follow.Tree);
+                                        DebugLocation(225, 93);
+                                        expressions.Add((follow != null ? follow.value : default(LogicalExpression)));
+                                    }
                                         break;
 
                                     default:
@@ -3085,29 +2904,24 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop22:
-                            ;
-
+                            loop22: ;
                         }
                         finally { DebugExitSubRule(22); }
 
                         DebugLocation(226, 2);
                         retval.value = expressions;
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -3119,7 +2933,6 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "expressionList"); }
             return retval;
-
         }
         // $ANTLR end "expressionList"
 
@@ -3153,7 +2966,6 @@ namespace Naninovel.NCalc
 
             CommonTree char_literal44_tree = null;
             CommonTree char_literal46_tree = null;
-
 
             retval.value = new List<LogicalExpression>();
 
@@ -3196,19 +3008,17 @@ namespace Naninovel.NCalc
                                 case 1:
                                     DebugEnterAlt(1);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:233:10: expressionList
-                                    {
-                                        DebugLocation(233, 10);
-                                        PushFollow(Follow._expressionList_in_arguments1010);
-                                        expressionList45 = expressionList();
-                                        PopFollow();
+                                {
+                                    DebugLocation(233, 10);
+                                    PushFollow(Follow._expressionList_in_arguments1010);
+                                    expressionList45 = expressionList();
+                                    PopFollow();
 
-                                        adaptor.AddChild(root_0, expressionList45.Tree);
-                                        DebugLocation(233, 25);
-                                        retval.value = (expressionList45 != null ? expressionList45.value : default(List<LogicalExpression>));
-
-                                    }
+                                    adaptor.AddChild(root_0, expressionList45.Tree);
+                                    DebugLocation(233, 25);
+                                    retval.value = (expressionList45 != null ? expressionList45.value : default(List<LogicalExpression>));
+                                }
                                     break;
-
                             }
                         }
                         finally { DebugExitSubRule(23); }
@@ -3217,22 +3027,18 @@ namespace Naninovel.NCalc
                         char_literal46 = (IToken)Match(input, 25, Follow._25_in_arguments1017);
                         char_literal46_tree = (CommonTree)adaptor.Create(char_literal46);
                         adaptor.AddChild(root_0, char_literal46_tree);
-
-
                     }
 
                     retval.Stop = (IToken)input.LT(-1);
 
                     retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
                     adaptor.SetTokenBoundaries(retval.Tree, retval.Start, retval.Stop);
-
                 }
                 catch (RecognitionException re)
                 {
                     ReportError(re);
                     Recover(input, re);
                     retval.Tree = (CommonTree)adaptor.ErrorNode(input, retval.Start, input.LT(-1), re);
-
                 }
                 finally
                 {
@@ -3244,11 +3050,9 @@ namespace Naninovel.NCalc
             }
             finally { DebugExitRule(GrammarFileName, "arguments"); }
             return retval;
-
         }
         // $ANTLR end "arguments"
         #endregion Rules
-
 
         #region Follow sets
         private static class Follow
@@ -3325,7 +3129,6 @@ namespace Naninovel.NCalc
             public static readonly BitSet _24_in_arguments1006 = new BitSet(new ulong[] { 0x110002309DB10UL });
             public static readonly BitSet _expressionList_in_arguments1010 = new BitSet(new ulong[] { 0x2000000UL });
             public static readonly BitSet _25_in_arguments1017 = new BitSet(new ulong[] { 0x2UL });
-
         }
         #endregion Follow sets
     }

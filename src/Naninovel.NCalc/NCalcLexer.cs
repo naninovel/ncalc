@@ -1,10 +1,10 @@
 // $ANTLR 3.3.0.7239 C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g 2011-08-08 11:08:01
 
 // The variable 'variable' is assigned but its value is never used.
+
 #pragma warning disable 219
 // Unreachable code detected.
 #pragma warning disable 162
-
 
 using System.Collections.Generic;
 using Naninovel.Antlr.Runtime;
@@ -74,21 +74,16 @@ namespace Naninovel.NCalc
         }
 
         public NCalcLexer (ICharStream input)
-            : this(input, new RecognizerSharedState())
-        {
-        }
+            : this(input, new RecognizerSharedState()) { }
 
         public NCalcLexer (ICharStream input, RecognizerSharedState state)
             : base(input, state)
         {
-
-
             OnCreated();
         }
         public override string GrammarFileName { get { return "C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g"; } }
 
         private static readonly bool[] decisionCanBacktrack = new bool[0];
-
 
         partial void OnCreated ();
         partial void EnterRule (string ruleName, int ruleIndex);
@@ -114,7 +109,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(7, 9);
                     Match('!');
-
                 }
 
                 state.type = _type;
@@ -149,8 +143,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(8, 9);
                     Match("!=");
-
-
                 }
 
                 state.type = _type;
@@ -185,7 +177,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(9, 9);
                     Match('%');
-
                 }
 
                 state.type = _type;
@@ -220,8 +211,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(10, 9);
                     Match("&&");
-
-
                 }
 
                 state.type = _type;
@@ -256,7 +245,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(11, 9);
                     Match('&');
-
                 }
 
                 state.type = _type;
@@ -291,7 +279,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(12, 9);
                     Match('(');
-
                 }
 
                 state.type = _type;
@@ -326,7 +313,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(13, 9);
                     Match(')');
-
                 }
 
                 state.type = _type;
@@ -361,7 +347,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(14, 9);
                     Match('*');
-
                 }
 
                 state.type = _type;
@@ -396,7 +381,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(15, 9);
                     Match('+');
-
                 }
 
                 state.type = _type;
@@ -431,7 +415,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(16, 9);
                     Match(',');
-
                 }
 
                 state.type = _type;
@@ -466,7 +449,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(17, 9);
                     Match('-');
-
                 }
 
                 state.type = _type;
@@ -501,7 +483,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(18, 9);
                     Match('/');
-
                 }
 
                 state.type = _type;
@@ -536,7 +517,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(19, 9);
                     Match(':');
-
                 }
 
                 state.type = _type;
@@ -571,7 +551,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(20, 9);
                     Match('<');
-
                 }
 
                 state.type = _type;
@@ -606,8 +585,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(21, 9);
                     Match("<<");
-
-
                 }
 
                 state.type = _type;
@@ -642,8 +619,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(22, 9);
                     Match("<=");
-
-
                 }
 
                 state.type = _type;
@@ -678,8 +653,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(23, 9);
                     Match("<>");
-
-
                 }
 
                 state.type = _type;
@@ -714,7 +687,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(24, 9);
                     Match('=');
-
                 }
 
                 state.type = _type;
@@ -749,8 +721,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(25, 9);
                     Match("==");
-
-
                 }
 
                 state.type = _type;
@@ -785,7 +755,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(26, 9);
                     Match('>');
-
                 }
 
                 state.type = _type;
@@ -820,8 +789,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(27, 9);
                     Match(">=");
-
-
                 }
 
                 state.type = _type;
@@ -856,8 +823,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(28, 9);
                     Match(">>");
-
-
                 }
 
                 state.type = _type;
@@ -892,7 +857,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(29, 9);
                     Match('?');
-
                 }
 
                 state.type = _type;
@@ -927,7 +891,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(30, 9);
                     Match('^');
-
                 }
 
                 state.type = _type;
@@ -962,8 +925,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(31, 9);
                     Match("and");
-
-
                 }
 
                 state.type = _type;
@@ -998,8 +959,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(32, 9);
                     Match("not");
-
-
                 }
 
                 state.type = _type;
@@ -1034,8 +993,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(33, 9);
                     Match("or");
-
-
                 }
 
                 state.type = _type;
@@ -1070,7 +1027,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(34, 9);
                     Match('|');
-
                 }
 
                 state.type = _type;
@@ -1105,8 +1061,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(35, 9);
                     Match("||");
-
-
                 }
 
                 state.type = _type;
@@ -1141,7 +1095,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(36, 9);
                     Match('~');
-
                 }
 
                 state.type = _type;
@@ -1176,8 +1129,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(237, 4);
                     Match("true");
-
-
                 }
 
                 state.type = _type;
@@ -1212,8 +1163,6 @@ namespace Naninovel.NCalc
                 {
                     DebugLocation(241, 4);
                     Match("false");
-
-
                 }
 
                 state.type = _type;
@@ -1265,8 +1214,6 @@ namespace Naninovel.NCalc
                                 {
                                     alt1 = 1;
                                 }
-
-
                             }
                             finally { DebugExitDecision(1); }
                             switch (alt1)
@@ -1274,12 +1221,10 @@ namespace Naninovel.NCalc
                                 case 1:
                                     DebugEnterAlt(1);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                    {
-                                        DebugLocation(245, 12);
-                                        input.Consume();
-
-
-                                    }
+                                {
+                                    DebugLocation(245, 12);
+                                    input.Consume();
+                                }
                                     break;
 
                                 default:
@@ -1287,13 +1232,9 @@ namespace Naninovel.NCalc
                             }
                         }
 
-                        loop1:
-                        ;
-
+                        loop1: ;
                     }
                     finally { DebugExitSubRule(1); }
-
-
                 }
 
                 state.type = _type;
@@ -1344,8 +1285,6 @@ namespace Naninovel.NCalc
                                 {
                                     alt2 = 1;
                                 }
-
-
                             }
                             finally { DebugExitDecision(2); }
                             switch (alt2)
@@ -1353,12 +1292,10 @@ namespace Naninovel.NCalc
                                 case 1:
                                     DebugEnterAlt(1);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                    {
-                                        DebugLocation(249, 4);
-                                        input.Consume();
-
-
-                                    }
+                                {
+                                    DebugLocation(249, 4);
+                                    input.Consume();
+                                }
                                     break;
 
                                 default:
@@ -1371,13 +1308,9 @@ namespace Naninovel.NCalc
                             }
                             cnt2++;
                         }
-                        loop2:
-                        ;
-
+                        loop2: ;
                     }
                     finally { DebugExitSubRule(2); }
-
-
                 }
 
                 state.type = _type;
@@ -1427,202 +1360,178 @@ namespace Naninovel.NCalc
                     case 1:
                         DebugEnterAlt(1);
                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:4: ( DIGIT )* '.' ( DIGIT )+ ( E )?
+                    {
+                        DebugLocation(253, 4);
+                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:4: ( DIGIT )*
+                        try
                         {
-                            DebugLocation(253, 4);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:4: ( DIGIT )*
-                            try
+                            DebugEnterSubRule(3);
+                            while (true)
                             {
-                                DebugEnterSubRule(3);
-                                while (true)
-                                {
-                                    int alt3 = 2;
-                                    try
-                                    {
-                                        DebugEnterDecision(3, decisionCanBacktrack[3]);
-                                        int LA3_0 = input.LA(1);
-
-                                        if (((LA3_0 >= '0' && LA3_0 <= '9')))
-                                        {
-                                            alt3 = 1;
-                                        }
-
-
-                                    }
-                                    finally { DebugExitDecision(3); }
-                                    switch (alt3)
-                                    {
-                                        case 1:
-                                            DebugEnterAlt(1);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                            {
-                                                DebugLocation(253, 4);
-                                                input.Consume();
-
-
-                                            }
-                                            break;
-
-                                        default:
-                                            goto loop3;
-                                    }
-                                }
-
-                                loop3:
-                                ;
-
-                            }
-                            finally { DebugExitSubRule(3); }
-
-                            DebugLocation(253, 11);
-                            Match('.');
-                            DebugLocation(253, 15);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:15: ( DIGIT )+
-                            int cnt4 = 0;
-                            try
-                            {
-                                DebugEnterSubRule(4);
-                                while (true)
-                                {
-                                    int alt4 = 2;
-                                    try
-                                    {
-                                        DebugEnterDecision(4, decisionCanBacktrack[4]);
-                                        int LA4_0 = input.LA(1);
-
-                                        if (((LA4_0 >= '0' && LA4_0 <= '9')))
-                                        {
-                                            alt4 = 1;
-                                        }
-
-
-                                    }
-                                    finally { DebugExitDecision(4); }
-                                    switch (alt4)
-                                    {
-                                        case 1:
-                                            DebugEnterAlt(1);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                            {
-                                                DebugLocation(253, 15);
-                                                input.Consume();
-
-
-                                            }
-                                            break;
-
-                                        default:
-                                            if (cnt4 >= 1)
-                                                goto loop4;
-
-                                            EarlyExitException eee4 = new EarlyExitException(4, input);
-                                            DebugRecognitionException(eee4);
-                                            throw eee4;
-                                    }
-                                    cnt4++;
-                                }
-                                loop4:
-                                ;
-
-                            }
-                            finally { DebugExitSubRule(4); }
-
-                            DebugLocation(253, 22);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:22: ( E )?
-                            int alt5 = 2;
-                            try
-                            {
-                                DebugEnterSubRule(5);
+                                int alt3 = 2;
                                 try
                                 {
-                                    DebugEnterDecision(5, decisionCanBacktrack[5]);
-                                    int LA5_0 = input.LA(1);
+                                    DebugEnterDecision(3, decisionCanBacktrack[3]);
+                                    int LA3_0 = input.LA(1);
 
-                                    if ((LA5_0 == 'E' || LA5_0 == 'e'))
+                                    if (((LA3_0 >= '0' && LA3_0 <= '9')))
                                     {
-                                        alt5 = 1;
+                                        alt3 = 1;
                                     }
                                 }
-                                finally { DebugExitDecision(5); }
-                                switch (alt5)
+                                finally { DebugExitDecision(3); }
+                                switch (alt3)
                                 {
                                     case 1:
                                         DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:22: E
-                                        {
-                                            DebugLocation(253, 22);
-                                            mE();
-
-                                        }
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
+                                    {
+                                        DebugLocation(253, 4);
+                                        input.Consume();
+                                    }
                                         break;
 
+                                    default:
+                                        goto loop3;
                                 }
                             }
-                            finally { DebugExitSubRule(5); }
 
-
+                            loop3: ;
                         }
+                        finally { DebugExitSubRule(3); }
+
+                        DebugLocation(253, 11);
+                        Match('.');
+                        DebugLocation(253, 15);
+                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:15: ( DIGIT )+
+                        int cnt4 = 0;
+                        try
+                        {
+                            DebugEnterSubRule(4);
+                            while (true)
+                            {
+                                int alt4 = 2;
+                                try
+                                {
+                                    DebugEnterDecision(4, decisionCanBacktrack[4]);
+                                    int LA4_0 = input.LA(1);
+
+                                    if (((LA4_0 >= '0' && LA4_0 <= '9')))
+                                    {
+                                        alt4 = 1;
+                                    }
+                                }
+                                finally { DebugExitDecision(4); }
+                                switch (alt4)
+                                {
+                                    case 1:
+                                        DebugEnterAlt(1);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
+                                    {
+                                        DebugLocation(253, 15);
+                                        input.Consume();
+                                    }
+                                        break;
+
+                                    default:
+                                        if (cnt4 >= 1)
+                                            goto loop4;
+
+                                        EarlyExitException eee4 = new EarlyExitException(4, input);
+                                        DebugRecognitionException(eee4);
+                                        throw eee4;
+                                }
+                                cnt4++;
+                            }
+                            loop4: ;
+                        }
+                        finally { DebugExitSubRule(4); }
+
+                        DebugLocation(253, 22);
+                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:22: ( E )?
+                        int alt5 = 2;
+                        try
+                        {
+                            DebugEnterSubRule(5);
+                            try
+                            {
+                                DebugEnterDecision(5, decisionCanBacktrack[5]);
+                                int LA5_0 = input.LA(1);
+
+                                if ((LA5_0 == 'E' || LA5_0 == 'e'))
+                                {
+                                    alt5 = 1;
+                                }
+                            }
+                            finally { DebugExitDecision(5); }
+                            switch (alt5)
+                            {
+                                case 1:
+                                    DebugEnterAlt(1);
+                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:253:22: E
+                                {
+                                    DebugLocation(253, 22);
+                                    mE();
+                                }
+                                    break;
+                            }
+                        }
+                        finally { DebugExitSubRule(5); }
+                    }
                         break;
                     case 2:
                         DebugEnterAlt(2);
                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:254:4: ( DIGIT )+ E
+                    {
+                        DebugLocation(254, 4);
+                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:254:4: ( DIGIT )+
+                        int cnt6 = 0;
+                        try
                         {
-                            DebugLocation(254, 4);
-                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:254:4: ( DIGIT )+
-                            int cnt6 = 0;
-                            try
+                            DebugEnterSubRule(6);
+                            while (true)
                             {
-                                DebugEnterSubRule(6);
-                                while (true)
+                                int alt6 = 2;
+                                try
                                 {
-                                    int alt6 = 2;
-                                    try
+                                    DebugEnterDecision(6, decisionCanBacktrack[6]);
+                                    int LA6_0 = input.LA(1);
+
+                                    if (((LA6_0 >= '0' && LA6_0 <= '9')))
                                     {
-                                        DebugEnterDecision(6, decisionCanBacktrack[6]);
-                                        int LA6_0 = input.LA(1);
-
-                                        if (((LA6_0 >= '0' && LA6_0 <= '9')))
-                                        {
-                                            alt6 = 1;
-                                        }
-
-
+                                        alt6 = 1;
                                     }
-                                    finally { DebugExitDecision(6); }
-                                    switch (alt6)
-                                    {
-                                        case 1:
-                                            DebugEnterAlt(1);
-                                            // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                            {
-                                                DebugLocation(254, 4);
-                                                input.Consume();
-
-
-                                            }
-                                            break;
-
-                                        default:
-                                            if (cnt6 >= 1)
-                                                goto loop6;
-
-                                            EarlyExitException eee6 = new EarlyExitException(6, input);
-                                            DebugRecognitionException(eee6);
-                                            throw eee6;
-                                    }
-                                    cnt6++;
                                 }
-                                loop6:
-                                ;
+                                finally { DebugExitDecision(6); }
+                                switch (alt6)
+                                {
+                                    case 1:
+                                        DebugEnterAlt(1);
+                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
+                                    {
+                                        DebugLocation(254, 4);
+                                        input.Consume();
+                                    }
+                                        break;
 
+                                    default:
+                                        if (cnt6 >= 1)
+                                            goto loop6;
+
+                                        EarlyExitException eee6 = new EarlyExitException(6, input);
+                                        DebugRecognitionException(eee6);
+                                        throw eee6;
+                                }
+                                cnt6++;
                             }
-                            finally { DebugExitSubRule(6); }
-
-                            DebugLocation(254, 11);
-                            mE();
-
+                            loop6: ;
                         }
-                        break;
+                        finally { DebugExitSubRule(6); }
 
+                        DebugLocation(254, 11);
+                        mE();
+                    }
+                        break;
                 }
                 state.type = _type;
                 state.channel = _channel;
@@ -1677,8 +1586,6 @@ namespace Naninovel.NCalc
                                 {
                                     alt8 = 2;
                                 }
-
-
                             }
                             finally { DebugExitDecision(8); }
                             switch (alt8)
@@ -1686,29 +1593,24 @@ namespace Naninovel.NCalc
                                 case 1:
                                     DebugEnterAlt(1);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:258:17: EscapeSequence
-                                    {
-                                        DebugLocation(258, 17);
-                                        mEscapeSequence();
-
-                                    }
+                                {
+                                    DebugLocation(258, 17);
+                                    mEscapeSequence();
+                                }
                                     break;
                                 case 2:
                                     DebugEnterAlt(2);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:258:34: ( options {greedy=false; } :~ ( '\\u0000' .. '\\u001f' | '\\\\' | '\\'' ) )
+                                {
+                                    DebugLocation(258, 34);
+                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:258:34: ( options {greedy=false; } :~ ( '\\u0000' .. '\\u001f' | '\\\\' | '\\'' ) )
+                                    DebugEnterAlt(1);
+                                    // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:258:61: ~ ( '\\u0000' .. '\\u001f' | '\\\\' | '\\'' )
                                     {
-                                        DebugLocation(258, 34);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:258:34: ( options {greedy=false; } :~ ( '\\u0000' .. '\\u001f' | '\\\\' | '\\'' ) )
-                                        DebugEnterAlt(1);
-                                        // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:258:61: ~ ( '\\u0000' .. '\\u001f' | '\\\\' | '\\'' )
-                                        {
-                                            DebugLocation(258, 61);
-                                            input.Consume();
-
-
-                                        }
-
-
+                                        DebugLocation(258, 61);
+                                        input.Consume();
                                     }
+                                }
                                     break;
 
                                 default:
@@ -1716,15 +1618,12 @@ namespace Naninovel.NCalc
                             }
                         }
 
-                        loop8:
-                        ;
-
+                        loop8: ;
                     }
                     finally { DebugExitSubRule(8); }
 
                     DebugLocation(258, 103);
                     Match('\'');
-
                 }
 
                 state.type = _type;
@@ -1781,8 +1680,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt9 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(9); }
                                 switch (alt9)
@@ -1790,12 +1687,10 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                        {
-                                            DebugLocation(262, 36);
-                                            input.Consume();
-
-
-                                        }
+                                    {
+                                        DebugLocation(262, 36);
+                                        input.Consume();
+                                    }
                                         break;
 
                                     default:
@@ -1803,18 +1698,13 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop9:
-                            ;
-
+                            loop9: ;
                         }
                         finally { DebugExitSubRule(9); }
-
-
                     }
 
                     DebugLocation(262, 45);
                     Match('#');
-
                 }
 
                 state.type = _type;
@@ -1871,8 +1761,6 @@ namespace Naninovel.NCalc
                                     {
                                         alt10 = 1;
                                     }
-
-
                                 }
                                 finally { DebugExitDecision(10); }
                                 switch (alt10)
@@ -1880,12 +1768,10 @@ namespace Naninovel.NCalc
                                     case 1:
                                         DebugEnterAlt(1);
                                         // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                        {
-                                            DebugLocation(265, 39);
-                                            input.Consume();
-
-
-                                        }
+                                    {
+                                        DebugLocation(265, 39);
+                                        input.Consume();
+                                    }
                                         break;
 
                                     default:
@@ -1893,18 +1779,13 @@ namespace Naninovel.NCalc
                                 }
                             }
 
-                            loop10:
-                            ;
-
+                            loop10: ;
                         }
                         finally { DebugExitSubRule(10); }
-
-
                     }
 
                     DebugLocation(265, 48);
                     Match(']');
-
                 }
 
                 state.type = _type;
@@ -1941,7 +1822,6 @@ namespace Naninovel.NCalc
                     if (input.LA(1) == 'E' || input.LA(1) == 'e')
                     {
                         input.Consume();
-
                     }
                     else
                     {
@@ -1973,14 +1853,11 @@ namespace Naninovel.NCalc
                             case 1:
                                 DebugEnterAlt(1);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                {
-                                    DebugLocation(268, 15);
-                                    input.Consume();
-
-
-                                }
+                            {
+                                DebugLocation(268, 15);
+                                input.Consume();
+                            }
                                 break;
-
                         }
                     }
                     finally { DebugExitSubRule(11); }
@@ -2003,8 +1880,6 @@ namespace Naninovel.NCalc
                                 {
                                     alt12 = 1;
                                 }
-
-
                             }
                             finally { DebugExitDecision(12); }
                             switch (alt12)
@@ -2012,12 +1887,10 @@ namespace Naninovel.NCalc
                                 case 1:
                                     DebugEnterAlt(1);
                                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:
-                                    {
-                                        DebugLocation(268, 26);
-                                        input.Consume();
-
-
-                                    }
+                                {
+                                    DebugLocation(268, 26);
+                                    input.Consume();
+                                }
                                     break;
 
                                 default:
@@ -2030,13 +1903,9 @@ namespace Naninovel.NCalc
                             }
                             cnt12++;
                         }
-                        loop12:
-                        ;
-
+                        loop12: ;
                     }
                     finally { DebugExitSubRule(12); }
-
-
                 }
 
                 state.type = _type;
@@ -2071,7 +1940,6 @@ namespace Naninovel.NCalc
                     if ((input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z'))
                     {
                         input.Consume();
-
                     }
                     else
                     {
@@ -2080,10 +1948,7 @@ namespace Naninovel.NCalc
                         Recover(mse);
                         throw mse;
                     }
-
-
                 }
-
             }
             finally
             {
@@ -2114,7 +1979,6 @@ namespace Naninovel.NCalc
                     if ((input.LA(1) >= '0' && input.LA(1) <= '9'))
                     {
                         input.Consume();
-
                     }
                     else
                     {
@@ -2123,10 +1987,7 @@ namespace Naninovel.NCalc
                         Recover(mse);
                         throw mse;
                     }
-
-
                 }
-
             }
             finally
             {
@@ -2167,49 +2028,48 @@ namespace Naninovel.NCalc
                             switch (input.LA(1))
                             {
                                 case 'n':
-                                    {
-                                        alt13 = 1;
-                                    }
+                                {
+                                    alt13 = 1;
+                                }
                                     break;
                                 case 'r':
-                                    {
-                                        alt13 = 2;
-                                    }
+                                {
+                                    alt13 = 2;
+                                }
                                     break;
                                 case 't':
-                                    {
-                                        alt13 = 3;
-                                    }
+                                {
+                                    alt13 = 3;
+                                }
                                     break;
                                 case '\'':
-                                    {
-                                        alt13 = 4;
-                                    }
+                                {
+                                    alt13 = 4;
+                                }
                                     break;
                                 case '"':
-                                    {
-                                        alt13 = 7;
-                                    }
+                                {
+                                    alt13 = 7;
+                                }
                                     break;
                                 case '\\':
-                                    {
-                                        alt13 = 5;
-                                    }
+                                {
+                                    alt13 = 5;
+                                }
                                     break;
                                 case 'u':
-                                    {
-                                        alt13 = 6;
-                                    }
+                                {
+                                    alt13 = 6;
+                                }
                                     break;
                                 default:
-                                    {
-                                        NoViableAltException nvae = new NoViableAltException("", 13, 0, input);
+                                {
+                                    NoViableAltException nvae = new NoViableAltException("", 13, 0, input);
 
-                                        DebugRecognitionException(nvae);
-                                        throw nvae;
-                                    }
+                                    DebugRecognitionException(nvae);
+                                    throw nvae;
+                                }
                             }
-
                         }
                         finally { DebugExitDecision(13); }
                         switch (alt13)
@@ -2217,74 +2077,63 @@ namespace Naninovel.NCalc
                             case 1:
                                 DebugEnterAlt(1);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:284:5: 'n'
-                                {
-                                    DebugLocation(284, 5);
-                                    Match('n');
-
-                                }
+                            {
+                                DebugLocation(284, 5);
+                                Match('n');
+                            }
                                 break;
                             case 2:
                                 DebugEnterAlt(2);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:285:4: 'r'
-                                {
-                                    DebugLocation(285, 4);
-                                    Match('r');
-
-                                }
+                            {
+                                DebugLocation(285, 4);
+                                Match('r');
+                            }
                                 break;
                             case 3:
                                 DebugEnterAlt(3);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:286:4: 't'
-                                {
-                                    DebugLocation(286, 4);
-                                    Match('t');
-
-                                }
+                            {
+                                DebugLocation(286, 4);
+                                Match('t');
+                            }
                                 break;
                             case 4:
                                 DebugEnterAlt(4);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:287:4: '\\''
-                                {
-                                    DebugLocation(287, 4);
-                                    Match('\'');
-
-                                }
+                            {
+                                DebugLocation(287, 4);
+                                Match('\'');
+                            }
                                 break;
                             case 7:
                                 DebugEnterAlt(4);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:287:4: '\\''
-                                {
-                                    DebugLocation(287, 4);
-                                    Match('"');
-
-                                }
+                            {
+                                DebugLocation(287, 4);
+                                Match('"');
+                            }
                                 break;
                             case 5:
                                 DebugEnterAlt(5);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:288:4: '\\\\'
-                                {
-                                    DebugLocation(288, 4);
-                                    Match('\\');
-
-                                }
+                            {
+                                DebugLocation(288, 4);
+                                Match('\\');
+                            }
                                 break;
                             case 6:
                                 DebugEnterAlt(6);
                                 // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:289:4: UnicodeEscape
-                                {
-                                    DebugLocation(289, 4);
-                                    mUnicodeEscape();
-
-                                }
+                            {
+                                DebugLocation(289, 4);
+                                mUnicodeEscape();
+                            }
                                 break;
-
                         }
                     }
                     finally { DebugExitSubRule(13); }
-
-
                 }
-
             }
             finally
             {
@@ -2315,7 +2164,6 @@ namespace Naninovel.NCalc
                     if ((input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'A' && input.LA(1) <= 'F') || (input.LA(1) >= 'a' && input.LA(1) <= 'f'))
                     {
                         input.Consume();
-
                     }
                     else
                     {
@@ -2324,10 +2172,7 @@ namespace Naninovel.NCalc
                         Recover(mse);
                         throw mse;
                     }
-
-
                 }
-
             }
             finally
             {
@@ -2364,9 +2209,7 @@ namespace Naninovel.NCalc
                     mHexDigit();
                     DebugLocation(298, 43);
                     mHexDigit();
-
                 }
-
             }
             finally
             {
@@ -2399,7 +2242,6 @@ namespace Naninovel.NCalc
                     if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || (input.LA(1) >= '\f' && input.LA(1) <= '\r') || input.LA(1) == ' ')
                     {
                         input.Consume();
-
                     }
                     else
                     {
@@ -2411,7 +2253,6 @@ namespace Naninovel.NCalc
 
                     DebugLocation(302, 37);
                     _channel = Hidden;
-
                 }
 
                 state.type = _type;
@@ -2449,368 +2290,325 @@ namespace Naninovel.NCalc
                 case 1:
                     DebugEnterAlt(1);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:10: T__19
-                    {
-                        DebugLocation(1, 10);
-                        mT__19();
-
-                    }
+                {
+                    DebugLocation(1, 10);
+                    mT__19();
+                }
                     break;
                 case 2:
                     DebugEnterAlt(2);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:16: T__20
-                    {
-                        DebugLocation(1, 16);
-                        mT__20();
-
-                    }
+                {
+                    DebugLocation(1, 16);
+                    mT__20();
+                }
                     break;
                 case 3:
                     DebugEnterAlt(3);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:22: T__21
-                    {
-                        DebugLocation(1, 22);
-                        mT__21();
-
-                    }
+                {
+                    DebugLocation(1, 22);
+                    mT__21();
+                }
                     break;
                 case 4:
                     DebugEnterAlt(4);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:28: T__22
-                    {
-                        DebugLocation(1, 28);
-                        mT__22();
-
-                    }
+                {
+                    DebugLocation(1, 28);
+                    mT__22();
+                }
                     break;
                 case 5:
                     DebugEnterAlt(5);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:34: T__23
-                    {
-                        DebugLocation(1, 34);
-                        mT__23();
-
-                    }
+                {
+                    DebugLocation(1, 34);
+                    mT__23();
+                }
                     break;
                 case 6:
                     DebugEnterAlt(6);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:40: T__24
-                    {
-                        DebugLocation(1, 40);
-                        mT__24();
-
-                    }
+                {
+                    DebugLocation(1, 40);
+                    mT__24();
+                }
                     break;
                 case 7:
                     DebugEnterAlt(7);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:46: T__25
-                    {
-                        DebugLocation(1, 46);
-                        mT__25();
-
-                    }
+                {
+                    DebugLocation(1, 46);
+                    mT__25();
+                }
                     break;
                 case 8:
                     DebugEnterAlt(8);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:52: T__26
-                    {
-                        DebugLocation(1, 52);
-                        mT__26();
-
-                    }
+                {
+                    DebugLocation(1, 52);
+                    mT__26();
+                }
                     break;
                 case 9:
                     DebugEnterAlt(9);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:58: T__27
-                    {
-                        DebugLocation(1, 58);
-                        mT__27();
-
-                    }
+                {
+                    DebugLocation(1, 58);
+                    mT__27();
+                }
                     break;
                 case 10:
                     DebugEnterAlt(10);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:64: T__28
-                    {
-                        DebugLocation(1, 64);
-                        mT__28();
-
-                    }
+                {
+                    DebugLocation(1, 64);
+                    mT__28();
+                }
                     break;
                 case 11:
                     DebugEnterAlt(11);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:70: T__29
-                    {
-                        DebugLocation(1, 70);
-                        mT__29();
-
-                    }
+                {
+                    DebugLocation(1, 70);
+                    mT__29();
+                }
                     break;
                 case 12:
                     DebugEnterAlt(12);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:76: T__30
-                    {
-                        DebugLocation(1, 76);
-                        mT__30();
-
-                    }
+                {
+                    DebugLocation(1, 76);
+                    mT__30();
+                }
                     break;
                 case 13:
                     DebugEnterAlt(13);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:82: T__31
-                    {
-                        DebugLocation(1, 82);
-                        mT__31();
-
-                    }
+                {
+                    DebugLocation(1, 82);
+                    mT__31();
+                }
                     break;
                 case 14:
                     DebugEnterAlt(14);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:88: T__32
-                    {
-                        DebugLocation(1, 88);
-                        mT__32();
-
-                    }
+                {
+                    DebugLocation(1, 88);
+                    mT__32();
+                }
                     break;
                 case 15:
                     DebugEnterAlt(15);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:94: T__33
-                    {
-                        DebugLocation(1, 94);
-                        mT__33();
-
-                    }
+                {
+                    DebugLocation(1, 94);
+                    mT__33();
+                }
                     break;
                 case 16:
                     DebugEnterAlt(16);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:100: T__34
-                    {
-                        DebugLocation(1, 100);
-                        mT__34();
-
-                    }
+                {
+                    DebugLocation(1, 100);
+                    mT__34();
+                }
                     break;
                 case 17:
                     DebugEnterAlt(17);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:106: T__35
-                    {
-                        DebugLocation(1, 106);
-                        mT__35();
-
-                    }
+                {
+                    DebugLocation(1, 106);
+                    mT__35();
+                }
                     break;
                 case 18:
                     DebugEnterAlt(18);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:112: T__36
-                    {
-                        DebugLocation(1, 112);
-                        mT__36();
-
-                    }
+                {
+                    DebugLocation(1, 112);
+                    mT__36();
+                }
                     break;
                 case 19:
                     DebugEnterAlt(19);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:118: T__37
-                    {
-                        DebugLocation(1, 118);
-                        mT__37();
-
-                    }
+                {
+                    DebugLocation(1, 118);
+                    mT__37();
+                }
                     break;
                 case 20:
                     DebugEnterAlt(20);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:124: T__38
-                    {
-                        DebugLocation(1, 124);
-                        mT__38();
-
-                    }
+                {
+                    DebugLocation(1, 124);
+                    mT__38();
+                }
                     break;
                 case 21:
                     DebugEnterAlt(21);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:130: T__39
-                    {
-                        DebugLocation(1, 130);
-                        mT__39();
-
-                    }
+                {
+                    DebugLocation(1, 130);
+                    mT__39();
+                }
                     break;
                 case 22:
                     DebugEnterAlt(22);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:136: T__40
-                    {
-                        DebugLocation(1, 136);
-                        mT__40();
-
-                    }
+                {
+                    DebugLocation(1, 136);
+                    mT__40();
+                }
                     break;
                 case 23:
                     DebugEnterAlt(23);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:142: T__41
-                    {
-                        DebugLocation(1, 142);
-                        mT__41();
-
-                    }
+                {
+                    DebugLocation(1, 142);
+                    mT__41();
+                }
                     break;
                 case 24:
                     DebugEnterAlt(24);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:148: T__42
-                    {
-                        DebugLocation(1, 148);
-                        mT__42();
-
-                    }
+                {
+                    DebugLocation(1, 148);
+                    mT__42();
+                }
                     break;
                 case 25:
                     DebugEnterAlt(25);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:154: T__43
-                    {
-                        DebugLocation(1, 154);
-                        mT__43();
-
-                    }
+                {
+                    DebugLocation(1, 154);
+                    mT__43();
+                }
                     break;
                 case 26:
                     DebugEnterAlt(26);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:160: T__44
-                    {
-                        DebugLocation(1, 160);
-                        mT__44();
-
-                    }
+                {
+                    DebugLocation(1, 160);
+                    mT__44();
+                }
                     break;
                 case 27:
                     DebugEnterAlt(27);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:166: T__45
-                    {
-                        DebugLocation(1, 166);
-                        mT__45();
-
-                    }
+                {
+                    DebugLocation(1, 166);
+                    mT__45();
+                }
                     break;
                 case 28:
                     DebugEnterAlt(28);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:172: T__46
-                    {
-                        DebugLocation(1, 172);
-                        mT__46();
-
-                    }
+                {
+                    DebugLocation(1, 172);
+                    mT__46();
+                }
                     break;
                 case 29:
                     DebugEnterAlt(29);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:178: T__47
-                    {
-                        DebugLocation(1, 178);
-                        mT__47();
-
-                    }
+                {
+                    DebugLocation(1, 178);
+                    mT__47();
+                }
                     break;
                 case 30:
                     DebugEnterAlt(30);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:184: T__48
-                    {
-                        DebugLocation(1, 184);
-                        mT__48();
-
-                    }
+                {
+                    DebugLocation(1, 184);
+                    mT__48();
+                }
                     break;
                 case 31:
                     DebugEnterAlt(31);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:190: TRUE
-                    {
-                        DebugLocation(1, 190);
-                        mTRUE();
-
-                    }
+                {
+                    DebugLocation(1, 190);
+                    mTRUE();
+                }
                     break;
                 case 32:
                     DebugEnterAlt(32);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:195: FALSE
-                    {
-                        DebugLocation(1, 195);
-                        mFALSE();
-
-                    }
+                {
+                    DebugLocation(1, 195);
+                    mFALSE();
+                }
                     break;
                 case 33:
                     DebugEnterAlt(33);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:201: ID
-                    {
-                        DebugLocation(1, 201);
-                        mID();
-
-                    }
+                {
+                    DebugLocation(1, 201);
+                    mID();
+                }
                     break;
                 case 34:
                     DebugEnterAlt(34);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:204: INTEGER
-                    {
-                        DebugLocation(1, 204);
-                        mINTEGER();
-
-                    }
+                {
+                    DebugLocation(1, 204);
+                    mINTEGER();
+                }
                     break;
                 case 35:
                     DebugEnterAlt(35);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:212: FLOAT
-                    {
-                        DebugLocation(1, 212);
-                        mFLOAT();
-
-                    }
+                {
+                    DebugLocation(1, 212);
+                    mFLOAT();
+                }
                     break;
                 case 36:
                     DebugEnterAlt(36);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:218: STRING
-                    {
-                        DebugLocation(1, 218);
-                        mSTRING();
-
-                    }
+                {
+                    DebugLocation(1, 218);
+                    mSTRING();
+                }
                     break;
                 case 37:
                     DebugEnterAlt(37);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:225: DATETIME
-                    {
-                        DebugLocation(1, 225);
-                        mDATETIME();
-
-                    }
+                {
+                    DebugLocation(1, 225);
+                    mDATETIME();
+                }
                     break;
                 case 38:
                     DebugEnterAlt(38);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:234: NAME
-                    {
-                        DebugLocation(1, 234);
-                        mNAME();
-
-                    }
+                {
+                    DebugLocation(1, 234);
+                    mNAME();
+                }
                     break;
                 case 39:
                     DebugEnterAlt(39);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:239: E
-                    {
-                        DebugLocation(1, 239);
-                        mE();
-
-                    }
+                {
+                    DebugLocation(1, 239);
+                    mE();
+                }
                     break;
                 case 40:
                     DebugEnterAlt(40);
                     // C:\\Users\\sebros\\My Projects\\NCalc\\Grammar\\NCalc.g:1:241: WS
-                    {
-                        DebugLocation(1, 241);
-                        mWS();
-
-                    }
+                {
+                    DebugLocation(1, 241);
+                    mWS();
+                }
                     break;
-
             }
-
         }
-
 
         #region DFA
         DFA7 dfa7;
@@ -2837,8 +2635,7 @@ namespace Naninovel.NCalc
                 "\x2\xFFFF\x1\x1\x1\x2";
             private const string DFA7_specialS =
                 "\x4\xFFFF}>";
-            private static readonly string[] DFA7_transitionS =
-                {
+            private static readonly string[] DFA7_transitionS = {
                 "\x1\x2\x1\xFFFF\xA\x1",
                 "\x1\x2\x1\xFFFF\xA\x1\xB\xFFFF\x1\x3\x1F\xFFFF\x1\x3",
                 "",
@@ -2913,13 +2710,12 @@ namespace Naninovel.NCalc
                 "\x1\xFFFF\x1\x20";
             private const string DFA14_specialS =
                 "\x43\xFFFF}>";
-            private static readonly string[] DFA14_transitionS =
-                {
-                "\x2\x1F\x1\xFFFF\x2\x1F\x12\xFFFF\x1\x1F\x1\x1\x1\xFFFF\x1\x1C\x1\xFFFF"+
-                "\x1\x2\x1\x3\x1\x1B\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\x1A\x1\xA"+
-                "\xA\x19\x1\xB\x1\xFFFF\x1\xC\x1\xD\x1\xE\x1\xF\x1\xFFFF\x4\x1E\x1\x18"+
-                "\x15\x1E\x1\x1D\x2\xFFFF\x1\x10\x1\x1E\x1\xFFFF\x1\x11\x3\x1E\x1\x18"+
-                "\x1\x17\x7\x1E\x1\x12\x1\x13\x4\x1E\x1\x16\x6\x1E\x1\xFFFF\x1\x14\x1"+
+            private static readonly string[] DFA14_transitionS = {
+                "\x2\x1F\x1\xFFFF\x2\x1F\x12\xFFFF\x1\x1F\x1\x1\x1\xFFFF\x1\x1C\x1\xFFFF" +
+                "\x1\x2\x1\x3\x1\x1B\x1\x4\x1\x5\x1\x6\x1\x7\x1\x8\x1\x9\x1\x1A\x1\xA" +
+                "\xA\x19\x1\xB\x1\xFFFF\x1\xC\x1\xD\x1\xE\x1\xF\x1\xFFFF\x4\x1E\x1\x18" +
+                "\x15\x1E\x1\x1D\x2\xFFFF\x1\x10\x1\x1E\x1\xFFFF\x1\x11\x3\x1E\x1\x18" +
+                "\x1\x17\x7\x1E\x1\x12\x1\x13\x4\x1E\x1\x16\x6\x1E\x1\xFFFF\x1\x14\x1" +
                 "\xFFFF\x1\x15",
                 "\x1\x20",
                 "",
@@ -3027,9 +2823,6 @@ namespace Naninovel.NCalc
                 DebugRecognitionException(nvae);
             }
         }
-
-
         #endregion
-
     }
 }

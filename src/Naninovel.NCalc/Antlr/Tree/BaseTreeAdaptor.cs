@@ -33,7 +33,6 @@
 namespace Naninovel.Antlr.Runtime.Tree
 {
     using System.Collections.Generic;
-
     using ArgumentNullException = System.ArgumentNullException;
     using Exception = System.Exception;
     using IDictionary = System.Collections.IDictionary;
@@ -51,9 +50,9 @@ namespace Naninovel.Antlr.Runtime.Tree
         protected IDictionary<object, int> treeToUniqueIDMap;
         protected int uniqueNodeID = 1;
 
-        public virtual object Nil()
+        public virtual object Nil ()
         {
-            return Create( null );
+            return Create(null);
         }
 
         /** <summary>
@@ -71,34 +70,34 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  subclass your own tree node class to avoid class cast exception.
          *  </remarks>
          */
-        public virtual object ErrorNode( ITokenStream input, IToken start, IToken stop,
-                                RecognitionException e )
+        public virtual object ErrorNode (ITokenStream input, IToken start, IToken stop,
+            RecognitionException e)
         {
-            CommonErrorNode t = new CommonErrorNode( input, start, stop, e );
+            CommonErrorNode t = new CommonErrorNode(input, start, stop, e);
             //System.out.println("returning error node '"+t+"' @index="+input.index());
             return t;
         }
 
-        public virtual bool IsNil( object tree )
+        public virtual bool IsNil (object tree)
         {
-            return ( (ITree)tree ).IsNil;
+            return ((ITree)tree).IsNil;
         }
 
-        public virtual object DupNode(int type, object treeNode)
+        public virtual object DupNode (int type, object treeNode)
         {
             object t = DupNode(treeNode);
             SetType(t, type);
             return t;
         }
 
-        public virtual object DupNode(object treeNode, string text)
+        public virtual object DupNode (object treeNode, string text)
         {
             object t = DupNode(treeNode);
             SetText(t, text);
             return t;
         }
 
-        public virtual object DupNode(int type, object treeNode, string text)
+        public virtual object DupNode (int type, object treeNode, string text)
         {
             object t = DupNode(treeNode);
             SetType(t, type);
@@ -106,33 +105,33 @@ namespace Naninovel.Antlr.Runtime.Tree
             return t;
         }
 
-        public virtual object DupTree( object tree )
+        public virtual object DupTree (object tree)
         {
-            return DupTree( tree, null );
+            return DupTree(tree, null);
         }
 
         /** <summary>
          *  This is generic in the sense that it will work with any kind of
          *  tree (not just ITree interface).  It invokes the adaptor routines
-         *  not the tree node routines to do the construction.  
+         *  not the tree node routines to do the construction.
          *  </summary>
          */
-        public virtual object DupTree( object t, object parent )
+        public virtual object DupTree (object t, object parent)
         {
-            if ( t == null )
+            if (t == null)
             {
                 return null;
             }
-            object newTree = DupNode( t );
+            object newTree = DupNode(t);
             // ensure new subtree root has parent/child index set
-            SetChildIndex( newTree, GetChildIndex( t ) ); // same index in new tree
-            SetParent( newTree, parent );
-            int n = GetChildCount( t );
-            for ( int i = 0; i < n; i++ )
+            SetChildIndex(newTree, GetChildIndex(t)); // same index in new tree
+            SetParent(newTree, parent);
+            int n = GetChildCount(t);
+            for (int i = 0; i < n; i++)
             {
-                object child = GetChild( t, i );
-                object newSubTree = DupTree( child, t );
-                AddChild( newTree, newSubTree );
+                object child = GetChild(t, i);
+                object newSubTree = DupTree(child, t);
+                AddChild(newTree, newSubTree);
             }
             return newTree;
         }
@@ -146,11 +145,11 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  ASTs.
          *  </summary>
          */
-        public virtual void AddChild( object t, object child )
+        public virtual void AddChild (object t, object child)
         {
-            if ( t != null && child != null )
+            if (t != null && child != null)
             {
-                ( (ITree)t ).AddChild( (ITree)child );
+                ((ITree)t).AddChild((ITree)child);
             }
         }
 
@@ -184,48 +183,48 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  efficiency.
          *  </remarks>
          */
-        public virtual object BecomeRoot( object newRoot, object oldRoot )
+        public virtual object BecomeRoot (object newRoot, object oldRoot)
         {
             //System.out.println("becomeroot new "+newRoot.toString()+" old "+oldRoot);
             ITree newRootTree = (ITree)newRoot;
             ITree oldRootTree = (ITree)oldRoot;
-            if ( oldRoot == null )
+            if (oldRoot == null)
             {
                 return newRoot;
             }
             // handle ^(nil real-node)
-            if ( newRootTree.IsNil )
+            if (newRootTree.IsNil)
             {
                 int nc = newRootTree.ChildCount;
-                if ( nc == 1 )
-                    newRootTree = (ITree)newRootTree.GetChild( 0 );
-                else if ( nc > 1 )
+                if (nc == 1)
+                    newRootTree = (ITree)newRootTree.GetChild(0);
+                else if (nc > 1)
                 {
                     // TODO: make tree run time exceptions hierarchy
-                    throw new Exception( "more than one node as root (TODO: make exception hierarchy)" );
+                    throw new Exception("more than one node as root (TODO: make exception hierarchy)");
                 }
             }
             // add oldRoot to newRoot; addChild takes care of case where oldRoot
             // is a flat list (i.e., nil-rooted tree).  All children of oldRoot
             // are added to newRoot.
-            newRootTree.AddChild( oldRootTree );
+            newRootTree.AddChild(oldRootTree);
             return newRootTree;
         }
 
         /** <summary>Transform ^(nil x) to x and nil to null</summary> */
-        public virtual object RulePostProcessing( object root )
+        public virtual object RulePostProcessing (object root)
         {
             //System.out.println("rulePostProcessing: "+((Tree)root).toStringTree());
             ITree r = (ITree)root;
-            if ( r != null && r.IsNil )
+            if (r != null && r.IsNil)
             {
-                if ( r.ChildCount == 0 )
+                if (r.ChildCount == 0)
                 {
                     r = null;
                 }
-                else if ( r.ChildCount == 1 )
+                else if (r.ChildCount == 1)
                 {
-                    r = (ITree)r.GetChild( 0 );
+                    r = (ITree)r.GetChild(0);
                     // whoever invokes rule will set parent and child index
                     r.Parent = null;
                     r.ChildIndex = -1;
@@ -234,32 +233,32 @@ namespace Naninovel.Antlr.Runtime.Tree
             return r;
         }
 
-        public virtual object BecomeRoot( IToken newRoot, object oldRoot )
+        public virtual object BecomeRoot (IToken newRoot, object oldRoot)
         {
-            return BecomeRoot( Create( newRoot ), oldRoot );
+            return BecomeRoot(Create(newRoot), oldRoot);
         }
 
-        public virtual object Create( int tokenType, IToken fromToken )
+        public virtual object Create (int tokenType, IToken fromToken)
         {
-            fromToken = CreateToken( fromToken );
+            fromToken = CreateToken(fromToken);
             fromToken.Type = tokenType;
-            object t = Create( fromToken );
+            object t = Create(fromToken);
             return t;
         }
 
-        public virtual object Create( int tokenType, IToken fromToken, string text )
+        public virtual object Create (int tokenType, IToken fromToken, string text)
         {
-            if ( fromToken == null )
-                return Create( tokenType, text );
+            if (fromToken == null)
+                return Create(tokenType, text);
 
-            fromToken = CreateToken( fromToken );
+            fromToken = CreateToken(fromToken);
             fromToken.Type = tokenType;
             fromToken.Text = text;
             object result = Create(fromToken);
             return result;
         }
 
-        public virtual object Create(IToken fromToken, string text)
+        public virtual object Create (IToken fromToken, string text)
         {
             if (fromToken == null)
                 throw new ArgumentNullException("fromToken");
@@ -270,14 +269,14 @@ namespace Naninovel.Antlr.Runtime.Tree
             return result;
         }
 
-        public virtual object Create( int tokenType, string text )
+        public virtual object Create (int tokenType, string text)
         {
-            IToken fromToken = CreateToken( tokenType, text );
-            object t = Create( fromToken );
+            IToken fromToken = CreateToken(tokenType, text);
+            object t = Create(fromToken);
             return t;
         }
 
-        public virtual int GetType( object t )
+        public virtual int GetType (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -286,12 +285,12 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.Type;
         }
 
-        public virtual void SetType( object t, int type )
+        public virtual void SetType (object t, int type)
         {
-            throw new NotSupportedException( "don't know enough about Tree node" );
+            throw new NotSupportedException("don't know enough about Tree node");
         }
 
-        public virtual string GetText( object t )
+        public virtual string GetText (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -300,12 +299,12 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.Text;
         }
 
-        public virtual void SetText( object t, string text )
+        public virtual void SetText (object t, string text)
         {
-            throw new NotSupportedException( "don't know enough about Tree node" );
+            throw new NotSupportedException("don't know enough about Tree node");
         }
 
-        public virtual object GetChild( object t, int i )
+        public virtual object GetChild (object t, int i)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -314,7 +313,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.GetChild(i);
         }
 
-        public virtual void SetChild( object t, int i, object child )
+        public virtual void SetChild (object t, int i, object child)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -324,12 +323,12 @@ namespace Naninovel.Antlr.Runtime.Tree
             tree.SetChild(i, childTree);
         }
 
-        public virtual object DeleteChild( object t, int i )
+        public virtual object DeleteChild (object t, int i)
         {
-            return ( (ITree)t ).DeleteChild( i );
+            return ((ITree)t).DeleteChild(i);
         }
 
-        public virtual int GetChildCount( object t )
+        public virtual int GetChildCount (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -338,14 +337,14 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.ChildCount;
         }
 
-        public virtual int GetUniqueID( object node )
+        public virtual int GetUniqueID (object node)
         {
-            if ( treeToUniqueIDMap == null )
+            if (treeToUniqueIDMap == null)
             {
                 treeToUniqueIDMap = new Dictionary<object, int>();
             }
             int id;
-            if ( treeToUniqueIDMap.TryGetValue( node, out id ) )
+            if (treeToUniqueIDMap.TryGetValue(node, out id))
                 return id;
 
             id = uniqueNodeID;
@@ -368,7 +367,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  override this method and any other createToken variant.
          *  </remarks>
          */
-        public abstract IToken CreateToken( int tokenType, string text );
+        public abstract IToken CreateToken (int tokenType, string text);
 
         /** <summary>
          *  Tell me how to create a token for use with imaginary token nodes.
@@ -388,9 +387,9 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  override this method and any other createToken variant.
          *  </remarks>
          */
-        public abstract IToken CreateToken( IToken fromToken );
+        public abstract IToken CreateToken (IToken fromToken);
 
-        public abstract object Create( IToken payload );
+        public abstract object Create (IToken payload);
 
         /** <summary>
          *  Duplicate a node.  This is part of the factory;
@@ -402,7 +401,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  but reflection is slow.
          *  </remarks>
          */
-        public virtual object DupNode(object treeNode)
+        public virtual object DupNode (object treeNode)
         {
             ITree tree = GetTree(treeNode);
             if (tree == null)
@@ -411,7 +410,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.DupNode();
         }
 
-        public abstract IToken GetToken( object t );
+        public abstract IToken GetToken (object t);
 
         /** <summary>
          *  Track start/stop token for subtree root created for a rule.
@@ -420,7 +419,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  Might be useful info so I'll not force to be i..i.
          *  </summary>
          */
-        public virtual void SetTokenBoundaries(object t, IToken startToken, IToken stopToken)
+        public virtual void SetTokenBoundaries (object t, IToken startToken, IToken stopToken)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -438,7 +437,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             tree.TokenStopIndex = stop;
         }
 
-        public virtual int GetTokenStartIndex(object t)
+        public virtual int GetTokenStartIndex (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -447,7 +446,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.TokenStartIndex;
         }
 
-        public virtual int GetTokenStopIndex(object t)
+        public virtual int GetTokenStopIndex (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -456,7 +455,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.TokenStopIndex;
         }
 
-        public virtual object GetParent(object t)
+        public virtual object GetParent (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -465,7 +464,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.Parent;
         }
 
-        public virtual void SetParent(object t, object parent)
+        public virtual void SetParent (object t, object parent)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -475,7 +474,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             tree.Parent = parentTree;
         }
 
-        public virtual int GetChildIndex(object t)
+        public virtual int GetChildIndex (object t)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -484,7 +483,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             return tree.ChildIndex;
         }
 
-        public virtual void SetChildIndex(object t, int index)
+        public virtual void SetChildIndex (object t, int index)
         {
             ITree tree = GetTree(t);
             if (tree == null)
@@ -493,7 +492,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             tree.ChildIndex = index;
         }
 
-        public virtual void ReplaceChildren(object parent, int startChildIndex, int stopChildIndex, object t)
+        public virtual void ReplaceChildren (object parent, int startChildIndex, int stopChildIndex, object t)
         {
             ITree tree = GetTree(parent);
             if (tree == null)
@@ -502,7 +501,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             tree.ReplaceChildren(startChildIndex, stopChildIndex, t);
         }
 
-        protected virtual ITree GetTree(object t)
+        protected virtual ITree GetTree (object t)
         {
             if (t == null)
                 return null;

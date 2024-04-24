@@ -75,7 +75,7 @@ namespace Naninovel.Antlr.Runtime.Misc
             }
         }
 
-        public override void Clear()
+        public override void Clear ()
         {
             base.Clear();
             _currentElementIndex = 0;
@@ -88,17 +88,17 @@ namespace Naninovel.Antlr.Runtime.Misc
          *  lookahead buffer.  Return eof upon end of the stream we're pulling from.
          *  </summary>
          */
-        public abstract T NextElement();
+        public abstract T NextElement ();
 
-        public abstract bool IsEndOfFile(T o);
+        public abstract bool IsEndOfFile (T o);
 
         /** <summary>Get and remove first element in queue; override FastQueue.remove()</summary> */
-        public override T Dequeue()
+        public override T Dequeue ()
         {
             T o = this[0];
             _p++;
             // have we hit end of buffer and not backtracking?
-            if ( _p == _data.Count && _markDepth == 0 )
+            if (_p == _data.Count && _markDepth == 0)
             {
                 // if so, it's an opportunity to start filling at index 0 again
                 Clear(); // size goes to 0, but retains memory
@@ -107,7 +107,7 @@ namespace Naninovel.Antlr.Runtime.Misc
         }
 
         /** <summary>Make sure we have at least one element to remove, even if EOF</summary> */
-        public virtual void Consume()
+        public virtual void Consume ()
         {
             SyncAhead(1);
             _previousElement = Dequeue();
@@ -120,23 +120,23 @@ namespace Naninovel.Antlr.Runtime.Misc
          *  ahead.  If we need 1 element, (p+1-1)==p must be &lt; data.size().
          *  </summary>
          */
-        protected virtual void SyncAhead( int need )
+        protected virtual void SyncAhead (int need)
         {
-            int n = ( _p + need - 1 ) - _data.Count + 1; // how many more elements we need?
-            if ( n > 0 )
-                Fill( n );                 // out of elements?
+            int n = (_p + need - 1) - _data.Count + 1; // how many more elements we need?
+            if (n > 0)
+                Fill(n); // out of elements?
         }
 
         /** <summary>add n elements to buffer</summary> */
-        public virtual void Fill( int n )
+        public virtual void Fill (int n)
         {
-            for ( int i = 0; i < n; i++ )
+            for (int i = 0; i < n; i++)
             {
                 T o = NextElement();
-                if ( IsEndOfFile(o) )
+                if (IsEndOfFile(o))
                     _eof = o;
 
-                _data.Add( o );
+                _data.Add(o);
             }
         }
 
@@ -145,22 +145,22 @@ namespace Naninovel.Antlr.Runtime.Misc
         {
             get
             {
-                throw new System.NotSupportedException( "streams are of unknown size" );
+                throw new System.NotSupportedException("streams are of unknown size");
             }
         }
 
-        public virtual T LT( int k )
+        public virtual T LT (int k)
         {
-            if ( k == 0 )
+            if (k == 0)
             {
                 return null;
             }
-            if ( k < 0 )
+            if (k < 0)
             {
                 return LB(-k);
             }
 
-            SyncAhead( k );
+            SyncAhead(k);
             if ((_p + k - 1) > _data.Count)
                 return _eof;
 
@@ -175,27 +175,27 @@ namespace Naninovel.Antlr.Runtime.Misc
             }
         }
 
-        public virtual int Mark()
+        public virtual int Mark ()
         {
             _markDepth++;
             _lastMarker = _p; // track where we are in buffer, not absolute token index
             return _lastMarker;
         }
 
-        public virtual void Release( int marker )
+        public virtual void Release (int marker)
         {
             _markDepth--;
         }
 
-        public virtual void Rewind( int marker )
+        public virtual void Rewind (int marker)
         {
-            Seek( marker );
-            Release( marker );
+            Seek(marker);
+            Release(marker);
         }
 
-        public virtual void Rewind()
+        public virtual void Rewind ()
         {
-            Seek( _lastMarker );
+            Seek(_lastMarker);
         }
 
         /** <summary>
@@ -206,12 +206,12 @@ namespace Naninovel.Antlr.Runtime.Misc
          *  is unbuffered. Seeks only into our moving window of elements.
          *  </summary>
          */
-        public virtual void Seek( int index )
+        public virtual void Seek (int index)
         {
             _p = index;
         }
 
-        protected virtual T LB(int k)
+        protected virtual T LB (int k)
         {
             if (k == 1)
                 return _previousElement;

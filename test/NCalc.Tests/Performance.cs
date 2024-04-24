@@ -13,7 +13,7 @@ namespace Naninovel.NCalc.Tests
             public int Param1 { get; set; }
             public int Param2 { get; set; }
 
-            public int Foo(int a, int b)
+            public int Foo (int a, int b)
             {
                 return Math.Min(a, b);
             }
@@ -22,7 +22,7 @@ namespace Naninovel.NCalc.Tests
         [Theory]
         [InlineData("(4 * 12 / 7) + ((9 * 2) % 8)")]
         [InlineData("5 * 2 = 2 * 5 && (1 / 3.0) * 3 = 1")]
-        public void Arithmetics(string formula)
+        public void Arithmetics (string formula)
         {
             var expression = new Expression(formula);
             var lambda = expression.ToLambda<object>();
@@ -35,12 +35,12 @@ namespace Naninovel.NCalc.Tests
 
         [Theory]
         [InlineData("[Param1] * 7 + [Param2]")]
-        public void ParameterAccess(string formula)
+        public void ParameterAccess (string formula)
         {
             var expression = new Expression(formula);
             var lambda = expression.ToLambda<Context, int>();
 
-            var context = new Context {Param1 = 4, Param2 = 9};
+            var context = new Context { Param1 = 4, Param2 = 9 };
             expression.Parameters["Param1"] = 4;
             expression.Parameters["Param2"] = 9;
 
@@ -52,14 +52,13 @@ namespace Naninovel.NCalc.Tests
 
         [Theory]
         [InlineData("[Param1] * 7 + [Param2]")]
-        public void DynamicParameterAccess(string formula)
+        public void DynamicParameterAccess (string formula)
         {
             var expression = new Expression(formula);
             var lambda = expression.ToLambda<Context, int>();
 
             var context = new Context { Param1 = 4, Param2 = 9 };
-            expression.EvaluateParameter += (name, args) =>
-            {
+            expression.EvaluateParameter += (name, args) => {
                 if (name == "Param1") args.Result = context.Param1;
                 if (name == "Param2") args.Result = context.Param2;
             };
@@ -72,23 +71,21 @@ namespace Naninovel.NCalc.Tests
 
         [Theory]
         [InlineData("Foo([Param1] * 7, [Param2])")]
-        public void FunctionWithDynamicParameterAccess(string formula)
+        public void FunctionWithDynamicParameterAccess (string formula)
         {
             var expression = new Expression(formula);
             var lambda = expression.ToLambda<Context, int>();
 
             var context = new Context { Param1 = 4, Param2 = 9 };
-            expression.EvaluateParameter += (name, args) =>
-            {
+            expression.EvaluateParameter += (name, args) => {
                 if (name == "Param1") args.Result = context.Param1;
                 if (name == "Param2") args.Result = context.Param2;
             };
-            expression.EvaluateFunction += (name, args) =>
-            {
+            expression.EvaluateFunction += (name, args) => {
                 if (name == "Foo")
                 {
                     var param = args.EvaluateParameters();
-                    args.Result = context.Foo((int) param[0], (int) param[1]);
+                    args.Result = context.Foo((int)param[0], (int)param[1]);
                 }
             };
 
@@ -98,7 +95,7 @@ namespace Naninovel.NCalc.Tests
             PrintResult(formula, m1, m2);
         }
 
-        private TimeSpan Measure(Action action)
+        private TimeSpan Measure (Action action)
         {
             var sw = new Stopwatch();
             sw.Start();
@@ -108,7 +105,7 @@ namespace Naninovel.NCalc.Tests
             return sw.Elapsed;
         }
 
-        private static void PrintResult(string formula, TimeSpan m1, TimeSpan m2)
+        private static void PrintResult (string formula, TimeSpan m1, TimeSpan m2)
         {
             Console.WriteLine(new string('-', 60));
             Console.WriteLine("Formula: {0}", formula);

@@ -41,7 +41,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  sense for you.
          *  </summary>
          */
-        object this[int i]
+        object this [int i]
         {
             get;
         }
@@ -61,7 +61,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  for both parser and tree grammars. :)
          *  </remarks>
          */
-        object LT( int k );
+        object LT (int k);
 
         /** <summary>
          *  Where is this stream pulling nodes from?  This is not the name, but
@@ -117,11 +117,9 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  an action of course in that case.
          *  </summary>
          */
-        string ToString( object start, object stop );
-
+        string ToString (object start, object stop);
 
         #region REWRITING TREES (used by tree parser)
-
         /** <summary>
          *  Replace from start to stop child index of parent with t, which might
          *  be a list.  Number of children may be different
@@ -136,9 +134,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  Can't replace whatever points to the parent externally.  Do nothing.
          *  </remarks>
          */
-        void ReplaceChildren( object parent, int startChildIndex, int stopChildIndex, object t );
-
+        void ReplaceChildren (object parent, int startChildIndex, int stopChildIndex, object t);
         #endregion
-
     }
 }

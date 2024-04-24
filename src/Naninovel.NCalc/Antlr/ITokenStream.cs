@@ -29,9 +29,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 namespace Naninovel.Antlr.Runtime
 {
-
     /** <summary>A stream of tokens accessing tokens from a TokenSource</summary> */
     public interface ITokenStream : IIntStream
     {
@@ -41,7 +41,7 @@ namespace Naninovel.Antlr.Runtime
          *  Return null for LT(0) and any index that results in an absolute address
          *  that is negative.</summary>
          */
-        IToken LT( int k );
+        IToken LT (int k);
 
         /// <summary>
         /// How far ahead has the stream been asked to look?  The return
@@ -61,7 +61,7 @@ namespace Naninovel.Antlr.Runtime
          *  this method, removing the dependency.
          *  </summary>
          */
-        IToken Get( int i );
+        IToken Get (int i);
 
         /** <summary>
          *  Where is this stream pulling tokens from?  This is not the name, but
@@ -80,7 +80,7 @@ namespace Naninovel.Antlr.Runtime
          *  an action of course in that case.
          *  </summary>
          */
-        string ToString( int start, int stop );
+        string ToString (int start, int stop);
 
         /** <summary>
          *  Because the user is not required to use a token with an index stored
@@ -90,6 +90,6 @@ namespace Naninovel.Antlr.Runtime
          *  the TreeNodeStream.toString(Object,Object).
          *  </summary>
          */
-        string ToString( IToken start, IToken stop );
+        string ToString (IToken start, IToken stop);
     }
 }

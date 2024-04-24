@@ -1,9 +1,9 @@
 ﻿using System;
-using Naninovel.NCalc.Domain;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using System.Collections;
 using FluentAssertions;
+using Naninovel.NCalc.Domain;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -13,16 +13,17 @@ namespace Naninovel.NCalc.Tests
     {
         private readonly ITestOutputHelper _output;
 
-        public Fixtures(ITestOutputHelper output)
+        private List<Exception> _exceptions;
+
+        public Fixtures (ITestOutputHelper output)
         {
             _output = output;
         }
 
         [Fact]
-        public void ExpressionShouldEvaluate()
+        public void ExpressionShouldEvaluate ()
         {
-            var expressions = new []
-            {
+            var expressions = new[] {
                 "2 + 3 + 5",
                 "2 * 3 + 5",
                 "2 * (3 + 5)",
@@ -35,14 +36,14 @@ namespace Naninovel.NCalc.Tests
                 "3 % 2 != 10 % 3"
             };
 
-            foreach (string expression in expressions)
+            foreach (var expression in expressions)
                 _output.WriteLine("{0} = {1}",
                     expression,
                     new Expression(expression).Evaluate());
         }
 
         [Fact]
-        public void ExpressionShouldHandleNullRightParameters()
+        public void ExpressionShouldHandleNullRightParameters ()
         {
             var e = new Expression("'a string' == null", EvaluateOptions.AllowNullParameter);
 
@@ -50,7 +51,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ExpressionShouldHandleNullLeftParameters()
+        public void ExpressionShouldHandleNullLeftParameters ()
         {
             var e = new Expression("null == 'a string'", EvaluateOptions.AllowNullParameter);
 
@@ -58,7 +59,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ExpressionShouldHandleNullBothParameters()
+        public void ExpressionShouldHandleNullBothParameters ()
         {
             var e = new Expression("null == null", EvaluateOptions.AllowNullParameter);
 
@@ -66,7 +67,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldCompareNullToNull()
+        public void ShouldCompareNullToNull ()
         {
             var e = new Expression("[x] = null", EvaluateOptions.AllowNullParameter);
 
@@ -76,7 +77,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldCompareNullableToNonNullable()
+        public void ShouldCompareNullableToNonNullable ()
         {
             var e = new Expression("[x] = 5", EvaluateOptions.AllowNullParameter);
 
@@ -88,7 +89,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldCompareNullToString()
+        public void ShouldCompareNullToString ()
         {
             var e = new Expression("[x] = 'foo'", EvaluateOptions.AllowNullParameter);
 
@@ -98,7 +99,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ExpressionDoesNotDefineNullParameterWithoutNullOption()
+        public void ExpressionDoesNotDefineNullParameterWithoutNullOption ()
         {
             var e = new Expression("'a string' == null");
 
@@ -107,7 +108,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ExpressionThrowsNullReferenceExceptionWithoutNullOption()
+        public void ExpressionThrowsNullReferenceExceptionWithoutNullOption ()
         {
             var e = new Expression("'a string' == null");
 
@@ -117,7 +118,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldParseValues()
+        public void ShouldParseValues ()
         {
             Assert.Equal(123456, new Expression("123456").Evaluate());
             Assert.Equal(new DateTime(2001, 01, 01), new Expression("#01/01/2001#").Evaluate());
@@ -128,7 +129,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ParsedExpressionToStringShouldHandleSmallDecimals()
+        public void ParsedExpressionToStringShouldHandleSmallDecimals ()
         {
             // small decimals starting with 0 resulting in scientific notation did not work in original NCalc
             var equation = "0.000001";
@@ -138,7 +139,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleUnicode()
+        public void ShouldHandleUnicode ()
         {
             Assert.Equal("経済協力開発機構", new Expression("'経済協力開発機構'").Evaluate());
             Assert.Equal("Hello", new Expression(@"'\u0048\u0065\u006C\u006C\u006F'").Evaluate());
@@ -147,7 +148,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldEscapeCharacters()
+        public void ShouldEscapeCharacters ()
         {
             Assert.Equal("'hello'", new Expression(@"'\'hello\''").Evaluate());
             Assert.Equal(" ' hel lo ' ", new Expression(@"' \' hel lo \' '").Evaluate());
@@ -155,21 +156,21 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldDisplayErrorMessages()
+        public void ShouldDisplayErrorMessages ()
         {
             try
             {
                 new Expression("(3 + 2").Evaluate();
                 throw new Exception();
             }
-            catch(EvaluationException e)
+            catch (EvaluationException e)
             {
                 _output.WriteLine("Error catched: " + e.Message);
             }
         }
 
         [Fact]
-        public void Maths()
+        public void Maths ()
         {
             Assert.Equal(1M, new Expression("Abs(-1)").Evaluate());
             Assert.Equal(0d, new Expression("Acos(1)").Evaluate());
@@ -192,54 +193,51 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ExpressionShouldEvaluateCustomFunctions()
+        public void ExpressionShouldEvaluateCustomFunctions ()
         {
             var e = new Expression("SecretOperation(3, 6)");
 
-            e.EvaluateFunction += delegate(string name, FunctionArgs args)
-                {
-                    if (name == "SecretOperation")
-                        args.Result = (int)args.Parameters[0].Evaluate() + (int)args.Parameters[1].Evaluate();
-                };
+            e.EvaluateFunction += delegate (string name, FunctionArgs args) {
+                if (name == "SecretOperation")
+                    args.Result = (int)args.Parameters[0].Evaluate() + (int)args.Parameters[1].Evaluate();
+            };
 
             Assert.Equal(9, e.Evaluate());
         }
 
         [Fact]
-        public void ExpressionShouldEvaluateCustomFunctionsWithParameters()
+        public void ExpressionShouldEvaluateCustomFunctionsWithParameters ()
         {
             var e = new Expression("SecretOperation([e], 6) + f");
             e.Parameters["e"] = 3;
             e.Parameters["f"] = 1;
 
-            e.EvaluateFunction += delegate(string name, FunctionArgs args)
-                {
-                    if (name == "SecretOperation")
-                        args.Result = (int)args.Parameters[0].Evaluate() + (int)args.Parameters[1].Evaluate();
-                };
+            e.EvaluateFunction += delegate (string name, FunctionArgs args) {
+                if (name == "SecretOperation")
+                    args.Result = (int)args.Parameters[0].Evaluate() + (int)args.Parameters[1].Evaluate();
+            };
 
             Assert.Equal(10, e.Evaluate());
         }
 
         [Fact]
-        public void ExpressionShouldEvaluateParameters()
+        public void ExpressionShouldEvaluateParameters ()
         {
             var e = new Expression("Round(Pow(Pi, 2) + Pow([Pi Squared], 2) + [X], 2)");
 
             e.Parameters["Pi Squared"] = new Expression("Pi * [Pi]");
             e.Parameters["X"] = 10;
 
-            e.EvaluateParameter += delegate(string name, ParameterArgs args)
-                {
-                    if (name == "Pi")
-                        args.Result = 3.14;
-                };
+            e.EvaluateParameter += delegate (string name, ParameterArgs args) {
+                if (name == "Pi")
+                    args.Result = 3.14;
+            };
 
             Assert.Equal(117.07, e.Evaluate());
         }
 
         [Fact]
-        public void ShouldEvaluateConditionnal()
+        public void ShouldEvaluateConditionnal ()
         {
             var eif = new Expression("if([divider] <> 0, [divided] / [divider], 0)");
             eif.Parameters["divider"] = 5;
@@ -254,14 +252,13 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldOverrideExistingFunctions()
+        public void ShouldOverrideExistingFunctions ()
         {
             var e = new Expression("Round(1.99, 2)");
 
             Assert.Equal(1.99d, e.Evaluate());
 
-            e.EvaluateFunction += delegate(string name, FunctionArgs args)
-            {
+            e.EvaluateFunction += delegate (string name, FunctionArgs args) {
                 if (name == "Round")
                     args.Result = 3;
             };
@@ -270,7 +267,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldEvaluateInOperator()
+        public void ShouldEvaluateInOperator ()
         {
             // The last argument should not be evaluated
             var ein = new Expression("in((2 + 2), [1], [2], 1 + 2, 4, 1 / 0)");
@@ -289,54 +286,48 @@ namespace Naninovel.NCalc.Tests
             var estring = new Expression("in('to' + 'to', 'titi', 'toto')");
 
             Assert.Equal(true, estring.Evaluate());
-
         }
 
         [Fact]
-        public void ShouldEvaluateOperators()
+        public void ShouldEvaluateOperators ()
         {
-            var expressions = new Dictionary<string, object>
-                                  {
-                                      {"!true", false},
-                                      {"not false", true},
-                                      {"2 * 3", 6},
-                                      {"6 / 2", 3d},
-                                      {"7 % 2", 1},
-                                      {"2 + 3", 5},
-                                      {"2 - 1", 1},
-                                      {"1 < 2", true},
-                                      {"1 > 2", false},
-                                      {"1 <= 2", true},
-                                      {"1 <= 1", true},
-                                      {"1 >= 2", false},
-                                      {"1 >= 1", true},
-                                      {"1 = 1", true},
-                                      {"1 == 1", true},
-                                      {"1 != 1", false},
-                                      {"1 <> 1", false},
-                                      {"1 & 1", 1},
-                                      {"1 | 1", 1},
-                                      {"1 ^ 1", 0},
-                                      {"~1", ~1},
-                                      {"2 >> 1", 1},
-                                      {"2 << 1", 4},
-                                      {"true && false", false},
-                                      {"true and false", false},
-                                      {"true || false", true},
-                                      {"true or false", true},
-                                      {"if(true, 0, 1)", 0},
-                                      {"if(false, 0, 1)", 1}
-                                  };
+            var expressions = new Dictionary<string, object> {
+                { "!true", false },
+                { "not false", true },
+                { "2 * 3", 6 },
+                { "6 / 2", 3d },
+                { "7 % 2", 1 },
+                { "2 + 3", 5 },
+                { "2 - 1", 1 },
+                { "1 < 2", true },
+                { "1 > 2", false },
+                { "1 <= 2", true },
+                { "1 <= 1", true },
+                { "1 >= 2", false },
+                { "1 >= 1", true },
+                { "1 = 1", true },
+                { "1 == 1", true },
+                { "1 != 1", false },
+                { "1 <> 1", false },
+                { "1 & 1", 1 },
+                { "1 | 1", 1 },
+                { "1 ^ 1", 0 },
+                { "~1", ~1 },
+                { "2 >> 1", 1 },
+                { "2 << 1", 4 },
+                { "true && false", false },
+                { "true and false", false },
+                { "true || false", true },
+                { "true or false", true },
+                { "if(true, 0, 1)", 0 },
+                { "if(false, 0, 1)", 1 }
+            };
 
-            foreach (KeyValuePair<string, object> pair in expressions)
-            {
-                Assert.Equal(pair.Value, new Expression(pair.Key).Evaluate());
-            }
-
+            foreach (var pair in expressions) Assert.Equal(pair.Value, new Expression(pair.Key).Evaluate());
         }
 
         [Fact]
-        public void ShouldHandleOperatorsPriority()
+        public void ShouldHandleOperatorsPriority ()
         {
             Assert.Equal(8, new Expression("2+2+2+2").Evaluate());
             Assert.Equal(16, new Expression("2*2*2*2").Evaluate());
@@ -348,13 +339,13 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldNotLoosePrecision()
+        public void ShouldNotLoosePrecision ()
         {
             Assert.Equal(0.5, new Expression("3/6").Evaluate());
         }
 
         [Fact]
-        public void ShouldThrowAnExpcetionWhenInvalidNumber()
+        public void ShouldThrowAnExpcetionWhenInvalidNumber ()
         {
             try
             {
@@ -368,19 +359,19 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldNotRoundDecimalValues()
+        public void ShouldNotRoundDecimalValues ()
         {
             Assert.Equal(false, new Expression("0 <= -0.6").Evaluate());
         }
 
         [Fact]
-        public void ShouldEvaluateTernaryExpression()
+        public void ShouldEvaluateTernaryExpression ()
         {
             Assert.Equal(1, new Expression("1+2<3 ? 3+4 : 1").Evaluate());
         }
 
         [Fact]
-        public void ShouldSerializeExpression()
+        public void ShouldSerializeExpression ()
         {
             Assert.Equal("True and False", new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false)).ToString());
             Assert.Equal("1 / 2", new BinaryExpression(BinaryExpressionType.Div, new ValueExpression(1), new ValueExpression(2)).ToString());
@@ -396,10 +387,10 @@ namespace Naninovel.NCalc.Tests
             Assert.Equal("1 + 2", new BinaryExpression(BinaryExpressionType.Plus, new ValueExpression(1), new ValueExpression(2)).ToString());
             Assert.Equal("1 * 2", new BinaryExpression(BinaryExpressionType.Times, new ValueExpression(1), new ValueExpression(2)).ToString());
 
-            Assert.Equal("-(True and False)",new UnaryExpression(UnaryExpressionType.Negate, new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false))).ToString());
-            Assert.Equal("!(True and False)",new UnaryExpression(UnaryExpressionType.Not, new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false))).ToString());
+            Assert.Equal("-(True and False)", new UnaryExpression(UnaryExpressionType.Negate, new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false))).ToString());
+            Assert.Equal("!(True and False)", new UnaryExpression(UnaryExpressionType.Not, new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false))).ToString());
 
-            Assert.Equal("test(True and False, -(True and False))",new Function(new Identifier("test"), new LogicalExpression[] { new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false)), new UnaryExpression(UnaryExpressionType.Negate, new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false))) }).ToString());
+            Assert.Equal("test(True and False, -(True and False))", new Function(new Identifier("test"), new LogicalExpression[] { new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false)), new UnaryExpression(UnaryExpressionType.Negate, new BinaryExpression(BinaryExpressionType.And, new ValueExpression(true), new ValueExpression(false))) }).ToString());
 
             Assert.Equal("True", new ValueExpression(true).ToString());
             Assert.Equal("False", new ValueExpression(false).ToString());
@@ -408,11 +399,11 @@ namespace Naninovel.NCalc.Tests
             Assert.Equal("'hello'", new ValueExpression("hello").ToString());
             Assert.Equal("#" + new DateTime(2009, 1, 1) + "#", new ValueExpression(new DateTime(2009, 1, 1)).ToString());
 
-            Assert.Equal("Sum(1 + 2)", new Function(new Identifier("Sum"), new [] { new BinaryExpression(BinaryExpressionType.Plus, new ValueExpression(1), new ValueExpression(2))}).ToString());
+            Assert.Equal("Sum(1 + 2)", new Function(new Identifier("Sum"), new[] { new BinaryExpression(BinaryExpressionType.Plus, new ValueExpression(1), new ValueExpression(2)) }).ToString());
         }
 
         [Fact]
-        public void ShouldHandleStringConcatenation()
+        public void ShouldHandleStringConcatenation ()
         {
             Assert.Equal("toto", new Expression("'to' + 'to'").Evaluate());
             Assert.Equal("one2", new Expression("'one' + 2").Evaluate());
@@ -420,7 +411,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldDetectSyntaxErrorsBeforeEvaluation()
+        public void ShouldDetectSyntaxErrorsBeforeEvaluation ()
         {
             var e = new Expression("a + b * (");
             Assert.Null(e.Error);
@@ -435,17 +426,17 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldReuseCompiledExpressionsInMultiThreadedMode()
+        public void ShouldReuseCompiledExpressionsInMultiThreadedMode ()
         {
             // Repeats the tests n times
-            for (int cpt = 0; cpt < 20; cpt++)
+            for (var cpt = 0; cpt < 20; cpt++)
             {
                 const int nbthreads = 30;
                 _exceptions = new List<Exception>();
                 var threads = new Thread[nbthreads];
 
                 // Starts threads
-                for (int i = 0; i < nbthreads; i++)
+                for (var i = 0; i < nbthreads; i++)
                 {
                     var thread = new Thread(WorkerThread);
                     thread.Start();
@@ -453,16 +444,14 @@ namespace Naninovel.NCalc.Tests
                 }
 
                 // Waits for end of threads
-                bool running = true;
+                var running = true;
                 while (running)
                 {
                     Thread.Sleep(100);
                     running = false;
-                    for (int i = 0; i < nbthreads; i++)
-                    {
+                    for (var i = 0; i < nbthreads; i++)
                         if (threads[i].ThreadState == ThreadState.Running)
                             running = true;
-                    }
                 }
 
                 if (_exceptions.Count > 0)
@@ -473,16 +462,14 @@ namespace Naninovel.NCalc.Tests
             }
         }
 
-        private List<Exception> _exceptions;
-
-        private void WorkerThread()
+        private void WorkerThread ()
         {
             try
             {
                 var r1 = new Random((int)DateTime.Now.Ticks);
                 var r2 = new Random((int)DateTime.Now.Ticks);
-                int n1 = r1.Next(10);
-                int n2 = r2.Next(10);
+                var n1 = r1.Next(10);
+                var n2 = r2.Next(10);
 
                 // Constructs a simple addition randomly. Odds are that the same expression gets constructed multiple times by different threads
                 var exp = n1 + " + " + n2;
@@ -496,7 +483,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleCaseSensitiveness()
+        public void ShouldHandleCaseSensitiveness ()
         {
             Assert.Equal(1M, new Expression("aBs(-1)", EvaluateOptions.IgnoreCase).Evaluate());
             Assert.Equal(1M, new Expression("Abs(-1)", EvaluateOptions.None).Evaluate());
@@ -518,12 +505,11 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleCustomParametersWhenNoSpecificParameterIsDefined()
+        public void ShouldHandleCustomParametersWhenNoSpecificParameterIsDefined ()
         {
             var e = new Expression("Round(Pow([Pi], 2) + Pow([Pi], 2) + 10, 2)");
 
-            e.EvaluateParameter += delegate(string name, ParameterArgs arg)
-            {
+            e.EvaluateParameter += delegate (string name, ParameterArgs arg) {
                 if (name == "Pi")
                     arg.Result = 3.14;
             };
@@ -532,32 +518,36 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleCustomFunctionsInFunctions()
+        public void ShouldHandleCustomFunctionsInFunctions ()
         {
             var e = new Expression("if(true, func1(x) + func2(func3(y)), 0)");
 
-            e.EvaluateFunction += delegate(string name, FunctionArgs arg)
-            {
+            e.EvaluateFunction += delegate (string name, FunctionArgs arg) {
                 switch (name)
                 {
-                    case "func1": arg.Result = 1;
+                    case "func1":
+                        arg.Result = 1;
                         break;
-                    case "func2": arg.Result = 2 * Convert.ToDouble(arg.Parameters[0].Evaluate());
+                    case "func2":
+                        arg.Result = 2 * Convert.ToDouble(arg.Parameters[0].Evaluate());
                         break;
-                    case "func3": arg.Result = 3 * Convert.ToDouble(arg.Parameters[0].Evaluate());
+                    case "func3":
+                        arg.Result = 3 * Convert.ToDouble(arg.Parameters[0].Evaluate());
                         break;
                 }
             };
 
-            e.EvaluateParameter += delegate(string name, ParameterArgs arg)
-            {
+            e.EvaluateParameter += delegate (string name, ParameterArgs arg) {
                 switch (name)
                 {
-                    case "x": arg.Result = 1;
+                    case "x":
+                        arg.Result = 1;
                         break;
-                    case "y": arg.Result = 2;
+                    case "y":
+                        arg.Result = 2;
                         break;
-                    case "z": arg.Result = 3;
+                    case "z":
+                        arg.Result = 3;
                         break;
                 }
             };
@@ -565,9 +555,8 @@ namespace Naninovel.NCalc.Tests
             Assert.Equal(13d, e.Evaluate());
         }
 
-
         [Fact]
-        public void ShouldParseScientificNotation()
+        public void ShouldParseScientificNotation ()
         {
             Assert.Equal(12.2d, new Expression("1.22e1").Evaluate());
             Assert.Equal(100d, new Expression("1e2").Evaluate());
@@ -578,10 +567,10 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldEvaluateArrayParameters()
+        public void ShouldEvaluateArrayParameters ()
         {
             var e = new Expression("x * x", EvaluateOptions.IterateParameters);
-            e.Parameters["x"] = new [] { 0, 1, 2, 3, 4 };
+            e.Parameters["x"] = new[] { 0, 1, 2, 3, 4 };
 
             var result = (IList)e.Evaluate();
 
@@ -593,12 +582,11 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void CustomFunctionShouldReturnNull()
+        public void CustomFunctionShouldReturnNull ()
         {
             var e = new Expression("SecretOperation(3, 6)");
 
-            e.EvaluateFunction += delegate(string name, FunctionArgs args)
-            {
+            e.EvaluateFunction += delegate (string name, FunctionArgs args) {
                 Assert.False(args.HasResult);
                 if (name == "SecretOperation")
                     args.Result = null;
@@ -609,12 +597,11 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void CustomParametersShouldReturnNull()
+        public void CustomParametersShouldReturnNull ()
         {
             var e = new Expression("x");
 
-            e.EvaluateParameter += delegate(string name, ParameterArgs args)
-            {
+            e.EvaluateParameter += delegate (string name, ParameterArgs args) {
                 Assert.False(args.HasResult);
                 if (name == "x")
                     args.Result = null;
@@ -625,21 +612,21 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldCompareDates()
+        public void ShouldCompareDates ()
         {
             Assert.Equal(true, new Expression("#1/1/2009#==#1/1/2009#").Evaluate());
             Assert.Equal(false, new Expression("#2/1/2009#==#1/1/2009#").Evaluate());
         }
 
         [Fact]
-        public void ShouldRoundAwayFromZero()
+        public void ShouldRoundAwayFromZero ()
         {
             Assert.Equal(22d, new Expression("Round(22.5, 0)").Evaluate());
             Assert.Equal(23d, new Expression("Round(22.5, 0)", EvaluateOptions.RoundAwayFromZero).Evaluate());
         }
 
         [Fact]
-        public void ShouldEvaluateSubExpressions()
+        public void ShouldEvaluateSubExpressions ()
         {
             var volume = new Expression("[surface] * h");
             var surface = new Expression("[l] * [L]");
@@ -652,19 +639,19 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldHandleLongValues()
+        public void ShouldHandleLongValues ()
         {
             Assert.Equal(40000000000 + 1f, new Expression("40000000000+1").Evaluate());
         }
 
         [Fact]
-        public void ShouldCompareLongValues()
+        public void ShouldCompareLongValues ()
         {
             Assert.Equal(false, new Expression("(0=1500000)||(((0+2200000000)-1500000)<0)").Evaluate());
         }
 
         [Fact]
-        public void ShouldDisplayErrorIfUncompatibleTypes()
+        public void ShouldDisplayErrorIfUncompatibleTypes ()
         {
             var e = new Expression("(a > b) + 10");
             e.Parameters["a"] = 1;
@@ -672,18 +659,10 @@ namespace Naninovel.NCalc.Tests
             Assert.Throws<InvalidOperationException>(() => e.Evaluate());
         }
 
-        [Theory]
-        [InlineData("(X1 = 1)/2", 0.5)]
-        [InlineData("(X1 = 1)*2", 2)]
-        [InlineData("(X1 = 1)+1", 2)]
-        [InlineData("(X1 = 1)-1", 0)]
-        [InlineData("2*(X1 = 1)", 2)]
-        [InlineData("2/(X1 = 1)", 2.0)]
-        [InlineData("1+(X1 = 1)", 2)]
-        [InlineData("1-(X1 = 1)", 0)]
-        public void ShouldOptionallyCalculateWithBoolean(string formula, object expectedValue)
+        [Theory, InlineData("(X1 = 1)/2", 0.5), InlineData("(X1 = 1)*2", 2), InlineData("(X1 = 1)+1", 2), InlineData("(X1 = 1)-1", 0), InlineData("2*(X1 = 1)", 2), InlineData("2/(X1 = 1)", 2.0), InlineData("1+(X1 = 1)", 2), InlineData("1-(X1 = 1)", 0)]
+        public void ShouldOptionallyCalculateWithBoolean (string formula, object expectedValue)
         {
-            var expression = new Expression(formula, EvaluateOptions.BooleanCalculation) {Parameters = {["X1"] = 1}};
+            var expression = new Expression(formula, EvaluateOptions.BooleanCalculation) { Parameters = { ["X1"] = 1 } };
 
             expression.Evaluate().Should().Be(expectedValue);
 
@@ -692,7 +671,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldNotConvertRealTypes()
+        public void ShouldNotConvertRealTypes ()
         {
             var e = new Expression("x/2");
             e.Parameters["x"] = 2F;
@@ -710,11 +689,10 @@ namespace Naninovel.NCalc.Tests
             e.Parameters["a"] = 20M;
             e.Parameters["b"] = 20M;
             Assert.Equal(100M, e.Evaluate());
-
         }
 
         [Fact]
-        public void ShouldShortCircuitBooleanExpressions()
+        public void ShouldShortCircuitBooleanExpressions ()
         {
             var e = new Expression("([a] != 0) && ([b]/[a]>2)");
             e.Parameters["a"] = 0;
@@ -723,7 +701,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldAddDoubleAndDecimal()
+        public void ShouldAddDoubleAndDecimal ()
         {
             var e = new Expression("1.8 + Abs([var1])");
             e.Parameters["var1"] = 9.2;
@@ -732,7 +710,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldSubtractDoubleAndDecimal()
+        public void ShouldSubtractDoubleAndDecimal ()
         {
             var e = new Expression("[double] - [decimal]");
             e.Parameters["double"] = 2D;
@@ -742,7 +720,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldMultiplyDoubleAndDecimal()
+        public void ShouldMultiplyDoubleAndDecimal ()
         {
             var e = new Expression("[double] * [decimal]");
             e.Parameters["double"] = 2D;
@@ -752,7 +730,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldDivideDoubleAndDecimal()
+        public void ShouldDivideDoubleAndDecimal ()
         {
             var e = new Expression("[double] / [decimal]");
             e.Parameters["double"] = 2D;
@@ -762,7 +740,7 @@ namespace Naninovel.NCalc.Tests
         }
 
         [Fact]
-        public void ShouldModDoubleAndDecimal()
+        public void ShouldModDoubleAndDecimal ()
         {
             var e = new Expression("[double] % [decimal]");
             e.Parameters["double"] = 2D;
@@ -771,17 +749,31 @@ namespace Naninovel.NCalc.Tests
             Assert.Equal(0m, e.Evaluate());
         }
 
-        [InlineData("Min(2,1.97)",1.97)]
-        [InlineData("Max(2,2.33)",2.33)]
-        [Theory]
-        public void ShouldCheckPrecisionOfBothParametersForMaxAndMin(string expression, double expected)
+        [InlineData("Min(2,1.97)", 1.97), InlineData("Max(2,2.33)", 2.33), Theory]
+        public void ShouldCheckPrecisionOfBothParametersForMaxAndMin (string expression, double expected)
         {
-            var e=new Expression(expression);
-            
+            var e = new Expression(expression);
+
             var result = e.Evaluate();
 
-            Assert.Equal(expected,result);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void HandlesNonEnglishFuncNames ()
+        {
+            var e = new Expression("функция()");
+
+            e.EvaluateFunction += delegate (string name, FunctionArgs arg) {
+                switch (name)
+                {
+                    case "функция":
+                        arg.Result = 7;
+                        break;
+                }
+            };
+
+            Assert.Equal(7, e.Evaluate());
         }
     }
 }
-

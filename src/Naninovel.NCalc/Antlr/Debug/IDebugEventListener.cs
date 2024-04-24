@@ -32,7 +32,6 @@
 
 namespace Naninovel.Antlr.Runtime.Debug
 {
-
     /** <summary>All debugging events that a recognizer can trigger.</summary>
      *
      *  <remarks>
@@ -46,7 +45,7 @@ namespace Naninovel.Antlr.Runtime.Debug
      */
     public interface IDebugEventListener
     {
-        void Initialize();
+        void Initialize ();
 
         /** <summary>
          *  The parser has just entered a rule.  No decision has been made about
@@ -56,14 +55,14 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  multiple grammar files.
          *  </summary>
          */
-        void EnterRule(string grammarFileName, string ruleName);
+        void EnterRule (string grammarFileName, string ruleName);
 
         /** <summary>
          *  Because rules can have lots of alternatives, it is very useful to
          *  know which alt you are entering.  This is 1..n for n alts.
          *  </summary>
          */
-        void EnterAlt(int alt);
+        void EnterAlt (int alt);
 
         /** <summary>
          *  This is the last thing executed before leaving a rule.  It is
@@ -74,12 +73,12 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  multiple grammar files.
          *  </summary>
          */
-        void ExitRule(string grammarFileName, string ruleName);
+        void ExitRule (string grammarFileName, string ruleName);
 
         /** <summary>Track entry into any (...) subrule other EBNF construct</summary> */
-        void EnterSubRule(int decisionNumber);
+        void EnterSubRule (int decisionNumber);
 
-        void ExitSubRule(int decisionNumber);
+        void ExitSubRule (int decisionNumber);
 
         /** <summary>
          *  Every decision, fixed k or arbitrary, has an enter/exit event
@@ -89,16 +88,16 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  loop iteration.
          *  </summary>
          */
-        void EnterDecision(int decisionNumber, bool couldBacktrack);
+        void EnterDecision (int decisionNumber, bool couldBacktrack);
 
-        void ExitDecision(int decisionNumber);
+        void ExitDecision (int decisionNumber);
 
         /** <summary>
          *  An input token was consumed; matched by any kind of element.
          *  Trigger after the token was matched by things like match(), matchAny().
          *  </summary>
          */
-        void ConsumeToken(IToken t);
+        void ConsumeToken (IToken t);
 
         /** <summary>
          *  An off-channel input token was consumed.
@@ -106,7 +105,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  (unless of course the hidden token is first stuff in the input stream).
          *  </summary>
          */
-        void ConsumeHiddenToken(IToken t);
+        void ConsumeHiddenToken (IToken t);
 
         /** <summary>
          *  Somebody (anybody) looked ahead.  Note that this actually gets
@@ -117,14 +116,14 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  even if the info is redundant.
          *  </summary>
          */
-        void LT(int i, IToken t);
+        void LT (int i, IToken t);
 
         /** <summary>
          *  The parser is going to look arbitrarily ahead; mark this location,
          *  the token stream's marker is sent in case you need it.
          *  </summary>
          */
-        void Mark(int marker);
+        void Mark (int marker);
 
         /** <summary>
          *  After an arbitrairly long lookahead as with a cyclic DFA (or with
@@ -132,7 +131,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  rewound to the position associated with marker.
          *  </summary>
          */
-        void Rewind(int marker);
+        void Rewind (int marker);
 
         /** <summary>
          *  Rewind to the input position of the last marker.
@@ -143,11 +142,11 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  and rewind(i) should balance still.
          *  </summary>
          */
-        void Rewind();
+        void Rewind ();
 
-        void BeginBacktrack(int level);
+        void BeginBacktrack (int level);
 
-        void EndBacktrack(int level, bool successful);
+        void EndBacktrack (int level, bool successful);
 
         /** <summary>
          *  To watch a parser move through the grammar, the parser needs to
@@ -161,7 +160,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  the parser whenever it hits this line/pos.
          *  </remarks>
          */
-        void Location(int line, int pos);
+        void Location (int line, int pos);
 
         /** <summary>
          *  A recognition exception occurred such as NoViableAltException.  I made
@@ -223,7 +222,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *		terminate
          *  </remarks>
          */
-        void RecognitionException(RecognitionException e);
+        void RecognitionException (RecognitionException e);
 
         /** <summary>
          *  Indicates the recognizer is about to consume tokens to resynchronize
@@ -231,7 +230,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  are not part of the parse--they are dead tokens.
          *  </summary>
          */
-        void BeginResync();
+        void BeginResync ();
 
         /** <summary>
          *  Indicates that the recognizer has finished consuming tokens in order
@@ -243,10 +242,10 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  a beginResync/endResync pair was tossed out by the parser.
          *  </summary>
          */
-        void EndResync();
+        void EndResync ();
 
         /** <summary>A semantic predicate was evaluate with this result and action text</summary> */
-        void SemanticPredicate(bool result, string predicate);
+        void SemanticPredicate (bool result, string predicate);
 
         /** <summary>
          *  Announce that parsing has begun.  Not technically useful except for
@@ -257,7 +256,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  figure this out).
          *  </summary>
          */
-        void Commence();
+        void Commence ();
 
         /** <summary>
          *  Parsing is over; successfully or not.  Mostly useful for telling
@@ -266,11 +265,9 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  parsing.
          *  </summary>
          */
-        void Terminate();
-
+        void Terminate ();
 
         #region Tree Parsing
-
         /** <summary>
          *  Input for a tree parser is an AST, but we know nothing for sure
          *  about a node except its type and text (obtained from the adaptor).
@@ -283,7 +280,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *
          *  <param name="t" />
          */
-        void ConsumeNode(object t);
+        void ConsumeNode (object t);
 
         /** <summary>
          *  The tree parser lookedahead.  If the type is UP or DOWN,
@@ -291,13 +288,10 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  just one UP node and one DOWN navigation node.
          *  </summary>
          */
-        void LT(int i, object t);
-
+        void LT (int i, object t);
         #endregion
 
-
         #region AST Events
-
         /** <summary>
          *  A nil was created (even nil nodes have a unique ID...
          *  they are not "null" per se).  As of 4/28/2006, this
@@ -311,7 +305,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  RemoteDebugEventSocketListener then only t.ID is set.
          *  </remarks>
          */
-        void NilNode(object t);
+        void NilNode (object t);
 
         /** <summary>
          *  Upon syntax error, recognizers bracket the error with an error node
@@ -320,17 +314,17 @@ namespace Naninovel.Antlr.Runtime.Debug
          *
          *  <param name="t"/>
          */
-        void ErrorNode(object t);
+        void ErrorNode (object t);
 
         /** <summary>Announce a new node built from token elements such as type etc...</summary>
-         * 
+         *
          *  <remarks>
          *  If you are receiving this event over a socket via
          *  RemoteDebugEventSocketListener then only t.ID, type, text are
          *  set.
          *  </remarks>
          */
-        void CreateNode(object t);
+        void CreateNode (object t);
 
         /** <summary>Announce a new node built from an existing token.</summary>
          *
@@ -340,7 +334,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  are set.
          *  </remarks>
          */
-        void CreateNode(object node, IToken token);
+        void CreateNode (object node, IToken token);
 
         /** <summary>Make a node the new root of an existing root.  See</summary>
          *
@@ -353,14 +347,14 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  The listener should assume that this event occurs
          *  only when the current subrule (or rule) subtree is
          *  being reset to newRootID.
-         * 
+         *
          *  If you are receiving this event over a socket via
          *  RemoteDebugEventSocketListener then only IDs are set.
          *  </remarks>
          *
          *  <seealso cref="Antlr.Runtime.Tree.TreeAdaptor.becomeRoot()"/>
          */
-        void BecomeRoot(object newRoot, object oldRoot);
+        void BecomeRoot (object newRoot, object oldRoot);
 
         /** <summary>Make childID a child of rootID.</summary>
          *
@@ -371,7 +365,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *
          *  <seealso cref="Antlr.Runtime.Tree.TreeAdaptor.addChild()"/>
          */
-        void AddChild(object root, object child);
+        void AddChild (object root, object child);
 
         /** <summary>Set the token start/stop token index for a subtree root or node.</summary>
          *
@@ -380,8 +374,7 @@ namespace Naninovel.Antlr.Runtime.Debug
          *  RemoteDebugEventSocketListener then only t.ID is set.
          *  </remarks>
          */
-        void SetTokenBoundaries(object t, int tokenStartIndex, int tokenStopIndex);
-
+        void SetTokenBoundaries (object t, int tokenStartIndex, int tokenStopIndex);
         #endregion
     }
 }

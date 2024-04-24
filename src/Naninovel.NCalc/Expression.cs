@@ -18,11 +18,9 @@ namespace Naninovel.NCalc
         /// </summary>
         protected string OriginalExpression;
 
-        public Expression(string expression) : this(expression, EvaluateOptions.None)
-        {
-        }
+        public Expression (string expression) : this(expression, EvaluateOptions.None) { }
 
-        public Expression(string expression, EvaluateOptions options)
+        public Expression (string expression, EvaluateOptions options)
         {
             if (String.IsNullOrEmpty(expression))
                 throw new
@@ -32,11 +30,9 @@ namespace Naninovel.NCalc
             Options = options;
         }
 
-        public Expression(LogicalExpression expression) : this(expression, EvaluateOptions.None)
-        {
-        }
+        public Expression (LogicalExpression expression) : this(expression, EvaluateOptions.None) { }
 
-        public Expression(LogicalExpression expression, EvaluateOptions options)
+        public Expression (LogicalExpression expression, EvaluateOptions options)
         {
             if (expression == null)
                 throw new
@@ -68,7 +64,7 @@ namespace Naninovel.NCalc
         /// <summary>
         /// Removed unused entries from cached compiled expression
         /// </summary>
-        private static void CleanCache()
+        private static void CleanCache ()
         {
             try
             {
@@ -87,14 +83,11 @@ namespace Naninovel.NCalc
                     //Debug.WriteLine("Cache entry released: " + key);
                 }
             }
-            finally
-            {
-            }
+            finally { }
         }
-
         #endregion
 
-        public static LogicalExpression Compile(string expression, bool nocache)
+        public static LogicalExpression Compile (string expression, bool nocache)
         {
             LogicalExpression logicalExpression = null;
 
@@ -156,7 +149,7 @@ namespace Naninovel.NCalc
         /// If errors are detected, the Error property contains the message.
         /// </summary>
         /// <returns>True if the expression syntax is correct, otherwiser False</returns>
-        public bool HasErrors()
+        public bool HasErrors ()
         {
             try
             {
@@ -185,7 +178,7 @@ namespace Naninovel.NCalc
         protected Dictionary<string, IEnumerator> ParameterEnumerators;
         protected Dictionary<string, object> ParametersBackup;
 
-        public Func<TResult> ToLambda<TResult>()
+        public Func<TResult> ToLambda<TResult> ()
         {
             if (HasErrors())
             {
@@ -210,7 +203,7 @@ namespace Naninovel.NCalc
             return lambda.Compile();
         }
 
-        public Func<TContext, TResult> ToLambda<TContext, TResult>() where TContext : class
+        public Func<TContext, TResult> ToLambda<TContext, TResult> () where TContext : class
         {
             if (HasErrors())
             {
@@ -236,7 +229,7 @@ namespace Naninovel.NCalc
             return lambda.Compile();
         }
 
-        public object Evaluate()
+        public object Evaluate ()
         {
             if (HasErrors())
             {
@@ -247,7 +240,6 @@ namespace Naninovel.NCalc
             {
                 ParsedExpression = Compile(OriginalExpression, (Options & EvaluateOptions.NoCache) == EvaluateOptions.NoCache);
             }
-
 
             var visitor = new EvaluationVisitor(Options);
             visitor.EvaluateFunction += EvaluateFunction;
@@ -322,7 +314,6 @@ namespace Naninovel.NCalc
 
             ParsedExpression.Accept(visitor);
             return visitor.Result;
-
         }
 
         public event EvaluateFunctionHandler EvaluateFunction;
@@ -335,6 +326,5 @@ namespace Naninovel.NCalc
             get { return _parameters ?? (_parameters = new Dictionary<string, object>()); }
             set { _parameters = value; }
         }
-
     }
 }

@@ -33,7 +33,6 @@
 namespace Naninovel.Antlr.Runtime
 {
     using Antlr.Runtime.Tree;
-
     using ArgumentException = System.ArgumentException;
     using ArgumentNullException = System.ArgumentNullException;
     using Exception = System.Exception;
@@ -122,32 +121,22 @@ namespace Naninovel.Antlr.Runtime
         private bool _approximateLineInfo;
 
         /** <summary>Used for remote debugger deserialization</summary> */
-        public RecognitionException()
-            : this("A recognition error occurred.", null, null)
-        {
-        }
+        public RecognitionException ()
+            : this("A recognition error occurred.", null, null) { }
 
-        public RecognitionException( IIntStream input )
-            : this("A recognition error occurred.", input, null)
-        {
-        }
+        public RecognitionException (IIntStream input)
+            : this("A recognition error occurred.", input, null) { }
 
-        public RecognitionException(string message)
-            : this(message, null, null)
-        {
-        }
+        public RecognitionException (string message)
+            : this(message, null, null) { }
 
-        public RecognitionException(string message, IIntStream input)
-            : this(message, input, null)
-        {
-        }
+        public RecognitionException (string message, IIntStream input)
+            : this(message, input, null) { }
 
-        public RecognitionException(string message, Exception innerException)
-            : this(message, null, innerException)
-        {
-        }
+        public RecognitionException (string message, Exception innerException)
+            : this(message, null, innerException) { }
 
-        public RecognitionException(string message, IIntStream input, Exception innerException)
+        public RecognitionException (string message, IIntStream input, Exception innerException)
             : base(message, innerException)
         {
             this._input = input;
@@ -183,8 +172,8 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        protected RecognitionException(SerializationInfo info, StreamingContext context)
-           // : base(info, context)
+        protected RecognitionException (SerializationInfo info, StreamingContext context)
+            // : base(info, context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -201,16 +190,16 @@ namespace Naninovel.Antlr.Runtime
         {
             get
             {
-                if ( _input is ITokenStream )
+                if (_input is ITokenStream)
                 {
                     return _token.Type;
                 }
 
                 ITreeNodeStream treeNodeStream = _input as ITreeNodeStream;
-                if ( treeNodeStream != null )
+                if (treeNodeStream != null)
                 {
                     ITreeAdaptor adaptor = treeNodeStream.TreeAdaptor;
-                    return adaptor.GetType( _node );
+                    return adaptor.GetType(_node);
                 }
 
                 return _c;
@@ -313,7 +302,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -326,7 +315,7 @@ namespace Naninovel.Antlr.Runtime
             info.AddValue("ApproximateLineInfo", _approximateLineInfo);
         }
 
-        protected virtual void ExtractInformationFromTreeNodeStream(ITreeNodeStream input)
+        protected virtual void ExtractInformationFromTreeNodeStream (ITreeNodeStream input)
         {
             this._node = input.LT(1);
             ITokenStreamInformation streamInformation = input as ITokenStreamInformation;

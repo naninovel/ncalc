@@ -48,28 +48,24 @@ namespace Naninovel.Antlr.Runtime.Tree
     {
         private readonly string _elementDescription;
 
-        public RewriteCardinalityException()
-        {
-        }
+        public RewriteCardinalityException () { }
 
-        public RewriteCardinalityException(string elementDescription)
+        public RewriteCardinalityException (string elementDescription)
             : this(elementDescription, elementDescription)
         {
             this._elementDescription = elementDescription;
         }
 
-        public RewriteCardinalityException(string elementDescription, Exception innerException)
-            : this(elementDescription, elementDescription, innerException)
-        {
-        }
+        public RewriteCardinalityException (string elementDescription, Exception innerException)
+            : this(elementDescription, elementDescription, innerException) { }
 
-        public RewriteCardinalityException(string message, string elementDescription)
+        public RewriteCardinalityException (string message, string elementDescription)
             : base(message)
         {
             _elementDescription = elementDescription;
         }
 
-        public RewriteCardinalityException(string message, string elementDescription, Exception innerException)
+        public RewriteCardinalityException (string message, string elementDescription, Exception innerException)
             : base(message, innerException)
         {
             _elementDescription = elementDescription;

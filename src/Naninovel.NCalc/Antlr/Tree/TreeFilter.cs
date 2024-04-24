@@ -37,61 +37,51 @@ namespace Naninovel.Antlr.Runtime.Tree
         protected ITokenStream originalTokenStream;
         protected ITreeAdaptor originalAdaptor;
 
-        public TreeFilter( ITreeNodeStream input )
-            : this( input, new RecognizerSharedState() )
-        {
-        }
-        public TreeFilter( ITreeNodeStream input, RecognizerSharedState state )
-            : base( input, state )
+        public TreeFilter (ITreeNodeStream input)
+            : this(input, new RecognizerSharedState()) { }
+        public TreeFilter (ITreeNodeStream input, RecognizerSharedState state)
+            : base(input, state)
         {
             originalAdaptor = input.TreeAdaptor;
             originalTokenStream = input.TokenStream;
         }
 
-        public virtual void ApplyOnce( object t, System.Action whichRule )
+        public virtual void ApplyOnce (object t, System.Action whichRule)
         {
-            if ( t == null )
+            if (t == null)
                 return;
 
             try
             {
                 // share TreeParser object but not parsing-related state
                 state = new RecognizerSharedState();
-                input = new CommonTreeNodeStream( originalAdaptor, t );
-                ( (CommonTreeNodeStream)input ).TokenStream = originalTokenStream;
+                input = new CommonTreeNodeStream(originalAdaptor, t);
+                ((CommonTreeNodeStream)input).TokenStream = originalTokenStream;
                 BacktrackingLevel = 1;
                 whichRule();
                 BacktrackingLevel = 0;
             }
-            catch ( RecognitionException )
-            {
-            }
+            catch (RecognitionException) { }
         }
 
-        public virtual void Downup( object t )
+        public virtual void Downup (object t)
         {
-            TreeVisitor v = new TreeVisitor( new CommonTreeAdaptor() );
-            System.Func<object, object> pre = ( o ) =>
-            {
-                ApplyOnce( o, Topdown );
+            TreeVisitor v = new TreeVisitor(new CommonTreeAdaptor());
+            System.Func<object, object> pre = (o) => {
+                ApplyOnce(o, Topdown);
                 return o;
             };
-            System.Func<object, object> post = ( o ) =>
-            {
-                ApplyOnce( o, Bottomup );
+            System.Func<object, object> post = (o) => {
+                ApplyOnce(o, Bottomup);
                 return o;
             };
-            v.Visit( t, pre, post );
+            v.Visit(t, pre, post);
         }
 
         // methods the downup strategy uses to do the up and down rules.
         // to override, just define tree grammar rule topdown and turn on
         // filter=true.
-        protected virtual void Topdown()
-        {
-        }
-        protected virtual void Bottomup()
-        {
-        }
+        protected virtual void Topdown () { }
+        protected virtual void Bottomup () { }
     }
 }

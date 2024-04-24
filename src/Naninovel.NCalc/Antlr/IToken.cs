@@ -32,7 +32,6 @@
 
 namespace Naninovel.Antlr.Runtime
 {
-
     public interface IToken
     {
         /** <summary>Get the text of the token</summary> */

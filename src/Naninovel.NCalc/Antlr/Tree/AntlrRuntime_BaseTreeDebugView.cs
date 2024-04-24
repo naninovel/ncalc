@@ -38,7 +38,7 @@ namespace Naninovel.Antlr.Runtime.Tree
     {
         private readonly BaseTree _tree;
 
-        public AntlrRuntime_BaseTreeDebugView(BaseTree tree)
+        public AntlrRuntime_BaseTreeDebugView (BaseTree tree)
         {
             _tree = tree;
         }

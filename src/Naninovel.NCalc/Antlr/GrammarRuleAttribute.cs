@@ -41,7 +41,7 @@ namespace Naninovel.Antlr.Runtime
     {
         private readonly string _name;
 
-        public GrammarRuleAttribute(string name)
+        public GrammarRuleAttribute (string name)
         {
             this._name = name;
         }

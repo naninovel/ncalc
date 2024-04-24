@@ -3,23 +3,23 @@ using System.Reflection;
 
 namespace Naninovel.NCalc.Domain
 {
-	public class ValueExpression : LogicalExpression
-	{
-        public ValueExpression(object value, ValueType type)
+    public class ValueExpression : LogicalExpression
+    {
+        public ValueExpression (object value, ValueType type)
         {
             Value = value;
             Type = type;
         }
 
-        public ValueExpression(object value)
+        public ValueExpression (object value)
         {
             switch (value.GetTypeCode())
             {
-                case TypeCode.Boolean :
+                case TypeCode.Boolean:
                     Type = ValueType.Boolean;
                     break;
 
-                case TypeCode.DateTime :
+                case TypeCode.DateTime:
                     Type = ValueType.DateTime;
                     break;
 
@@ -51,31 +51,31 @@ namespace Naninovel.NCalc.Domain
             Value = value;
         }
 
-        public ValueExpression(string value)
+        public ValueExpression (string value)
         {
             Value = value;
             Type = ValueType.String;
         }
 
-        public ValueExpression(int value)
+        public ValueExpression (int value)
         {
             Value = value;
             Type = ValueType.Integer;
         }
 
-        public ValueExpression(float value)
+        public ValueExpression (float value)
         {
             Value = value;
             Type = ValueType.Float;
         }
 
-        public ValueExpression(DateTime value)
+        public ValueExpression (DateTime value)
         {
             Value = value;
             Type = ValueType.DateTime;
         }
 
-        public ValueExpression(bool value)
+        public ValueExpression (bool value)
         {
             Value = value;
             Type = ValueType.Boolean;
@@ -84,18 +84,18 @@ namespace Naninovel.NCalc.Domain
         public object Value { get; set; }
         public ValueType Type { get; set; }
 
-        public override void Accept(LogicalExpressionVisitor visitor)
+        public override void Accept (LogicalExpressionVisitor visitor)
         {
             visitor.Visit(this);
         }
     }
 
-	public enum ValueType
-	{
-		Integer,
-		String,
-		DateTime,
-		Float,
-		Boolean
-	}
+    public enum ValueType
+    {
+        Integer,
+        String,
+        DateTime,
+        Float,
+        Boolean
+    }
 }

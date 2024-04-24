@@ -44,7 +44,7 @@ namespace Naninovel.Antlr.Runtime
      *
      *  You can't use this stream if you pass whitespace or other off-channel
      *  tokens to the parser. The stream can't ignore off-channel tokens.
-     * 
+     *
      *  You can only look backwards 1 token: LT(-1).
      *
      *  Use this when you need to read from a socket or other infinite stream.
@@ -61,7 +61,7 @@ namespace Naninovel.Antlr.Runtime
         /** Skip tokens on any channel but this one; this is how we skip whitespace... */
         protected int channel = TokenChannels.Default;
 
-        public UnbufferedTokenStream(ITokenSource tokenSource)
+        public UnbufferedTokenStream (ITokenSource tokenSource)
         {
             this.tokenSource = tokenSource;
         }
@@ -82,34 +82,34 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public override IToken NextElement()
+        public override IToken NextElement ()
         {
             IToken t = this.tokenSource.NextToken();
             t.TokenIndex = this.tokenIndex++;
             return t;
         }
 
-        public override bool IsEndOfFile(IToken o)
+        public override bool IsEndOfFile (IToken o)
         {
             return o.Type == CharStreamConstants.EndOfFile;
         }
 
-        public IToken Get(int i)
+        public IToken Get (int i)
         {
             throw new NotSupportedException("Absolute token indexes are meaningless in an unbuffered stream");
         }
 
-        public int LA(int i)
+        public int LA (int i)
         {
             return LT(i).Type;
         }
 
-        public string ToString(int start, int stop)
+        public string ToString (int start, int stop)
         {
             return "n/a";
         }
 
-        public string ToString(IToken start, IToken stop)
+        public string ToString (IToken start, IToken stop)
         {
             return "n/a";
         }

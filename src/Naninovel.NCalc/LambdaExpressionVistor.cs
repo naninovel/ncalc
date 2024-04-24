@@ -18,13 +18,13 @@ namespace Naninovel.NCalc
         private bool IgnoreCaseString { get { return (_options & EvaluateOptions.MatchStringsWithIgnoreCase) == EvaluateOptions.MatchStringsWithIgnoreCase; } }
         private bool Checked { get { return (_options & EvaluateOptions.OverflowProtection) == EvaluateOptions.OverflowProtection; } }
 
-        public LambdaExpressionVistor(IDictionary<string, object> parameters, EvaluateOptions options)
+        public LambdaExpressionVistor (IDictionary<string, object> parameters, EvaluateOptions options)
         {
             _parameters = parameters;
             _options = options;
         }
 
-        public LambdaExpressionVistor(L.ParameterExpression context, EvaluateOptions options)
+        public LambdaExpressionVistor (L.ParameterExpression context, EvaluateOptions options)
         {
             _context = context;
             _options = options;
@@ -32,12 +32,12 @@ namespace Naninovel.NCalc
 
         public L.Expression Result => _result;
 
-        public override void Visit(LogicalExpression expression)
+        public override void Visit (LogicalExpression expression)
         {
             throw new NotImplementedException();
         }
 
-        public override void Visit(TernaryExpression expression)
+        public override void Visit (TernaryExpression expression)
         {
             expression.LeftExpression.Accept(this);
             var test = _result;
@@ -51,7 +51,7 @@ namespace Naninovel.NCalc
             _result = L.Expression.Condition(test, ifTrue, ifFalse);
         }
 
-        public override void Visit(BinaryExpression expression)
+        public override void Visit (BinaryExpression expression)
         {
             expression.LeftExpression.Accept(this);
             var left = _result;
@@ -123,7 +123,7 @@ namespace Naninovel.NCalc
             }
         }
 
-        public override void Visit(UnaryExpression expression)
+        public override void Visit (UnaryExpression expression)
         {
             expression.Expression.Accept(this);
             switch (expression.Type)
@@ -142,12 +142,12 @@ namespace Naninovel.NCalc
             }
         }
 
-        public override void Visit(ValueExpression expression)
+        public override void Visit (ValueExpression expression)
         {
             _result = L.Expression.Constant(expression.Value);
         }
 
-        public override void Visit(Function function)
+        public override void Visit (Function function)
         {
             var args = new L.Expression[function.Expressions.Length];
             for (int i = 0; i < function.Expressions.Length; i++)
@@ -172,7 +172,7 @@ namespace Naninovel.NCalc
                 case "in":
                     var items = L.Expression.NewArrayInit(args[0].Type,
                         new ArraySegment<L.Expression>(args, 1, args.Length - 1));
-                    var smi = typeof (Array).GetRuntimeMethod("IndexOf", new[] { typeof(Array), typeof(object) });
+                    var smi = typeof(Array).GetRuntimeMethod("IndexOf", new[] { typeof(Array), typeof(object) });
                     var r = L.Expression.Call(smi, L.Expression.Convert(items, typeof(Array)), L.Expression.Convert(args[0], typeof(object)));
                     _result = L.Expression.GreaterThanOrEqual(r, L.Expression.Constant(0));
                     break;
@@ -198,7 +198,7 @@ namespace Naninovel.NCalc
             }
         }
 
-        public override void Visit(Identifier function)
+        public override void Visit (Identifier function)
         {
             if (_context == null)
             {
@@ -210,15 +210,15 @@ namespace Naninovel.NCalc
             }
         }
 
-        private ExtendedMethodInfo FindMethod(string methodName, L.Expression[] methodArgs) 
+        private ExtendedMethodInfo FindMethod (string methodName, L.Expression[] methodArgs)
         {
             var methods = _context.Type.GetTypeInfo().DeclaredMethods.Where(m => m.Name.Equals(methodName, StringComparison.OrdinalIgnoreCase) && m.IsPublic && !m.IsStatic);
-            foreach (var potentialMethod in methods) 
+            foreach (var potentialMethod in methods)
             {
                 var methodParams = potentialMethod.GetParameters();
                 var newArguments = PrepareMethodArgumentsIfValid(methodParams, methodArgs);
 
-                if (newArguments != null) 
+                if (newArguments != null)
                 {
                     return new ExtendedMethodInfo() { BaseMethodInfo = potentialMethod, PreparedArguments = newArguments };
                 }
@@ -227,7 +227,7 @@ namespace Naninovel.NCalc
             throw new MissingMethodException($"method not found: {methodName}");
         }
 
-        private L.Expression[] PrepareMethodArgumentsIfValid(ParameterInfo[] parameters, L.Expression[] arguments) 
+        private L.Expression[] PrepareMethodArgumentsIfValid (ParameterInfo[] parameters, L.Expression[] arguments)
         {
             if (!parameters.Any() && !arguments.Any()) return arguments;
             if (!parameters.Any()) return null;
@@ -240,43 +240,43 @@ namespace Naninovel.NCalc
             L.Expression[] paramsKeywordArgument = null;
             Type paramsElementType = null;
             int paramsParameterPosition = 0;
-            if (!hasParamsKeyword) 
+            if (!hasParamsKeyword)
             {
                 paramsMatchArguments &= parameters.Length == arguments.Length;
                 if (!paramsMatchArguments) return null;
-            } 
-            else 
+            }
+            else
             {
                 paramsParameterPosition = lastParameter.Position;
                 paramsElementType = lastParameter.ParameterType.GetElementType();
                 paramsKeywordArgument = new L.Expression[arguments.Length - parameters.Length + 1];
             }
-            
-            for (int i = 0; i < arguments.Length; i++) 
+
+            for (int i = 0; i < arguments.Length; i++)
             {
                 var isParamsElement = hasParamsKeyword && i >= paramsParameterPosition;
                 var argumentType = arguments[i].Type;
                 var parameterType = isParamsElement ? paramsElementType : parameters[i].ParameterType;
                 paramsMatchArguments &= argumentType == parameterType;
                 if (!paramsMatchArguments) return null;
-                if (!isParamsElement) 
+                if (!isParamsElement)
                 {
                     newArguments[i] = arguments[i];
-                } 
-                else 
+                }
+                else
                 {
                     paramsKeywordArgument[i - paramsParameterPosition] = arguments[i];
                 }
             }
 
-            if (hasParamsKeyword) 
+            if (hasParamsKeyword)
             {
                 newArguments[paramsParameterPosition] = L.Expression.NewArrayInit(paramsElementType, paramsKeywordArgument);
             }
             return newArguments;
         }
 
-        private L.Expression WithCommonNumericType(L.Expression left, L.Expression right,
+        private L.Expression WithCommonNumericType (L.Expression left, L.Expression right,
             Func<L.Expression, L.Expression, L.Expression> action, BinaryExpressionType expressiontype = BinaryExpressionType.Unknown)
         {
             left = UnwrapNullable(left);
@@ -295,8 +295,7 @@ namespace Naninovel.NCalc
                 }
             }
 
-            var precedence = new[]
-            {
+            var precedence = new[] {
                 typeof(decimal),
                 typeof(double),
                 typeof(float),
@@ -348,10 +347,10 @@ namespace Naninovel.NCalc
             return action(left, right);
         }
 
-        private L.Expression UnwrapNullable(L.Expression expression)
+        private L.Expression UnwrapNullable (L.Expression expression)
         {
             var ti = expression.Type.GetTypeInfo();
-            if (ti.IsGenericType && ti.GetGenericTypeDefinition() == typeof (Nullable<>))
+            if (ti.IsGenericType && ti.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 return L.Expression.Condition(
                     L.Expression.Property(expression, "HasValue"),

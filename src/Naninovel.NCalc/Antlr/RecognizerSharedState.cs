@@ -57,7 +57,7 @@ namespace Naninovel.Antlr.Runtime
          */
         //public List<BitSet> following;
         public BitSet[] following;
-        [CLSCompliant( false )]
+        [CLSCompliant(false)]
         public int _fsp;
 
         /** <summary>
@@ -106,10 +106,8 @@ namespace Naninovel.Antlr.Runtime
          */
         public IDictionary<int, int>[] ruleMemo;
 
-
         // LEXER FIELDS (must be in same state object to avoid casting
         //               constantly in generated code and Lexer object) :(
-
 
         /** <summary>
          *  The goal of all lexer rules/methods is to create a token object.
@@ -150,7 +148,7 @@ namespace Naninovel.Antlr.Runtime
          */
         public string text;
 
-        public RecognizerSharedState()
+        public RecognizerSharedState ()
         {
             //following = new List<BitSet>( BaseRecognizer.InitialFollowStackSize );
             following = new BitSet[BaseRecognizer.InitialFollowStackSize];
@@ -159,7 +157,7 @@ namespace Naninovel.Antlr.Runtime
             tokenStartCharIndex = -1;
         }
 
-        public RecognizerSharedState( RecognizerSharedState state )
+        public RecognizerSharedState (RecognizerSharedState state)
         {
             if (state == null)
                 throw new ArgumentNullException("state");
@@ -172,7 +170,7 @@ namespace Naninovel.Antlr.Runtime
             syntaxErrors = state.syntaxErrors;
             backtracking = state.backtracking;
 
-            if ( state.ruleMemo != null )
+            if (state.ruleMemo != null)
                 ruleMemo = (IDictionary<int, int>[])state.ruleMemo.Clone();
 
             token = state.token;

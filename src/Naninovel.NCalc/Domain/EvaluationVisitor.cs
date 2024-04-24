@@ -4,11 +4,9 @@ using System.Collections.Generic;
 
 namespace Naninovel.NCalc.Domain
 {
-
-
     public class EvaluationVisitor : LogicalExpressionVisitor
     {
-        private delegate T Func<T>();
+        private delegate T Func<T> ();
 
         private readonly EvaluateOptions _options = EvaluateOptions.None;
 
@@ -17,33 +15,33 @@ namespace Naninovel.NCalc.Domain
         private bool IgnoreCaseString { get { return (_options & EvaluateOptions.MatchStringsWithIgnoreCase) == EvaluateOptions.MatchStringsWithIgnoreCase; } }
         private bool Checked { get { return (_options & EvaluateOptions.OverflowProtection) == EvaluateOptions.OverflowProtection; } }
 
-        public EvaluationVisitor(EvaluateOptions options)
+        public EvaluationVisitor (EvaluateOptions options)
         {
             _options = options;
         }
 
         public object Result { get; private set; }
 
-        private object Evaluate(LogicalExpression expression)
+        private object Evaluate (LogicalExpression expression)
         {
             expression.Accept(this);
             return Result;
         }
 
-        public override void Visit(LogicalExpression expression)
+        public override void Visit (LogicalExpression expression)
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
         private static Type[] CommonTypes = new[] { typeof(Int64), typeof(Double), typeof(Boolean), typeof(String), typeof(Decimal) };
 
-    /// <summary>
+        /// <summary>
         /// Gets the the most precise type.
         /// </summary>
         /// <param name="a">Type a.</param>
         /// <param name="b">Type b.</param>
         /// <returns></returns>
-        private static Type GetMostPreciseType(Type a, Type b)
+        private static Type GetMostPreciseType (Type a, Type b)
         {
             foreach (Type t in CommonTypes)
             {
@@ -56,7 +54,7 @@ namespace Naninovel.NCalc.Domain
             return a ?? b;
         }
 
-        public int CompareUsingMostPreciseType(object a, object b)
+        public int CompareUsingMostPreciseType (object a, object b)
         {
             var allowNull = (_options & EvaluateOptions.AllowNullParameter) == EvaluateOptions.AllowNullParameter;
 
@@ -88,7 +86,7 @@ namespace Naninovel.NCalc.Domain
             //return Comparer.Default.Compare(Convert.ChangeType(a, mpt), Convert.ChangeType(b, mpt));
         }
 
-        public override void Visit(TernaryExpression expression)
+        public override void Visit (TernaryExpression expression)
         {
             // Evaluates the left expression and saves the value
             expression.LeftExpression.Accept(this);
@@ -104,30 +102,28 @@ namespace Naninovel.NCalc.Domain
             }
         }
 
-        private static bool IsReal(object value)
+        private static bool IsReal (object value)
         {
             var typeCode = value.GetTypeCode();
             return typeCode == TypeCode.Decimal || typeCode == TypeCode.Double || typeCode == TypeCode.Single;
         }
 
-        public override void Visit(BinaryExpression expression)
+        public override void Visit (BinaryExpression expression)
         {
             // simulate Lazy<Func<>> behavior for late evaluation
             object leftValue = null;
-            Func<object> left = () =>
-                                 {
-                                     if (leftValue == null)
-                                     {
-                                         expression.LeftExpression.Accept(this);
-                                         leftValue = Result;
-                                     }
-                                     return leftValue;
-                                 };
+            Func<object> left = () => {
+                if (leftValue == null)
+                {
+                    expression.LeftExpression.Accept(this);
+                    leftValue = Result;
+                }
+                return leftValue;
+            };
 
             // simulate Lazy<Func<>> behavior for late evaluation
             object rightValue = null;
-            Func<object> right = () =>
-            {
+            Func<object> right = () => {
                 if (rightValue == null)
                 {
                     expression.RightExpression.Accept(this);
@@ -151,8 +147,8 @@ namespace Naninovel.NCalc.Domain
                     // checked does nothing, and if they are int the result will only be same or smaller
                     // (since anything between 1 and 0 is not int and 0 is an exception anyway
                     Result = IsReal(left()) || IsReal(right())
-                                 ? Numbers.Divide(left(), right(), _options)
-                                 : Numbers.Divide(Convert.ToDouble(left()), right(), _options);
+                        ? Numbers.Divide(left(), right(), _options)
+                        : Numbers.Divide(Convert.ToDouble(left()), right(), _options);
                     break;
 
                 case BinaryExpressionType.Equal:
@@ -185,7 +181,6 @@ namespace Naninovel.NCalc.Domain
                         ? Numbers.SoustractChecked(left(), right(), _options)
                         : Numbers.Soustract(left(), right(), _options);
                     break;
-
 
                 case BinaryExpressionType.Modulo:
                     Result = Numbers.Modulo(left(), right());
@@ -220,21 +215,17 @@ namespace Naninovel.NCalc.Domain
                     Result = Convert.ToUInt16(left()) & Convert.ToUInt16(right());
                     break;
 
-
                 case BinaryExpressionType.BitwiseOr:
                     Result = Convert.ToUInt16(left()) | Convert.ToUInt16(right());
                     break;
-
 
                 case BinaryExpressionType.BitwiseXOr:
                     Result = Convert.ToUInt16(left()) ^ Convert.ToUInt16(right());
                     break;
 
-
                 case BinaryExpressionType.LeftShift:
                     Result = Convert.ToUInt16(left()) << Convert.ToUInt16(right());
                     break;
-
 
                 case BinaryExpressionType.RightShift:
                     Result = Convert.ToUInt16(left()) >> Convert.ToUInt16(right());
@@ -242,7 +233,7 @@ namespace Naninovel.NCalc.Domain
             }
         }
 
-        public override void Visit(UnaryExpression expression)
+        public override void Visit (UnaryExpression expression)
         {
             // Recursively evaluates the underlying expression
             expression.Expression.Accept(this);
@@ -263,24 +254,23 @@ namespace Naninovel.NCalc.Domain
             }
         }
 
-        public override void Visit(ValueExpression expression)
+        public override void Visit (ValueExpression expression)
         {
             Result = expression.Value;
         }
 
-        public override void Visit(Function function)
+        public override void Visit (Function function)
         {
-            var args = new FunctionArgs
-                           {
-                               Parameters = new Expression[function.Expressions.Length]
-                           };
+            var args = new FunctionArgs {
+                Parameters = new Expression[function.Expressions.Length]
+            };
 
             // Don't call parameters right now, instead let the function do it as needed.
             // Some parameters shouldn't be called, for instance, in a if(), the "not" value might be a division by zero
             // Evaluating every value could produce unexpected behaviour
-            for (int i = 0; i < function.Expressions.Length; i++ )
+            for (int i = 0; i < function.Expressions.Length; i++)
             {
-                args.Parameters[i] =  new Expression(function.Expressions[i], _options);
+                args.Parameters[i] = new Expression(function.Expressions[i], _options);
                 args.Parameters[i].EvaluateFunction += EvaluateFunction;
                 args.Parameters[i].EvaluateParameter += EvaluateParameter;
 
@@ -312,18 +302,17 @@ namespace Naninovel.NCalc.Domain
                     if (useDouble)
                     {
                         Result = Math.Abs(Convert.ToDouble(
-                                                  Evaluate(function.Expressions[0]))
+                            Evaluate(function.Expressions[0]))
                         );
                     }
                     else
                     {
                         Result = Math.Abs(Convert.ToDecimal(
-                                                  Evaluate(function.Expressions[0]))
+                            Evaluate(function.Expressions[0]))
                         );
                     }
 
                     break;
-
                 #endregion
 
                 #region Acos
@@ -337,7 +326,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Acos(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Asin
@@ -351,7 +339,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Asin(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Atan
@@ -365,7 +352,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Atan(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Ceiling
@@ -379,11 +365,9 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Ceiling(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Cos
-
                 case "cos":
 
                     CheckCase("Cos", function.Identifier.Name);
@@ -394,7 +378,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Cos(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Exp
@@ -408,7 +391,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Exp(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Floor
@@ -422,7 +404,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Floor(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region IEEERemainder
@@ -436,7 +417,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.IEEERemainder(Convert.ToDouble(Evaluate(function.Expressions[0])), Convert.ToDouble(Evaluate(function.Expressions[1])));
 
                     break;
-
                 #endregion
 
                 #region Log
@@ -450,7 +430,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Log(Convert.ToDouble(Evaluate(function.Expressions[0])), Convert.ToDouble(Evaluate(function.Expressions[1])));
 
                     break;
-
                 #endregion
 
                 #region Log10
@@ -464,7 +443,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Log10(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Pow
@@ -478,7 +456,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Pow(Convert.ToDouble(Evaluate(function.Expressions[0])), Convert.ToDouble(Evaluate(function.Expressions[1])));
 
                     break;
-
                 #endregion
 
                 #region Round
@@ -494,7 +471,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Round(Convert.ToDouble(Evaluate(function.Expressions[0])), Convert.ToInt16(Evaluate(function.Expressions[1])), rounding);
 
                     break;
-
                 #endregion
 
                 #region Sign
@@ -508,7 +484,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Sign(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Sin
@@ -522,7 +497,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Sin(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Sqrt
@@ -536,7 +510,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Sqrt(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Tan
@@ -550,7 +523,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Tan(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Truncate
@@ -564,7 +536,6 @@ namespace Naninovel.NCalc.Domain
                     Result = Math.Truncate(Convert.ToDouble(Evaluate(function.Expressions[0])));
 
                     break;
-
                 #endregion
 
                 #region Max
@@ -580,7 +551,6 @@ namespace Naninovel.NCalc.Domain
 
                     Result = Numbers.Max(maxleft, maxright);
                     break;
-
                 #endregion
 
                 #region Min
@@ -596,7 +566,6 @@ namespace Naninovel.NCalc.Domain
 
                     Result = Numbers.Min(minleft, minright);
                     break;
-
                 #endregion
 
                 #region if
@@ -611,7 +580,6 @@ namespace Naninovel.NCalc.Domain
 
                     Result = cond ? Evaluate(function.Expressions[1]) : Evaluate(function.Expressions[2]);
                     break;
-
                 #endregion
 
                 #region in
@@ -639,7 +607,6 @@ namespace Naninovel.NCalc.Domain
 
                     Result = evaluation;
                     break;
-
                 #endregion
 
                 default:
@@ -648,7 +615,7 @@ namespace Naninovel.NCalc.Domain
             }
         }
 
-        private void CheckCase(string function, string called)
+        private void CheckCase (string function, string called)
         {
             if (IgnoreCase)
             {
@@ -668,13 +635,13 @@ namespace Naninovel.NCalc.Domain
 
         public event EvaluateFunctionHandler EvaluateFunction;
 
-        private void OnEvaluateFunction(string name, FunctionArgs args)
+        private void OnEvaluateFunction (string name, FunctionArgs args)
         {
             if (EvaluateFunction != null)
                 EvaluateFunction(name, args);
         }
 
-        public override void Visit(Identifier parameter)
+        public override void Visit (Identifier parameter)
         {
             if (Parameters.ContainsKey(parameter.Name))
             {
@@ -715,13 +682,12 @@ namespace Naninovel.NCalc.Domain
 
         public event EvaluateParameterHandler EvaluateParameter;
 
-        private void OnEvaluateParameter(string name, ParameterArgs args)
+        private void OnEvaluateParameter (string name, ParameterArgs args)
         {
             if (EvaluateParameter != null)
                 EvaluateParameter(name, args);
         }
 
         public Dictionary<string, object> Parameters { get; set; }
-
     }
 }

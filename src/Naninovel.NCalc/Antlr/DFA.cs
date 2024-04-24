@@ -38,7 +38,7 @@ namespace Naninovel.Antlr.Runtime
     using Console = OutputStreamHost;
     using IDebugEventListener = Antlr.Runtime.Debug.IDebugEventListener;
 
-    public delegate int SpecialStateTransitionHandler( DFA dfa, int s, IIntStream input );
+    public delegate int SpecialStateTransitionHandler (DFA dfa, int s, IIntStream input);
 
     /** <summary>A DFA implemented as a set of transition tables.</summary>
      *
@@ -70,14 +70,12 @@ namespace Naninovel.Antlr.Runtime
 
         public readonly bool debug = false;
 
-        public DFA()
-            : this( new SpecialStateTransitionHandler( SpecialStateTransitionDefault ) )
-        {
-        }
+        public DFA ()
+            : this(new SpecialStateTransitionHandler(SpecialStateTransitionDefault)) { }
 
-        public DFA( SpecialStateTransitionHandler specialStateTransition )
+        public DFA (SpecialStateTransitionHandler specialStateTransition)
         {
-            this.SpecialStateTransition = specialStateTransition ?? new SpecialStateTransitionHandler( SpecialStateTransitionDefault );
+            this.SpecialStateTransition = specialStateTransition ?? new SpecialStateTransitionHandler(SpecialStateTransitionDefault);
         }
 
         public virtual string Description
@@ -95,64 +93,64 @@ namespace Naninovel.Antlr.Runtime
          *  an exception upon error.
          *  </summary>
          */
-        public virtual int Predict( IIntStream input )
+        public virtual int Predict (IIntStream input)
         {
-            if ( debug )
+            if (debug)
             {
-                Console.Error.WriteLine( "Enter DFA.predict for decision " + decisionNumber );
+                Console.Error.WriteLine("Enter DFA.predict for decision " + decisionNumber);
             }
             int mark = input.Mark(); // remember where decision started in input
             int s = 0; // we always start at s0
             try
             {
-                for ( ; ; )
+                for (;;)
                 {
-                    if ( debug )
-                        Console.Error.WriteLine( "DFA " + decisionNumber + " state " + s + " LA(1)=" + (char)input.LA( 1 ) + "(" + input.LA( 1 ) +
-                                           "), index=" + input.Index );
+                    if (debug)
+                        Console.Error.WriteLine("DFA " + decisionNumber + " state " + s + " LA(1)=" + (char)input.LA(1) + "(" + input.LA(1) +
+                                                "), index=" + input.Index);
                     int specialState = special[s];
-                    if ( specialState >= 0 )
+                    if (specialState >= 0)
                     {
-                        if ( debug )
+                        if (debug)
                         {
-                            Console.Error.WriteLine( "DFA " + decisionNumber +
-                                " state " + s + " is special state " + specialState );
+                            Console.Error.WriteLine("DFA " + decisionNumber +
+                                                    " state " + s + " is special state " + specialState);
                         }
-                        s = SpecialStateTransition( this, specialState, input );
-                        if ( debug )
+                        s = SpecialStateTransition(this, specialState, input);
+                        if (debug)
                         {
-                            Console.Error.WriteLine( "DFA " + decisionNumber +
-                                " returns from special state " + specialState + " to " + s );
+                            Console.Error.WriteLine("DFA " + decisionNumber +
+                                                    " returns from special state " + specialState + " to " + s);
                         }
-                        if ( s == -1 )
+                        if (s == -1)
                         {
-                            NoViableAlt( s, input );
+                            NoViableAlt(s, input);
                             return 0;
                         }
                         input.Consume();
                         continue;
                     }
-                    if ( accept[s] >= 1 )
+                    if (accept[s] >= 1)
                     {
-                        if ( debug )
-                            Console.Error.WriteLine( "accept; predict " + accept[s] + " from state " + s );
+                        if (debug)
+                            Console.Error.WriteLine("accept; predict " + accept[s] + " from state " + s);
                         return accept[s];
                     }
                     // look for a normal char transition
-                    char c = (char)input.LA( 1 ); // -1 == \uFFFF, all tokens fit in 65000 space
-                    if ( c >= min[s] && c <= max[s] )
+                    char c = (char)input.LA(1); // -1 == \uFFFF, all tokens fit in 65000 space
+                    if (c >= min[s] && c <= max[s])
                     {
                         int snext = transition[s][c - min[s]]; // move to next state
-                        if ( snext < 0 )
+                        if (snext < 0)
                         {
                             // was in range but not a normal transition
                             // must check EOT, which is like the else clause.
                             // eot[s]>=0 indicates that an EOT edge goes to another
                             // state.
-                            if ( eot[s] >= 0 )
-                            {  // EOT Transition to accept state?
-                                if ( debug )
-                                    Console.Error.WriteLine( "EOT transition" );
+                            if (eot[s] >= 0)
+                            { // EOT Transition to accept state?
+                                if (debug)
+                                    Console.Error.WriteLine("EOT transition");
                                 s = eot[s];
                                 input.Consume();
                                 // TODO: I had this as return accept[eot[s]]
@@ -162,70 +160,68 @@ namespace Naninovel.Antlr.Runtime
                                 // target?
                                 continue;
                             }
-                            NoViableAlt( s, input );
+                            NoViableAlt(s, input);
                             return 0;
                         }
                         s = snext;
                         input.Consume();
                         continue;
                     }
-                    if ( eot[s] >= 0 )
-                    {  // EOT Transition?
-                        if ( debug )
-                            Console.Error.WriteLine( "EOT transition" );
+                    if (eot[s] >= 0)
+                    { // EOT Transition?
+                        if (debug)
+                            Console.Error.WriteLine("EOT transition");
                         s = eot[s];
                         input.Consume();
                         continue;
                     }
-                    if ( c == unchecked( (char)TokenTypes.EndOfFile ) && eof[s] >= 0 )
-                    {  // EOF Transition to accept state?
-                        if ( debug )
-                            Console.Error.WriteLine( "accept via EOF; predict " + accept[eof[s]] + " from " + eof[s] );
+                    if (c == unchecked((char)TokenTypes.EndOfFile) && eof[s] >= 0)
+                    { // EOF Transition to accept state?
+                        if (debug)
+                            Console.Error.WriteLine("accept via EOF; predict " + accept[eof[s]] + " from " + eof[s]);
                         return accept[eof[s]];
                     }
                     // not in range and not EOF/EOT, must be invalid symbol
-                    if ( debug )
+                    if (debug)
                     {
-                        Console.Error.WriteLine( "min[" + s + "]=" + min[s] );
-                        Console.Error.WriteLine( "max[" + s + "]=" + max[s] );
-                        Console.Error.WriteLine( "eot[" + s + "]=" + eot[s] );
-                        Console.Error.WriteLine( "eof[" + s + "]=" + eof[s] );
-                        for ( int p = 0; p < transition[s].Length; p++ )
+                        Console.Error.WriteLine("min[" + s + "]=" + min[s]);
+                        Console.Error.WriteLine("max[" + s + "]=" + max[s]);
+                        Console.Error.WriteLine("eot[" + s + "]=" + eot[s]);
+                        Console.Error.WriteLine("eof[" + s + "]=" + eof[s]);
+                        for (int p = 0; p < transition[s].Length; p++)
                         {
-                            Console.Error.Write( transition[s][p] + " " );
+                            Console.Error.Write(transition[s][p] + " ");
                         }
                         Console.Error.WriteLine();
                     }
-                    NoViableAlt( s, input );
+                    NoViableAlt(s, input);
                     return 0;
                 }
             }
             finally
             {
-                input.Rewind( mark );
+                input.Rewind(mark);
             }
         }
 
-        protected virtual void NoViableAlt( int s, IIntStream input )
+        protected virtual void NoViableAlt (int s, IIntStream input)
         {
-            if ( recognizer.state.backtracking > 0 )
+            if (recognizer.state.backtracking > 0)
             {
                 recognizer.state.failed = true;
                 return;
             }
             NoViableAltException nvae =
-                new NoViableAltException( Description,
-                                         decisionNumber,
-                                         s,
-                                         input );
-            Error( nvae );
+                new NoViableAltException(Description,
+                    decisionNumber,
+                    s,
+                    input);
+            Error(nvae);
             throw nvae;
         }
 
         /** <summary>A hook for debugging interface</summary> */
-        public virtual void Error( NoViableAltException nvae )
-        {
-        }
+        public virtual void Error (NoViableAltException nvae) { }
 
         public SpecialStateTransitionHandler SpecialStateTransition
         {
@@ -237,7 +233,7 @@ namespace Naninovel.Antlr.Runtime
         //    return -1;
         //}
 
-        static int SpecialStateTransitionDefault( DFA dfa, int s, IIntStream input )
+        static int SpecialStateTransitionDefault (DFA dfa, int s, IIntStream input)
         {
             return -1;
         }
@@ -249,22 +245,22 @@ namespace Naninovel.Antlr.Runtime
          *  compile. :(
          *  </summary>
          */
-        public static short[] UnpackEncodedString( string encodedString )
+        public static short[] UnpackEncodedString (string encodedString)
         {
             // walk first to find how big it is.
             int size = 0;
-            for ( int i = 0; i < encodedString.Length; i += 2 )
+            for (int i = 0; i < encodedString.Length; i += 2)
             {
                 size += encodedString[i];
             }
             short[] data = new short[size];
             int di = 0;
-            for ( int i = 0; i < encodedString.Length; i += 2 )
+            for (int i = 0; i < encodedString.Length; i += 2)
             {
                 char n = encodedString[i];
                 char v = encodedString[i + 1];
                 // add v n times to data
-                for ( int j = 1; j <= n; j++ )
+                for (int j = 1; j <= n; j++)
                 {
                     data[di++] = (short)v;
                 }
@@ -273,22 +269,22 @@ namespace Naninovel.Antlr.Runtime
         }
 
         /** <summary>Hideous duplication of code, but I need different typed arrays out :(</summary> */
-        public static char[] UnpackEncodedStringToUnsignedChars( string encodedString )
+        public static char[] UnpackEncodedStringToUnsignedChars (string encodedString)
         {
             // walk first to find how big it is.
             int size = 0;
-            for ( int i = 0; i < encodedString.Length; i += 2 )
+            for (int i = 0; i < encodedString.Length; i += 2)
             {
                 size += encodedString[i];
             }
             char[] data = new char[size];
             int di = 0;
-            for ( int i = 0; i < encodedString.Length; i += 2 )
+            for (int i = 0; i < encodedString.Length; i += 2)
             {
                 char n = encodedString[i];
                 char v = encodedString[i + 1];
                 // add v n times to data
-                for ( int j = 1; j <= n; j++ )
+                for (int j = 1; j <= n; j++)
                 {
                     data[di++] = v;
                 }
@@ -297,7 +293,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugRecognitionException(RecognitionException ex)
+        protected virtual void DebugRecognitionException (RecognitionException ex)
         {
             IDebugEventListener dbg = recognizer.DebugListener;
             if (dbg != null)

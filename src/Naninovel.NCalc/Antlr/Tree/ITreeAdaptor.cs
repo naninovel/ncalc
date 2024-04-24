@@ -32,7 +32,6 @@
 
 namespace Naninovel.Antlr.Runtime.Tree
 {
-
     /** <summary>
      *  How to create and navigate trees.  Rather than have a separate factory
      *  and adaptor, I've merged them.  Makes sense to encapsulate.
@@ -49,7 +48,6 @@ namespace Naninovel.Antlr.Runtime.Tree
     public interface ITreeAdaptor
     {
         #region Construction
-
         /** <summary>
          *  Create a tree node from Token object; for CommonTree type trees,
          *  then the token just becomes the payload.  This is the most
@@ -60,7 +58,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  Override if you want another kind of node to be built.
          *  </remarks>
          */
-        object Create(IToken payload);
+        object Create (IToken payload);
 
         /** <summary>
          *  Create a new node derived from a token, with a new token type.
@@ -72,7 +70,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  This should invoke createToken(Token).
          *  </remarks>
          */
-        object Create(int tokenType, IToken fromToken);
+        object Create (int tokenType, IToken fromToken);
 
         /** <summary>
          *  Same as create(tokenType,fromToken) except set the text too.
@@ -84,7 +82,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  This should invoke createToken(Token).
          *  </remarks>
          */
-        object Create(int tokenType, IToken fromToken, string text);
+        object Create (int tokenType, IToken fromToken, string text);
 
         /** <summary>
          *  Same as create(fromToken) except set the text too.
@@ -96,7 +94,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  This should invoke createToken(Token).
          *  </remarks>
          */
-        object Create(IToken fromToken, string text);
+        object Create (IToken fromToken, string text);
 
         /** <summary>
          *  Create a new node derived from a token, with a new token type.
@@ -108,21 +106,21 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  This should invoke createToken(int,String).
          *  </remarks>
          */
-        object Create(int tokenType, string text);
+        object Create (int tokenType, string text);
 
         /** <summary>Duplicate a single tree node.</summary>
          *  <remarks>Override if you want another kind of node to be built.</remarks>
          */
-        object DupNode(object treeNode);
+        object DupNode (object treeNode);
 
-        object DupNode(int type, object treeNode);
+        object DupNode (int type, object treeNode);
 
-        object DupNode(object treeNode, string text);
+        object DupNode (object treeNode, string text);
 
-        object DupNode(int type, object treeNode, string text);
+        object DupNode (int type, object treeNode, string text);
 
         /** <summary>Duplicate tree recursively, using dupNode() for each node</summary> */
-        object DupTree( object tree );
+        object DupTree (object tree);
 
         /** <summary>
          *  Return a nil node (an empty but non-null node) that can hold
@@ -130,7 +128,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  use "t=adaptor.nil(); t.addChild(x); t.addChild(y);"
          *  </summary>
          */
-        object Nil();
+        object Nil ();
 
         /** <summary>
          *  Return a tree node representing an error.  This node records the
@@ -150,10 +148,10 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  succeed.
          *  </remarks>
          */
-        object ErrorNode( ITokenStream input, IToken start, IToken stop, RecognitionException e );
+        object ErrorNode (ITokenStream input, IToken start, IToken stop, RecognitionException e);
 
         /** <summary>Is tree considered a nil node used to make lists of child nodes?</summary> */
-        bool IsNil( object tree );
+        bool IsNil (object tree);
 
         /** <summary>
          *  Add a child to the tree t.  If child is a flat tree (a list), make all
@@ -164,7 +162,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  ASTs.  Do nothing if t or child is null.
          *  </summary>
          */
-        void AddChild( object t, object child );
+        void AddChild (object t, object child);
 
         /** <summary>
          *  If oldRoot is a nil root, just copy or move the children to newRoot.
@@ -196,7 +194,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  efficiency.
          *  </remarks>
          */
-        object BecomeRoot( object newRoot, object oldRoot );
+        object BecomeRoot (object newRoot, object oldRoot);
 
         /** <summary>
          *  Given the root of the subtree created for this rule, post process
@@ -215,7 +213,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  before setTokenBoundaries().
          *  </remarks>
          */
-        object RulePostProcessing( object root );
+        object RulePostProcessing (object root);
 
         /** <summary>For identifying trees.</summary>
          *
@@ -225,8 +223,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  usually.
          *  </remarks>
          */
-        int GetUniqueID( object node );
-
+        int GetUniqueID (object node);
 
         // R e w r i t e  R u l e s
 
@@ -247,23 +244,20 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  to not inherits from the TreeAdaptor.
          *  </remarks>
          */
-        object BecomeRoot( IToken newRoot, object oldRoot );
-
+        object BecomeRoot (IToken newRoot, object oldRoot);
         #endregion
 
-
         #region Content
-
         /** <summary>For tree parsing, I need to know the token type of a node</summary> */
-        int GetType( object t );
+        int GetType (object t);
 
         /** <summary>Node constructors can set the type of a node</summary> */
-        void SetType( object t, int type );
+        void SetType (object t, int type);
 
-        string GetText( object t );
+        string GetText (object t);
 
         /** <summary>Node constructors can set the text of a node</summary> */
-        void SetText( object t, string text );
+        void SetText (object t, string text);
 
         /** <summary>
          *  Return the token object from which this node was created.
@@ -276,7 +270,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  BaseRecognizer.getErrorMessage().
          *  </summary>
          */
-        IToken GetToken( object t );
+        IToken GetToken (object t);
 
         /** <summary>
          *  Where are the bounds in the input token stream for this node and
@@ -286,30 +280,27 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  That node would contain the start/stop indexes then.
          *  </summary>
          */
-        void SetTokenBoundaries( object t, IToken startToken, IToken stopToken );
+        void SetTokenBoundaries (object t, IToken startToken, IToken stopToken);
 
         /** <summary>Get the token start index for this subtree; return -1 if no such index</summary> */
-        int GetTokenStartIndex( object t );
+        int GetTokenStartIndex (object t);
 
         /** <summary>Get the token stop index for this subtree; return -1 if no such index</summary> */
-        int GetTokenStopIndex( object t );
-
+        int GetTokenStopIndex (object t);
         #endregion
 
-
         #region Navigation / Tree Parsing
-
         /** <summary>Get a child 0..n-1 node</summary> */
-        object GetChild( object t, int i );
+        object GetChild (object t, int i);
 
         /** <summary>Set ith child (0..n-1) to t; t must be non-null and non-nil node</summary> */
-        void SetChild( object t, int i, object child );
+        void SetChild (object t, int i, object child);
 
         /** <summary>Remove ith child and shift children down from right.</summary> */
-        object DeleteChild( object t, int i );
+        object DeleteChild (object t, int i);
 
         /** <summary>How many children?  If 0, then this is a leaf node</summary> */
-        int GetChildCount( object t );
+        int GetChildCount (object t);
 
         /** <summary>
          *  Who is the parent node of this node; if null, implies node is root.
@@ -317,8 +308,8 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  in tree parsers need this functionality.
          *  </summary>
          */
-        object GetParent( object t );
-        void SetParent( object t, object parent );
+        object GetParent (object t);
+        void SetParent (object t, object parent);
 
         /** <summary>
          *  What index is this node in the child list? Range: 0..n-1
@@ -326,8 +317,8 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  in tree parsers need this functionality.
          *  </summary>
          */
-        int GetChildIndex( object t );
-        void SetChildIndex( object t, int index );
+        int GetChildIndex (object t);
+        void SetChildIndex (object t, int index);
 
         /** <summary>
          *  Replace from start to stop child index of parent with t, which might
@@ -339,8 +330,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  Can't replace whatever points to the parent externally.  Do nothing.
          *  </remarks>
          */
-        void ReplaceChildren( object parent, int startChildIndex, int stopChildIndex, object t );
-
+        void ReplaceChildren (object parent, int startChildIndex, int stopChildIndex, object t);
         #endregion
     }
 }

@@ -33,7 +33,6 @@
 namespace Naninovel.Antlr.Runtime
 {
     using System.Collections.Generic;
-
     using InvalidOperationException = System.InvalidOperationException;
     using StringBuilder = System.Text.StringBuilder;
 
@@ -52,16 +51,12 @@ namespace Naninovel.Antlr.Runtime
         /** Skip tokens on any channel but this one; this is how we skip whitespace... */
         private int _channel;
 
-        public CommonTokenStream()
-        {
-        }
+        public CommonTokenStream () { }
 
-        public CommonTokenStream(ITokenSource tokenSource)
-            : this(tokenSource, TokenChannels.Default)
-        {
-        }
+        public CommonTokenStream (ITokenSource tokenSource)
+            : this(tokenSource, TokenChannels.Default) { }
 
-        public CommonTokenStream(ITokenSource tokenSource, int channel)
+        public CommonTokenStream (ITokenSource tokenSource, int channel)
             : base(tokenSource)
         {
             this._channel = channel;
@@ -90,7 +85,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         /** Always leave p on an on-channel token. */
-        public override void Consume()
+        public override void Consume ()
         {
             if (_p == -1)
                 Setup();
@@ -98,7 +93,7 @@ namespace Naninovel.Antlr.Runtime
             _p = SkipOffTokenChannels(_p);
         }
 
-        protected override IToken LB(int k)
+        protected override IToken LB (int k)
         {
             if (k == 0 || (_p - k) < 0)
                 return null;
@@ -117,7 +112,7 @@ namespace Naninovel.Antlr.Runtime
             return _tokens[i];
         }
 
-        public override IToken LT(int k)
+        public override IToken LT (int k)
         {
             if (_p == -1)
                 Setup();
@@ -144,7 +139,7 @@ namespace Naninovel.Antlr.Runtime
         /** Given a starting index, return the index of the first on-channel
          *  token.
          */
-        protected virtual int SkipOffTokenChannels(int i)
+        protected virtual int SkipOffTokenChannels (int i)
         {
             Sync(i);
             while (_tokens[i].Channel != _channel)
@@ -156,7 +151,7 @@ namespace Naninovel.Antlr.Runtime
             return i;
         }
 
-        protected virtual int SkipOffTokenChannelsReverse(int i)
+        protected virtual int SkipOffTokenChannelsReverse (int i)
         {
             while (i >= 0 && ((IToken)_tokens[i]).Channel != _channel)
             {
@@ -166,7 +161,7 @@ namespace Naninovel.Antlr.Runtime
             return i;
         }
 
-        protected override void Setup()
+        protected override void Setup ()
         {
             _p = 0;
             _p = SkipOffTokenChannels(_p);

@@ -80,23 +80,17 @@ namespace Naninovel.Antlr.Runtime
         public string name;
 
         /** <summary>Copy data in string to a local char array</summary> */
-        public ANTLRStringStream( string input )
-            : this( input, null )
-        {
-        }
+        public ANTLRStringStream (string input)
+            : this(input, null) { }
 
-        public ANTLRStringStream( string input, string sourceName )
-            : this( input.ToCharArray(), input.Length, sourceName )
-        {
-        }
+        public ANTLRStringStream (string input, string sourceName)
+            : this(input.ToCharArray(), input.Length, sourceName) { }
 
         /** <summary>This is the preferred constructor as no data is copied</summary> */
-        public ANTLRStringStream( char[] data, int numberOfActualCharsInArray )
-            : this( data, numberOfActualCharsInArray, null )
-        {
-        }
+        public ANTLRStringStream (char[] data, int numberOfActualCharsInArray)
+            : this(data, numberOfActualCharsInArray, null) { }
 
-        public ANTLRStringStream( char[] data, int numberOfActualCharsInArray, string sourceName )
+        public ANTLRStringStream (char[] data, int numberOfActualCharsInArray, string sourceName)
         {
             if (data == null)
                 throw new ArgumentNullException("data");
@@ -110,7 +104,7 @@ namespace Naninovel.Antlr.Runtime
             this.name = sourceName;
         }
 
-        protected ANTLRStringStream()
+        protected ANTLRStringStream ()
         {
             this.data = new char[0];
         }
@@ -157,7 +151,7 @@ namespace Naninovel.Antlr.Runtime
          *  touched.
          *  </summary>
          */
-        public virtual void Reset()
+        public virtual void Reset ()
         {
             p = 0;
             line = 1;
@@ -165,13 +159,13 @@ namespace Naninovel.Antlr.Runtime
             markDepth = 0;
         }
 
-        public virtual void Consume()
+        public virtual void Consume ()
         {
             //System.out.println("prev p="+p+", c="+(char)data[p]);
-            if ( p < n )
+            if (p < n)
             {
                 charPositionInLine++;
-                if ( data[p] == '\n' )
+                if (data[p] == '\n')
                 {
                     /*
                     System.out.println("newline char found on line: "+line+
@@ -185,22 +179,22 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public virtual int LA( int i )
+        public virtual int LA (int i)
         {
-            if ( i == 0 )
+            if (i == 0)
             {
                 return 0; // undefined
             }
-            if ( i < 0 )
+            if (i < 0)
             {
                 i++; // e.g., translate LA(-1) to use offset i=0; then data[p+0-1]
-                if ( ( p + i - 1 ) < 0 )
+                if ((p + i - 1) < 0)
                 {
                     return CharStreamConstants.EndOfFile; // invalid; no char before first char
                 }
             }
 
-            if ( ( p + i - 1 ) >= n )
+            if ((p + i - 1) >= n)
             {
                 //System.out.println("char LA("+i+")=EOF; p="+p);
                 return CharStreamConstants.EndOfFile;
@@ -210,9 +204,9 @@ namespace Naninovel.Antlr.Runtime
             return data[p + i - 1];
         }
 
-        public virtual int LT( int i )
+        public virtual int LT (int i)
         {
-            return LA( i );
+            return LA(i);
         }
 
         public virtual int Count
@@ -223,19 +217,19 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public virtual int Mark()
+        public virtual int Mark ()
         {
-            if ( markers == null )
+            if (markers == null)
             {
                 markers = new List<CharStreamState>();
-                markers.Add( null ); // depth 0 means no backtracking, leave blank
+                markers.Add(null); // depth 0 means no backtracking, leave blank
             }
             markDepth++;
             CharStreamState state = null;
-            if ( markDepth >= markers.Count )
+            if (markDepth >= markers.Count)
             {
                 state = new CharStreamState();
-                markers.Add( state );
+                markers.Add(state);
             }
             else
             {
@@ -248,7 +242,7 @@ namespace Naninovel.Antlr.Runtime
             return markDepth;
         }
 
-        public virtual void Rewind( int m )
+        public virtual void Rewind (int m)
         {
             if (m < 0)
                 throw new ArgumentOutOfRangeException();
@@ -258,18 +252,18 @@ namespace Naninovel.Antlr.Runtime
 
             CharStreamState state = markers[m];
             // restore stream state
-            Seek( state.p );
+            Seek(state.p);
             line = state.line;
             charPositionInLine = state.charPositionInLine;
-            Release( m );
+            Release(m);
         }
 
-        public virtual void Rewind()
+        public virtual void Rewind ()
         {
-            Rewind( lastMarker );
+            Rewind(lastMarker);
         }
 
-        public virtual void Release( int marker )
+        public virtual void Release (int marker)
         {
             // unwind any other markers made after m and release m
             markDepth = marker;
@@ -282,21 +276,21 @@ namespace Naninovel.Antlr.Runtime
          *  update line and charPositionInLine.
          *  </summary>
          */
-        public virtual void Seek( int index )
+        public virtual void Seek (int index)
         {
-            if ( index <= p )
+            if (index <= p)
             {
                 p = index; // just jump; don't update stream state (line, ...)
                 return;
             }
             // seek forward, consume until p hits index
-            while ( p < index )
+            while (p < index)
             {
                 Consume();
             }
         }
 
-        public virtual string Substring( int start, int length )
+        public virtual string Substring (int start, int length)
         {
             if (start < 0)
                 throw new ArgumentOutOfRangeException();
@@ -308,7 +302,7 @@ namespace Naninovel.Antlr.Runtime
             if (length == 0)
                 return string.Empty;
 
-            return new string( data, start, length );
+            return new string(data, start, length);
         }
 
         public virtual string SourceName
@@ -319,7 +313,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return new string(data);
         }

@@ -26,25 +26,25 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// <summary>
         /// Writes a line to the output stream.
         /// </summary>
-        void WriteLine();
+        void WriteLine ();
 
         /// <summary>
         /// Writes a line of text to the output stream.
         /// </summary>
         /// <param name="text"></param>
-        void WriteLine(string text);
+        void WriteLine (string text);
 
         /// <summary>
         /// Writes a line of text to the output stream.
         /// </summary>
         /// <param name="someObject"></param>
-        void WriteLine(object someObject);
+        void WriteLine (object someObject);
 
         /// <summary>
         /// Writes text to the output stream.
         /// </summary>
         /// <param name="text"></param>
-        void Write(string text);
+        void Write (string text);
 
         /// <summary>
         /// Reports progress to the output stream.
@@ -52,6 +52,6 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// <param name="progress"></param>
         /// <param name="key"></param>
         /// <param name="message"></param>
-        void ReportProgress(double progress, string key, string message);
+        void ReportProgress (double progress, string key, string message);
     }
 }

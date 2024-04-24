@@ -43,39 +43,33 @@ namespace Naninovel.Antlr.Runtime
     {
         private readonly int _expecting;
 
-        public MismatchedTreeNodeException()
-        {
-        }
+        public MismatchedTreeNodeException () { }
 
-        public MismatchedTreeNodeException(string message)
-            : base(message)
-        {
-        }
+        public MismatchedTreeNodeException (string message)
+            : base(message) { }
 
-        public MismatchedTreeNodeException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+        public MismatchedTreeNodeException (string message, Exception innerException)
+            : base(message, innerException) { }
 
-        public MismatchedTreeNodeException( int expecting, ITreeNodeStream input )
-            : base( input )
+        public MismatchedTreeNodeException (int expecting, ITreeNodeStream input)
+            : base(input)
         {
             this._expecting = expecting;
         }
 
-        public MismatchedTreeNodeException(string message, int expecting, ITreeNodeStream input)
+        public MismatchedTreeNodeException (string message, int expecting, ITreeNodeStream input)
             : base(message, input)
         {
             this._expecting = expecting;
         }
 
-        public MismatchedTreeNodeException(string message, int expecting, ITreeNodeStream input, Exception innerException)
+        public MismatchedTreeNodeException (string message, int expecting, ITreeNodeStream input, Exception innerException)
             : base(message, input, innerException)
         {
             this._expecting = expecting;
         }
 
-        protected MismatchedTreeNodeException(SerializationInfo info, StreamingContext context)
+        protected MismatchedTreeNodeException (SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             if (info == null)
@@ -92,7 +86,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -101,7 +95,7 @@ namespace Naninovel.Antlr.Runtime
             info.AddValue("Expecting", _expecting);
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return "MismatchedTreeNodeException(" + UnexpectedType + "!=" + Expecting + ")";
         }

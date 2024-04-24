@@ -6,9 +6,9 @@ namespace Naninovel.NCalc
 {
     public class Numbers
     {
-        private static object ConvertIfString(object s)
+        private static object ConvertIfString (object s)
         {
-            if (s is String|| s is char)
+            if (s is String || s is char)
             {
                 return Decimal.Parse(s.ToString());
             }
@@ -16,7 +16,7 @@ namespace Naninovel.NCalc
             return s;
         }
 
-        private static object ConvertIfBoolean(object input)
+        private static object ConvertIfBoolean (object input)
         {
             if (input is bool boolean)
             {
@@ -26,7 +26,7 @@ namespace Naninovel.NCalc
             return input;
         }
 
-        public static object Add(object a, object b, EvaluateOptions options)
+        public static object Add (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -260,7 +260,7 @@ namespace Naninovel.NCalc
             return null;
         }
 
-        public static object AddChecked(object a, object b, EvaluateOptions options)
+        public static object AddChecked (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -496,7 +496,7 @@ namespace Naninovel.NCalc
             }
         }
 
-        public static object Soustract(object a, object b, EvaluateOptions options)
+        public static object Soustract (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -718,7 +718,7 @@ namespace Naninovel.NCalc
 
             return null;
         }
-        public static object SoustractChecked(object a, object b, EvaluateOptions options)
+        public static object SoustractChecked (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -900,7 +900,7 @@ namespace Naninovel.NCalc
                             case TypeCode.UInt64: return (Single)a - (UInt64)b;
                             case TypeCode.Single: return (Single)a - (Single)b;
                             case TypeCode.Double: return (Single)a - (Double)b;
-                            case TypeCode.Decimal: return Convert.ToDecimal(a) - (Decimal)b; 
+                            case TypeCode.Decimal: return Convert.ToDecimal(a) - (Decimal)b;
                         }
                         break;
 
@@ -941,7 +941,7 @@ namespace Naninovel.NCalc
             }
             return null;
         }
-        public static object Multiply(object a, object b, EvaluateOptions options)
+        public static object Multiply (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -1146,7 +1146,7 @@ namespace Naninovel.NCalc
 
             return null;
         }
-        public static object MultiplyChecked(object a, object b, EvaluateOptions options)
+        public static object MultiplyChecked (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -1352,7 +1352,7 @@ namespace Naninovel.NCalc
             }
             return null;
         }
-        public static object Divide(object a, object b, EvaluateOptions options)
+        public static object Divide (object a, object b, EvaluateOptions options)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -1558,7 +1558,7 @@ namespace Naninovel.NCalc
             return null;
         }
 
-        public static object Modulo(object a, object b)
+        public static object Modulo (object a, object b)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -1757,7 +1757,7 @@ namespace Naninovel.NCalc
 
             return null;
         }
-        public static object Max(object a, object b)
+        public static object Max (object a, object b)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -1807,7 +1807,7 @@ namespace Naninovel.NCalc
 
             return null;
         }
-        public static object Min(object a, object b)
+        public static object Min (object a, object b)
         {
             a = ConvertIfString(a);
             b = ConvertIfString(b);
@@ -1827,7 +1827,7 @@ namespace Naninovel.NCalc
                 return a;
             }
 
-            TypeCode typeCode = ConvertToHighestPrecision(ref a,ref b);
+            TypeCode typeCode = ConvertToHighestPrecision(ref a, ref b);
 
             switch (typeCode)
             {
@@ -1858,13 +1858,12 @@ namespace Naninovel.NCalc
             return null;
         }
 
-
-        private static TypeCode ConvertToHighestPrecision(ref object a, ref object b)
+        private static TypeCode ConvertToHighestPrecision (ref object a, ref object b)
         {
             TypeCode typeCodeA = a.GetTypeCode();
             TypeCode typeCodeB = b.GetTypeCode();
-            
-            if (typeCodeA==typeCodeB)
+
+            if (typeCodeA == typeCodeB)
                 return typeCodeA;
 
             if (!(TypeCodeBitSize(typeCodeA, out bool floatingPointA) is int bitSizeA))
@@ -1900,10 +1899,9 @@ namespace Naninovel.NCalc
 
                 return typeCodeB;
             }
-                
         }
 
-        private static int? TypeCodeBitSize(TypeCode typeCode,out bool floatingPoint)
+        private static int? TypeCodeBitSize (TypeCode typeCode, out bool floatingPoint)
         {
             floatingPoint = false;
             switch (typeCode)
@@ -1929,7 +1927,7 @@ namespace Naninovel.NCalc
             }
         }
 
-        private static object  ConvertTo(object value, TypeCode toType)
+        private static object ConvertTo (object value, TypeCode toType)
         {
             switch (toType)
             {

@@ -49,26 +49,18 @@ namespace Naninovel.Antlr.Runtime
         private readonly int _expecting = TokenTypes.Invalid;
         private readonly ReadOnlyCollection<string> _tokenNames;
 
-        public MismatchedTokenException()
-        {
-        }
+        public MismatchedTokenException () { }
 
-        public MismatchedTokenException(string message)
-            : base(message)
-        {
-        }
+        public MismatchedTokenException (string message)
+            : base(message) { }
 
-        public MismatchedTokenException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+        public MismatchedTokenException (string message, Exception innerException)
+            : base(message, innerException) { }
 
-        public MismatchedTokenException(int expecting, IIntStream input)
-            : this(expecting, input, null)
-        {
-        }
+        public MismatchedTokenException (int expecting, IIntStream input)
+            : this(expecting, input, null) { }
 
-        public MismatchedTokenException(int expecting, IIntStream input, IList<string> tokenNames)
+        public MismatchedTokenException (int expecting, IIntStream input, IList<string> tokenNames)
             : base(input)
         {
             this._expecting = expecting;
@@ -77,7 +69,7 @@ namespace Naninovel.Antlr.Runtime
                 this._tokenNames = tokenNames.ToList().AsReadOnly();
         }
 
-        public MismatchedTokenException(string message, int expecting, IIntStream input, IList<string> tokenNames)
+        public MismatchedTokenException (string message, int expecting, IIntStream input, IList<string> tokenNames)
             : base(message, input)
         {
             this._expecting = expecting;
@@ -86,7 +78,7 @@ namespace Naninovel.Antlr.Runtime
                 this._tokenNames = tokenNames.ToList().AsReadOnly();
         }
 
-        public MismatchedTokenException(string message, int expecting, IIntStream input, IList<string> tokenNames, Exception innerException)
+        public MismatchedTokenException (string message, int expecting, IIntStream input, IList<string> tokenNames, Exception innerException)
             : base(message, input, innerException)
         {
             this._expecting = expecting;
@@ -95,7 +87,7 @@ namespace Naninovel.Antlr.Runtime
                 this._tokenNames = tokenNames.ToList().AsReadOnly();
         }
 
-        protected MismatchedTokenException(SerializationInfo info, StreamingContext context)
+        protected MismatchedTokenException (SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             if (info == null)
@@ -121,7 +113,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -131,11 +123,11 @@ namespace Naninovel.Antlr.Runtime
             info.AddValue("TokenNames", (_tokenNames != null) ? _tokenNames.ToArray() : default(string[]));
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             int unexpectedType = UnexpectedType;
-            string unexpected = ( TokenNames != null && unexpectedType >= 0 && unexpectedType < TokenNames.Count ) ? TokenNames[unexpectedType] : unexpectedType.ToString();
-            string expected = ( TokenNames != null && Expecting >= 0 && Expecting < TokenNames.Count ) ? TokenNames[Expecting] : Expecting.ToString();
+            string unexpected = (TokenNames != null && unexpectedType >= 0 && unexpectedType < TokenNames.Count) ? TokenNames[unexpectedType] : unexpectedType.ToString();
+            string expected = (TokenNames != null && Expecting >= 0 && Expecting < TokenNames.Count) ? TokenNames[Expecting] : Expecting.ToString();
             return "MismatchedTokenException(" + unexpected + "!=" + expected + ")";
         }
     }

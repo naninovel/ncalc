@@ -32,7 +32,6 @@
 
 namespace Naninovel.Antlr.Runtime
 {
-
     /** <summary>
      *  When walking ahead with cyclic DFA or for syntactic predicates,
      *  we need to record the state of the input stream (char index,

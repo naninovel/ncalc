@@ -76,7 +76,7 @@ namespace Naninovel.Antlr.Runtime.Misc
          *  since p defines the start of the real list.
          *  </summary>
          */
-        public virtual T this[int i]
+        public virtual T this [int i]
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Naninovel.Antlr.Runtime.Misc
         }
 
         /** <summary>Get and remove first element in queue</summary> */
-        public virtual T Dequeue()
+        public virtual T Dequeue ()
         {
             if (Count == 0)
                 throw new InvalidOperationException(string.Format("queue index {0} > last index {1}", 0, _data.Count - 1));
@@ -102,7 +102,7 @@ namespace Naninovel.Antlr.Runtime.Misc
             T o = this[0];
             _p++;
             // have we hit end of buffer?
-            if ( _p == _data.Count )
+            if (_p == _data.Count)
             {
                 // if so, it's an opportunity to start filling at index 0 again
                 Clear(); // size goes to 0, but retains memory
@@ -110,32 +110,32 @@ namespace Naninovel.Antlr.Runtime.Misc
             return o;
         }
 
-        public virtual void Enqueue( T o )
+        public virtual void Enqueue (T o)
         {
-            _data.Add( o );
+            _data.Add(o);
         }
 
-        public virtual T Peek()
+        public virtual T Peek ()
         {
             return this[0];
         }
 
-        public virtual void Clear()
+        public virtual void Clear ()
         {
             _p = 0;
             _data.Clear();
         }
 
         /** <summary>Return string of current buffer contents; non-destructive</summary> */
-        public override string ToString()
+        public override string ToString ()
         {
             System.Text.StringBuilder buf = new System.Text.StringBuilder();
             int n = Count;
-            for ( int i = 0; i < n; i++ )
+            for (int i = 0; i < n; i++)
             {
-                buf.Append( this[i] );
-                if ( ( i + 1 ) < n )
-                    buf.Append( " " );
+                buf.Append(this[i]);
+                if ((i + 1) < n)
+                    buf.Append(" ");
             }
             return buf.ToString();
         }

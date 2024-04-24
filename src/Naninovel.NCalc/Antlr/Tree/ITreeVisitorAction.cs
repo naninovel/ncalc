@@ -46,7 +46,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  visited if using TreeVisitor.visit().
          *  </summary>
          */
-        object Pre( object t );
+        object Pre (object t);
 
         /** <summary>
          *  Execute an action after visiting children of t.  Return t or
@@ -54,7 +54,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  with the return value.
          *  </summary>
          */
-        object Post( object t );
+        object Post (object t);
     }
 
     public class TreeVisitorAction
@@ -63,24 +63,24 @@ namespace Naninovel.Antlr.Runtime.Tree
         System.Func<object, object> _preAction;
         System.Func<object, object> _postAction;
 
-        public TreeVisitorAction( System.Func<object, object> preAction, System.Func<object, object> postAction )
+        public TreeVisitorAction (System.Func<object, object> preAction, System.Func<object, object> postAction)
         {
             _preAction = preAction;
             _postAction = postAction;
         }
 
-        public object Pre( object t )
+        public object Pre (object t)
         {
-            if ( _preAction != null )
-                return _preAction( t );
+            if (_preAction != null)
+                return _preAction(t);
 
             return t;
         }
 
-        public object Post( object t )
+        public object Post (object t)
         {
-            if ( _postAction != null )
-                return _postAction( t );
+            if (_postAction != null)
+                return _postAction(t);
 
             return t;
         }

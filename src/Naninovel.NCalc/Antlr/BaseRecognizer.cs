@@ -33,7 +33,6 @@
 namespace Naninovel.Antlr.Runtime
 {
     using System.Collections.Generic;
-
     using ArgumentNullException = System.ArgumentNullException;
     using Array = System.Array;
     using Conditional = System.Diagnostics.ConditionalAttribute;
@@ -76,14 +75,12 @@ namespace Naninovel.Antlr.Runtime
          */
         protected internal RecognizerSharedState state;
 
-        public BaseRecognizer()
-            : this(new RecognizerSharedState())
-        {
-        }
+        public BaseRecognizer ()
+            : this(new RecognizerSharedState()) { }
 
-        public BaseRecognizer( RecognizerSharedState state )
+        public BaseRecognizer (RecognizerSharedState state)
         {
-            if ( state == null )
+            if (state == null)
             {
                 state = new RecognizerSharedState();
             }
@@ -97,15 +94,13 @@ namespace Naninovel.Antlr.Runtime
             set;
         }
 
-        protected virtual void InitDFAs()
-        {
-        }
+        protected virtual void InitDFAs () { }
 
         /** <summary>reset the parser's state; subclasses must rewinds the input stream</summary> */
-        public virtual void Reset()
+        public virtual void Reset ()
         {
             // wack everything related to error recovery
-            if ( state == null )
+            if (state == null)
             {
                 return; // no shared state work to do
             }
@@ -116,12 +111,11 @@ namespace Naninovel.Antlr.Runtime
             state.syntaxErrors = 0;
             // wack everything related to backtracking and memoization
             state.backtracking = 0;
-            for ( int i = 0; state.ruleMemo != null && i < state.ruleMemo.Length; i++ )
+            for (int i = 0; state.ruleMemo != null && i < state.ruleMemo.Length; i++)
             { // wipe cache
                 state.ruleMemo[i] = null;
             }
         }
-
 
         /** <summary>
          *  Match current input symbol against ttype.  Attempt
@@ -138,55 +132,55 @@ namespace Naninovel.Antlr.Runtime
          *  to the set of symbols that can follow rule ref.
          *  </remarks>
          */
-        public virtual object Match( IIntStream input, int ttype, BitSet follow )
+        public virtual object Match (IIntStream input, int ttype, BitSet follow)
         {
             //System.out.println("match "+((TokenStream)input).LT(1));
-            object matchedSymbol = GetCurrentInputSymbol( input );
-            if ( input.LA( 1 ) == ttype )
+            object matchedSymbol = GetCurrentInputSymbol(input);
+            if (input.LA(1) == ttype)
             {
                 input.Consume();
                 state.errorRecovery = false;
                 state.failed = false;
                 return matchedSymbol;
             }
-            if ( state.backtracking > 0 )
+            if (state.backtracking > 0)
             {
                 state.failed = true;
                 return matchedSymbol;
             }
-            matchedSymbol = RecoverFromMismatchedToken( input, ttype, follow );
+            matchedSymbol = RecoverFromMismatchedToken(input, ttype, follow);
             return matchedSymbol;
         }
 
         /** <summary>Match the wildcard: in a symbol</summary> */
-        public virtual void MatchAny( IIntStream input )
+        public virtual void MatchAny (IIntStream input)
         {
             state.errorRecovery = false;
             state.failed = false;
             input.Consume();
         }
 
-        public virtual bool MismatchIsUnwantedToken( IIntStream input, int ttype )
+        public virtual bool MismatchIsUnwantedToken (IIntStream input, int ttype)
         {
-            return input.LA( 2 ) == ttype;
+            return input.LA(2) == ttype;
         }
 
-        public virtual bool MismatchIsMissingToken( IIntStream input, BitSet follow )
+        public virtual bool MismatchIsMissingToken (IIntStream input, BitSet follow)
         {
-            if ( follow == null )
+            if (follow == null)
             {
                 // we have no information about the follow; we can only consume
                 // a single token and hope for the best
                 return false;
             }
             // compute what can follow this grammar element reference
-            if ( follow.Member( TokenTypes.EndOfRule ) )
+            if (follow.Member(TokenTypes.EndOfRule))
             {
                 BitSet viableTokensFollowingThisRule = ComputeContextSensitiveRuleFOLLOW();
-                follow = follow.Or( viableTokensFollowingThisRule );
-                if ( state._fsp >= 0 )
+                follow = follow.Or(viableTokensFollowingThisRule);
+                if (state._fsp >= 0)
                 { // remove EOR if we're not the start symbol
-                    follow.Remove( TokenTypes.EndOfRule );
+                    follow.Remove(TokenTypes.EndOfRule);
                 }
             }
             // if current token is consistent with what could come after set
@@ -199,7 +193,7 @@ namespace Naninovel.Antlr.Runtime
             // BitSet cannot handle negative numbers like -1 (EOF) so I leave EOR
             // in follow set to indicate that the fall of the start symbol is
             // in the set (EOF can follow).
-            if ( follow.Member( input.LA( 1 ) ) || follow.Member( TokenTypes.EndOfRule ) )
+            if (follow.Member(input.LA(1)) || follow.Member(TokenTypes.EndOfRule))
             {
                 //System.out.println("LT(1)=="+((TokenStream)input).LT(1)+" is consistent with what follows; inserting...");
                 return true;
@@ -224,11 +218,11 @@ namespace Naninovel.Antlr.Runtime
          *  If you override, make sure to update syntaxErrors if you care about that.
          *  </remarks>
          */
-        public virtual void ReportError( RecognitionException e )
+        public virtual void ReportError (RecognitionException e)
         {
             // if we've already reported an error and have not matched a token
             // yet successfully, don't report any errors.
-            if ( state.errorRecovery )
+            if (state.errorRecovery)
             {
                 //System.err.print("[SPURIOUS] ");
                 return;
@@ -236,15 +230,15 @@ namespace Naninovel.Antlr.Runtime
             state.syntaxErrors++; // don't count spurious
             state.errorRecovery = true;
 
-            DisplayRecognitionError( this.TokenNames, e );
+            DisplayRecognitionError(this.TokenNames, e);
         }
 
-        public virtual void DisplayRecognitionError( string[] tokenNames,
-                                            RecognitionException e )
+        public virtual void DisplayRecognitionError (string[] tokenNames,
+            RecognitionException e)
         {
-            string hdr = GetErrorHeader( e );
-            string msg = GetErrorMessage( e, tokenNames );
-            EmitErrorMessage( hdr + " " + msg );
+            string hdr = GetErrorHeader(e);
+            string msg = GetErrorMessage(e, tokenNames);
+            EmitErrorMessage(hdr + " " + msg);
         }
 
         /** <summary>What error message should be generated for the various exception types?</summary>
@@ -270,14 +264,14 @@ namespace Naninovel.Antlr.Runtime
          *  exception types.
          *  </remarks>
          */
-        public virtual string GetErrorMessage( RecognitionException e, string[] tokenNames )
+        public virtual string GetErrorMessage (RecognitionException e, string[] tokenNames)
         {
             string msg = e.Message;
-            if ( e is UnwantedTokenException )
+            if (e is UnwantedTokenException)
             {
                 UnwantedTokenException ute = (UnwantedTokenException)e;
                 string tokenName = "<unknown>";
-                if ( ute.Expecting == TokenTypes.EndOfFile )
+                if (ute.Expecting == TokenTypes.EndOfFile)
                 {
                     tokenName = "EndOfFile";
                 }
@@ -285,14 +279,14 @@ namespace Naninovel.Antlr.Runtime
                 {
                     tokenName = tokenNames[ute.Expecting];
                 }
-                msg = "extraneous input " + GetTokenErrorDisplay( ute.UnexpectedToken ) +
-                    " expecting " + tokenName;
+                msg = "extraneous input " + GetTokenErrorDisplay(ute.UnexpectedToken) +
+                      " expecting " + tokenName;
             }
-            else if ( e is MissingTokenException )
+            else if (e is MissingTokenException)
             {
                 MissingTokenException mte = (MissingTokenException)e;
                 string tokenName = "<unknown>";
-                if ( mte.Expecting == TokenTypes.EndOfFile )
+                if (mte.Expecting == TokenTypes.EndOfFile)
                 {
                     tokenName = "EndOfFile";
                 }
@@ -300,13 +294,13 @@ namespace Naninovel.Antlr.Runtime
                 {
                     tokenName = tokenNames[mte.Expecting];
                 }
-                msg = "missing " + tokenName + " at " + GetTokenErrorDisplay( e.Token );
+                msg = "missing " + tokenName + " at " + GetTokenErrorDisplay(e.Token);
             }
-            else if ( e is MismatchedTokenException )
+            else if (e is MismatchedTokenException)
             {
                 MismatchedTokenException mte = (MismatchedTokenException)e;
                 string tokenName = "<unknown>";
-                if ( mte.Expecting == TokenTypes.EndOfFile )
+                if (mte.Expecting == TokenTypes.EndOfFile)
                 {
                     tokenName = "EndOfFile";
                 }
@@ -314,14 +308,14 @@ namespace Naninovel.Antlr.Runtime
                 {
                     tokenName = tokenNames[mte.Expecting];
                 }
-                msg = "mismatched input " + GetTokenErrorDisplay( e.Token ) +
-                    " expecting " + tokenName;
+                msg = "mismatched input " + GetTokenErrorDisplay(e.Token) +
+                      " expecting " + tokenName;
             }
-            else if ( e is MismatchedTreeNodeException )
+            else if (e is MismatchedTreeNodeException)
             {
                 MismatchedTreeNodeException mtne = (MismatchedTreeNodeException)e;
                 string tokenName = "<unknown>";
-                if ( mtne.Expecting == TokenTypes.EndOfFile )
+                if (mtne.Expecting == TokenTypes.EndOfFile)
                 {
                     tokenName = "EndOfFile";
                 }
@@ -330,41 +324,41 @@ namespace Naninovel.Antlr.Runtime
                     tokenName = tokenNames[mtne.Expecting];
                 }
                 // workaround for a .NET framework bug (NullReferenceException)
-                string nodeText = ( mtne.Node != null ) ? mtne.Node.ToString() ?? string.Empty : string.Empty;
+                string nodeText = (mtne.Node != null) ? mtne.Node.ToString() ?? string.Empty : string.Empty;
                 msg = "mismatched tree node: " + nodeText + " expecting " + tokenName;
             }
-            else if ( e is NoViableAltException )
+            else if (e is NoViableAltException)
             {
                 //NoViableAltException nvae = (NoViableAltException)e;
                 // for development, can add "decision=<<"+nvae.grammarDecisionDescription+">>"
                 // and "(decision="+nvae.decisionNumber+") and
                 // "state "+nvae.stateNumber
-                msg = "no viable alternative at input " + GetTokenErrorDisplay( e.Token );
+                msg = "no viable alternative at input " + GetTokenErrorDisplay(e.Token);
             }
-            else if ( e is EarlyExitException )
+            else if (e is EarlyExitException)
             {
                 //EarlyExitException eee = (EarlyExitException)e;
                 // for development, can add "(decision="+eee.decisionNumber+")"
                 msg = "required (...)+ loop did not match anything at input " +
-                    GetTokenErrorDisplay( e.Token );
+                      GetTokenErrorDisplay(e.Token);
             }
-            else if ( e is MismatchedSetException )
+            else if (e is MismatchedSetException)
             {
                 MismatchedSetException mse = (MismatchedSetException)e;
-                msg = "mismatched input " + GetTokenErrorDisplay( e.Token ) +
-                    " expecting set " + mse.Expecting;
+                msg = "mismatched input " + GetTokenErrorDisplay(e.Token) +
+                      " expecting set " + mse.Expecting;
             }
-            else if ( e is MismatchedNotSetException )
+            else if (e is MismatchedNotSetException)
             {
                 MismatchedNotSetException mse = (MismatchedNotSetException)e;
-                msg = "mismatched input " + GetTokenErrorDisplay( e.Token ) +
-                    " expecting set " + mse.Expecting;
+                msg = "mismatched input " + GetTokenErrorDisplay(e.Token) +
+                      " expecting set " + mse.Expecting;
             }
-            else if ( e is FailedPredicateException )
+            else if (e is FailedPredicateException)
             {
                 FailedPredicateException fpe = (FailedPredicateException)e;
                 msg = "rule " + fpe.RuleName + " failed predicate: {" +
-                    fpe.PredicateText + "}?";
+                      fpe.PredicateText + "}?";
             }
             return msg;
         }
@@ -387,7 +381,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         /** <summary>What is the error header, normally line/character position information?</summary> */
-        public virtual string GetErrorHeader( RecognitionException e )
+        public virtual string GetErrorHeader (RecognitionException e)
         {
             string prefix = SourceName ?? string.Empty;
             if (prefix.Length > 0)
@@ -406,12 +400,12 @@ namespace Naninovel.Antlr.Runtime
          *  so that it creates a new Java type.
          *  </summary>
          */
-        public virtual string GetTokenErrorDisplay( IToken t )
+        public virtual string GetTokenErrorDisplay (IToken t)
         {
             string s = t.Text;
-            if ( s == null )
+            if (s == null)
             {
-                if ( t.Type == TokenTypes.EndOfFile )
+                if (t.Type == TokenTypes.EndOfFile)
                 {
                     s = "<EOF>";
                 }
@@ -420,17 +414,17 @@ namespace Naninovel.Antlr.Runtime
                     s = "<" + t.Type + ">";
                 }
             }
-            s = Regex.Replace( s, "\n", "\\\\n" );
-            s = Regex.Replace( s, "\r", "\\\\r" );
-            s = Regex.Replace( s, "\t", "\\\\t" );
+            s = Regex.Replace(s, "\n", "\\\\n");
+            s = Regex.Replace(s, "\r", "\\\\r");
+            s = Regex.Replace(s, "\t", "\\\\t");
             return "'" + s + "'";
         }
 
         /** <summary>Override this method to change where error messages go</summary> */
-        public virtual void EmitErrorMessage( string msg )
+        public virtual void EmitErrorMessage (string msg)
         {
             if (TraceDestination != null)
-                TraceDestination.WriteLine( msg );
+                TraceDestination.WriteLine(msg);
         }
 
         /** <summary>
@@ -441,9 +435,9 @@ namespace Naninovel.Antlr.Runtime
          *  token that the match() routine could not recover from.
          *  </summary>
          */
-        public virtual void Recover( IIntStream input, RecognitionException re )
+        public virtual void Recover (IIntStream input, RecognitionException re)
         {
-            if ( state.lastErrorIndex == input.Index )
+            if (state.lastErrorIndex == input.Index)
             {
                 // uh oh, another error at same token index; must be a case
                 // where LT(1) is in the recovery token set so nothing is
@@ -454,7 +448,7 @@ namespace Naninovel.Antlr.Runtime
             state.lastErrorIndex = input.Index;
             BitSet followSet = ComputeErrorRecoverySet();
             BeginResync();
-            ConsumeUntil( input, followSet );
+            ConsumeUntil(input, followSet);
             EndResync();
         }
 
@@ -463,13 +457,9 @@ namespace Naninovel.Antlr.Runtime
          *  The DebugParser subclasses this to fire events to the listenter.
          *  </summary>
          */
-        public virtual void BeginResync()
-        {
-        }
+        public virtual void BeginResync () { }
 
-        public virtual void EndResync()
-        {
-        }
+        public virtual void EndResync () { }
 
         /*  Compute the error recovery set for the current rule.  During
          *  rule invocation, the parser pushes the set of tokens that can
@@ -562,9 +552,9 @@ namespace Naninovel.Antlr.Runtime
          *  Like Grosch I implemented local FOLLOW sets that are combined
          *  at run-time upon error to avoid overhead during parsing.
          */
-        protected virtual BitSet ComputeErrorRecoverySet()
+        protected virtual BitSet ComputeErrorRecoverySet ()
         {
-            return CombineFollows( false );
+            return CombineFollows(false);
         }
 
         /** <summary>
@@ -621,37 +611,37 @@ namespace Naninovel.Antlr.Runtime
          *  a missing token in the input stream.  "Insert" one by just not
          *  throwing an exception.
          */
-        protected virtual BitSet ComputeContextSensitiveRuleFOLLOW()
+        protected virtual BitSet ComputeContextSensitiveRuleFOLLOW ()
         {
-            return CombineFollows( true );
+            return CombineFollows(true);
         }
 
         // what is exact? it seems to only add sets from above on stack
         // if EOR is in set i.  When it sees a set w/o EOR, it stops adding.
         // Why would we ever want them all?  Maybe no viable alt instead of
         // mismatched token?
-        protected virtual BitSet CombineFollows(bool exact)
+        protected virtual BitSet CombineFollows (bool exact)
         {
             int top = state._fsp;
             BitSet followSet = new BitSet();
-            for ( int i = top; i >= 0; i-- )
+            for (int i = top; i >= 0; i--)
             {
                 BitSet localFollowSet = (BitSet)state.following[i];
                 /*
                 System.out.println("local follow depth "+i+"="+
                                    localFollowSet.toString(getTokenNames())+")");
                  */
-                followSet.OrInPlace( localFollowSet );
-                if ( exact )
+                followSet.OrInPlace(localFollowSet);
+                if (exact)
                 {
                     // can we see end of rule?
-                    if ( localFollowSet.Member( TokenTypes.EndOfRule ) )
+                    if (localFollowSet.Member(TokenTypes.EndOfRule))
                     {
                         // Only leave EOR in set if at top (start rule); this lets
                         // us know if have to include follow(start rule); i.e., EOF
-                        if ( i > 0 )
+                        if (i > 0)
                         {
-                            followSet.Remove( TokenTypes.EndOfRule );
+                            followSet.Remove(TokenTypes.EndOfRule);
                         }
                     }
                     else
@@ -692,13 +682,13 @@ namespace Naninovel.Antlr.Runtime
          *  is in the set of tokens that can follow the ')' token
          *  reference in rule atom.  It can assume that you forgot the ')'.
          */
-        protected virtual object RecoverFromMismatchedToken( IIntStream input, int ttype, BitSet follow )
+        protected virtual object RecoverFromMismatchedToken (IIntStream input, int ttype, BitSet follow)
         {
             RecognitionException e = null;
             // if next token is what we are looking for then "delete" this token
-            if ( MismatchIsUnwantedToken( input, ttype ) )
+            if (MismatchIsUnwantedToken(input, ttype))
             {
-                e = new UnwantedTokenException( ttype, input, TokenNames );
+                e = new UnwantedTokenException(ttype, input, TokenNames);
                 /*
                 System.err.println("recoverFromMismatchedToken deleting "+
                                    ((TokenStream)input).LT(1)+
@@ -707,18 +697,18 @@ namespace Naninovel.Antlr.Runtime
                 BeginResync();
                 input.Consume(); // simply delete extra token
                 EndResync();
-                ReportError( e );  // report after consuming so AW sees the token in the exception
+                ReportError(e); // report after consuming so AW sees the token in the exception
                 // we want to return the token we're actually matching
-                object matchedSymbol = GetCurrentInputSymbol( input );
+                object matchedSymbol = GetCurrentInputSymbol(input);
                 input.Consume(); // move past ttype token as if all were ok
                 return matchedSymbol;
             }
             // can't recover with single token deletion, try insertion
-            if ( MismatchIsMissingToken( input, follow ) )
+            if (MismatchIsMissingToken(input, follow))
             {
-                object inserted = GetMissingSymbol( input, e, ttype, follow );
-                e = new MissingTokenException( ttype, input, inserted );
-                ReportError( e );  // report after inserting so AW sees the token in the exception
+                object inserted = GetMissingSymbol(input, e, ttype, follow);
+                e = new MissingTokenException(ttype, input, inserted);
+                ReportError(e); // report after inserting so AW sees the token in the exception
                 return inserted;
             }
             // even that didn't work; must throw the exception
@@ -727,16 +717,16 @@ namespace Naninovel.Antlr.Runtime
         }
 
         /** Not currently used */
-        public virtual object RecoverFromMismatchedSet( IIntStream input,
-                                               RecognitionException e,
-                                               BitSet follow )
+        public virtual object RecoverFromMismatchedSet (IIntStream input,
+            RecognitionException e,
+            BitSet follow)
         {
-            if ( MismatchIsMissingToken( input, follow ) )
+            if (MismatchIsMissingToken(input, follow))
             {
                 // System.out.println("missing token");
-                ReportError( e );
+                ReportError(e);
                 // we don't know how to conjure up a token for sets yet
-                return GetMissingSymbol( input, e, TokenTypes.Invalid, follow );
+                return GetMissingSymbol(input, e, TokenTypes.Invalid, follow);
             }
             // TODO do single token deletion like above for Token mismatch
             throw e;
@@ -753,7 +743,7 @@ namespace Naninovel.Antlr.Runtime
          *
          *  <remarks>This is ignored for lexers.</remarks>
          */
-        protected virtual object GetCurrentInputSymbol( IIntStream input )
+        protected virtual object GetCurrentInputSymbol (IIntStream input)
         {
             return null;
         }
@@ -779,49 +769,49 @@ namespace Naninovel.Antlr.Runtime
          *  override this method to create the appropriate tokens.
          *  </remarks>
          */
-        protected virtual object GetMissingSymbol( IIntStream input,
-                                          RecognitionException e,
-                                          int expectedTokenType,
-                                          BitSet follow )
+        protected virtual object GetMissingSymbol (IIntStream input,
+            RecognitionException e,
+            int expectedTokenType,
+            BitSet follow)
         {
             return null;
         }
 
-        public virtual void ConsumeUntil( IIntStream input, int tokenType )
+        public virtual void ConsumeUntil (IIntStream input, int tokenType)
         {
             //System.out.println("consumeUntil "+tokenType);
-            int ttype = input.LA( 1 );
-            while ( ttype != TokenTypes.EndOfFile && ttype != tokenType )
+            int ttype = input.LA(1);
+            while (ttype != TokenTypes.EndOfFile && ttype != tokenType)
             {
                 input.Consume();
-                ttype = input.LA( 1 );
+                ttype = input.LA(1);
             }
         }
 
         /** <summary>Consume tokens until one matches the given token set</summary> */
-        public virtual void ConsumeUntil( IIntStream input, BitSet set )
+        public virtual void ConsumeUntil (IIntStream input, BitSet set)
         {
             //System.out.println("consumeUntil("+set.toString(getTokenNames())+")");
-            int ttype = input.LA( 1 );
-            while ( ttype != TokenTypes.EndOfFile && !set.Member( ttype ) )
+            int ttype = input.LA(1);
+            while (ttype != TokenTypes.EndOfFile && !set.Member(ttype))
             {
                 //System.out.println("consume during recover LA(1)="+getTokenNames()[input.LA(1)]);
                 input.Consume();
-                ttype = input.LA( 1 );
+                ttype = input.LA(1);
             }
         }
 
         /** <summary>Push a rule's follow set using our own hardcoded stack</summary> */
-        protected void PushFollow( BitSet fset )
+        protected void PushFollow (BitSet fset)
         {
-            if ( ( state._fsp + 1 ) >= state.following.Length )
+            if ((state._fsp + 1) >= state.following.Length)
             {
                 Array.Resize(ref state.following, state.following.Length * 2);
             }
             state.following[++state._fsp] = fset;
         }
 
-        protected void PopFollow()
+        protected void PopFollow ()
         {
             state._fsp--;
         }
@@ -927,15 +917,15 @@ namespace Naninovel.Antlr.Runtime
          *  Convert a List<Token> to List<String>
          *  </summary>
          */
-        public virtual List<string> ToStrings( ICollection<IToken> tokens )
+        public virtual List<string> ToStrings (ICollection<IToken> tokens)
         {
-            if ( tokens == null )
+            if (tokens == null)
                 return null;
 
-            List<string> strings = new List<string>( tokens.Count );
-            foreach ( IToken token in tokens )
+            List<string> strings = new List<string>(tokens.Count);
+            foreach (IToken token in tokens)
             {
-                strings.Add( token.Text );
+                strings.Add(token.Text);
             }
 
             return strings;
@@ -955,15 +945,15 @@ namespace Naninovel.Antlr.Runtime
          *  tosses out data after we commit past input position i.
          *  </remarks>
          */
-        public virtual int GetRuleMemoization( int ruleIndex, int ruleStartIndex )
+        public virtual int GetRuleMemoization (int ruleIndex, int ruleStartIndex)
         {
-            if ( state.ruleMemo[ruleIndex] == null )
+            if (state.ruleMemo[ruleIndex] == null)
             {
                 state.ruleMemo[ruleIndex] = new Dictionary<int, int>();
             }
 
             int stopIndex;
-            if ( !state.ruleMemo[ruleIndex].TryGetValue( ruleStartIndex, out stopIndex ) )
+            if (!state.ruleMemo[ruleIndex].TryGetValue(ruleStartIndex, out stopIndex))
                 return MemoRuleUnknown;
 
             return stopIndex;
@@ -982,14 +972,14 @@ namespace Naninovel.Antlr.Runtime
          *  1 past the stop token matched for this rule last time.
          *  </remarks>
          */
-        public virtual bool AlreadyParsedRule( IIntStream input, int ruleIndex )
+        public virtual bool AlreadyParsedRule (IIntStream input, int ruleIndex)
         {
-            int stopIndex = GetRuleMemoization( ruleIndex, input.Index );
-            if ( stopIndex == MemoRuleUnknown )
+            int stopIndex = GetRuleMemoization(ruleIndex, input.Index);
+            if (stopIndex == MemoRuleUnknown)
             {
                 return false;
             }
-            if ( stopIndex == MemoRuleFailed )
+            if (stopIndex == MemoRuleFailed)
             {
                 //System.out.println("rule "+ruleIndex+" will never succeed");
                 state.failed = true;
@@ -997,7 +987,7 @@ namespace Naninovel.Antlr.Runtime
             else
             {
                 //System.out.println("seen rule "+ruleIndex+" before; skipping ahead to @"+(stopIndex+1)+" failed="+state.failed);
-                input.Seek( stopIndex + 1 ); // jump to one past stop token
+                input.Seek(stopIndex + 1); // jump to one past stop token
             }
             return true;
         }
@@ -1007,22 +997,22 @@ namespace Naninovel.Antlr.Runtime
          *  successfully.  Use a standard java hashtable for now.
          *  </summary>
          */
-        public virtual void Memoize( IIntStream input,
-                            int ruleIndex,
-                            int ruleStartIndex )
+        public virtual void Memoize (IIntStream input,
+            int ruleIndex,
+            int ruleStartIndex)
         {
             int stopTokenIndex = state.failed ? MemoRuleFailed : input.Index - 1;
-            if ( state.ruleMemo == null )
+            if (state.ruleMemo == null)
             {
                 if (TraceDestination != null)
-                    TraceDestination.WriteLine( "!!!!!!!!! memo array is null for " + GrammarFileName );
+                    TraceDestination.WriteLine("!!!!!!!!! memo array is null for " + GrammarFileName);
             }
-            if ( ruleIndex >= state.ruleMemo.Length )
+            if (ruleIndex >= state.ruleMemo.Length)
             {
                 if (TraceDestination != null)
                     TraceDestination.WriteLine("!!!!!!!!! memo size is " + state.ruleMemo.Length + ", but rule index is " + ruleIndex);
             }
-            if ( state.ruleMemo[ruleIndex] != null )
+            if (state.ruleMemo[ruleIndex] != null)
             {
                 state.ruleMemo[ruleIndex][ruleStartIndex] = stopTokenIndex;
             }
@@ -1031,13 +1021,13 @@ namespace Naninovel.Antlr.Runtime
         /** <summary>return how many rule/input-index pairs there are in total.</summary>
          *  TODO: this includes synpreds. :(
          */
-        public virtual int GetRuleMemoizationCacheSize()
+        public virtual int GetRuleMemoizationCacheSize ()
         {
             int n = 0;
-            for ( int i = 0; state.ruleMemo != null && i < state.ruleMemo.Length; i++ )
+            for (int i = 0; state.ruleMemo != null && i < state.ruleMemo.Length; i++)
             {
                 var ruleMap = state.ruleMemo[i];
-                if ( ruleMap != null )
+                if (ruleMap != null)
                 {
                     n += ruleMap.Count; // how many input indexes are recorded?
                 }
@@ -1045,7 +1035,7 @@ namespace Naninovel.Antlr.Runtime
             return n;
         }
 
-        public virtual void TraceIn(string ruleName, int ruleIndex, object inputSymbol)
+        public virtual void TraceIn (string ruleName, int ruleIndex, object inputSymbol)
         {
             if (TraceDestination == null)
                 return;
@@ -1058,7 +1048,7 @@ namespace Naninovel.Antlr.Runtime
             TraceDestination.WriteLine();
         }
 
-        public virtual void TraceOut(string ruleName, int ruleIndex, object inputSymbol)
+        public virtual void TraceOut (string ruleName, int ruleIndex, object inputSymbol)
         {
             if (TraceDestination == null)
                 return;
@@ -1085,7 +1075,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugEnterRule(string grammarFileName, string ruleName)
+        protected virtual void DebugEnterRule (string grammarFileName, string ruleName)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1093,7 +1083,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugExitRule(string grammarFileName, string ruleName)
+        protected virtual void DebugExitRule (string grammarFileName, string ruleName)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1101,7 +1091,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugEnterSubRule(int decisionNumber)
+        protected virtual void DebugEnterSubRule (int decisionNumber)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1109,7 +1099,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugExitSubRule(int decisionNumber)
+        protected virtual void DebugExitSubRule (int decisionNumber)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1117,7 +1107,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugEnterAlt(int alt)
+        protected virtual void DebugEnterAlt (int alt)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1125,7 +1115,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugEnterDecision(int decisionNumber, bool couldBacktrack)
+        protected virtual void DebugEnterDecision (int decisionNumber, bool couldBacktrack)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1133,7 +1123,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugExitDecision(int decisionNumber)
+        protected virtual void DebugExitDecision (int decisionNumber)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1141,7 +1131,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugLocation(int line, int charPositionInLine)
+        protected virtual void DebugLocation (int line, int charPositionInLine)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1149,7 +1139,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugSemanticPredicate(bool result, string predicate)
+        protected virtual void DebugSemanticPredicate (bool result, string predicate)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1157,7 +1147,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugBeginBacktrack(int level)
+        protected virtual void DebugBeginBacktrack (int level)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1165,7 +1155,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugEndBacktrack(int level, bool successful)
+        protected virtual void DebugEndBacktrack (int level, bool successful)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)
@@ -1173,7 +1163,7 @@ namespace Naninovel.Antlr.Runtime
         }
 
         [Conditional("ANTLR_DEBUG")]
-        protected virtual void DebugRecognitionException(RecognitionException ex)
+        protected virtual void DebugRecognitionException (RecognitionException ex)
         {
             IDebugEventListener dbg = DebugListener;
             if (dbg != null)

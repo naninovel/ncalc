@@ -7,7 +7,7 @@ using Naninovel.Antlr.Runtime;
 namespace Naninovel.Antlr.Runtime
 {
     public class AstParserRuleReturnScope<TAstLabel, TToken> : ParserRuleReturnScope<TToken>,
-                                                               IAstRuleReturnScope<TAstLabel>
+        IAstRuleReturnScope<TAstLabel>
     {
         private TAstLabel _tree;
 
@@ -21,6 +21,5 @@ namespace Naninovel.Antlr.Runtime
         {
             get { return _tree; }
         }
-
     }
 }

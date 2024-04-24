@@ -32,7 +32,6 @@
 
 namespace Naninovel.Antlr.Runtime
 {
-
     /** <summary>
      *  A source of tokens must provide a sequence of tokens via nextToken()
      *  and also must reveal it's source of characters; CommonToken's text is
@@ -58,7 +57,7 @@ namespace Naninovel.Antlr.Runtime
          *  until you get a good one; errors are not passed through to the parser.
          *  </summary>
          */
-        IToken NextToken();
+        IToken NextToken ();
 
         /** <summary>
          *  Where are you getting tokens from? normally the implication will simply

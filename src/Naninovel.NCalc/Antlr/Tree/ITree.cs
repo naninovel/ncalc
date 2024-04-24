@@ -50,8 +50,7 @@ namespace Naninovel.Antlr.Runtime.Tree
      */
     public interface ITree
     {
-
-        ITree GetChild( int i );
+        ITree GetChild (int i);
 
         int ChildCount
         {
@@ -67,17 +66,17 @@ namespace Naninovel.Antlr.Runtime.Tree
         }
 
         /** <summary>Is there is a node above with token type ttype?</summary> */
-        bool HasAncestor( int ttype );
+        bool HasAncestor (int ttype);
 
         /** <summary>Walk upwards and get first ancestor with this token type.</summary> */
-        ITree GetAncestor( int ttype );
+        ITree GetAncestor (int ttype);
 
         /** <summary>
          *  Return a list of all ancestors of this node.  The first node of
          *  list is the root and the last is the parent of this node.
          *  </summary>
          */
-        IList<ITree> GetAncestors();
+        IList<ITree> GetAncestors ();
 
         /** <summary>This node is what child index? 0..n-1</summary> */
         int ChildIndex
@@ -87,19 +86,19 @@ namespace Naninovel.Antlr.Runtime.Tree
         }
 
         /** <summary>Set the parent and child index values for all children</summary> */
-        void FreshenParentAndChildIndexes();
+        void FreshenParentAndChildIndexes ();
 
         /** <summary>
          *  Add t as a child to this node.  If t is null, do nothing.  If t
          *  is nil, add all children of t to this' children.
          *  </summary>
          */
-        void AddChild( ITree t );
+        void AddChild (ITree t);
 
         /** <summary>Set ith child (0..n-1) to t; t must be non-null and non-nil node</summary> */
-        void SetChild( int i, ITree t );
+        void SetChild (int i, ITree t);
 
-        object DeleteChild( int i );
+        object DeleteChild (int i);
 
         /** <summary>
          *  Delete children from start to stop and replace with t even if t is
@@ -108,7 +107,7 @@ namespace Naninovel.Antlr.Runtime.Tree
          *  children to set their childindex; could be slow.
          *  </summary>
          */
-        void ReplaceChildren( int startChildIndex, int stopChildIndex, object t );
+        void ReplaceChildren (int startChildIndex, int stopChildIndex, object t);
 
         /** <summary>
          *  Indicates the node is a nil node but may still have children, meaning
@@ -142,7 +141,7 @@ namespace Naninovel.Antlr.Runtime.Tree
             set;
         }
 
-        ITree DupNode();
+        ITree DupNode ();
 
         /** <summary>Return a token type; needed for tree parsing</summary> */
         int Type
@@ -166,8 +165,8 @@ namespace Naninovel.Antlr.Runtime.Tree
             get;
         }
 
-        string ToStringTree();
+        string ToStringTree ();
 
-        string ToString();
+        string ToString ();
     }
 }

@@ -43,42 +43,36 @@ namespace Naninovel.Antlr.Runtime
         private readonly int _a;
         private readonly int _b;
 
-        public MismatchedRangeException()
-        {
-        }
+        public MismatchedRangeException () { }
 
-        public MismatchedRangeException(string message)
-            : base(message)
-        {
-        }
+        public MismatchedRangeException (string message)
+            : base(message) { }
 
-        public MismatchedRangeException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+        public MismatchedRangeException (string message, Exception innerException)
+            : base(message, innerException) { }
 
-        public MismatchedRangeException(int a, int b, IIntStream input)
+        public MismatchedRangeException (int a, int b, IIntStream input)
             : base(input)
         {
             this._a = a;
             this._b = b;
         }
 
-        public MismatchedRangeException(string message, int a, int b, IIntStream input)
+        public MismatchedRangeException (string message, int a, int b, IIntStream input)
             : base(message, input)
         {
             this._a = a;
             this._b = b;
         }
 
-        public MismatchedRangeException(string message, int a, int b, IIntStream input, Exception innerException)
+        public MismatchedRangeException (string message, int a, int b, IIntStream input, Exception innerException)
             : base(message, input, innerException)
         {
             this._a = a;
             this._b = b;
         }
 
-        protected MismatchedRangeException(SerializationInfo info, StreamingContext context)
+        protected MismatchedRangeException (SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             if (info == null)
@@ -104,7 +98,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
@@ -114,7 +108,7 @@ namespace Naninovel.Antlr.Runtime
             info.AddValue("B", _b);
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return "MismatchedRangeException(" + UnexpectedType + " not in [" + A + "," + B + "])";
         }

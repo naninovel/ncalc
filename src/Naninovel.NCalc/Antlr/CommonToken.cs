@@ -63,16 +63,14 @@ namespace Naninovel.Antlr.Runtime
         /** <summary>The char position into the input buffer where this token stops</summary> */
         int stop;
 
-        public CommonToken()
-        {
-        }
+        public CommonToken () { }
 
-        public CommonToken( int type )
+        public CommonToken (int type)
         {
             this.type = type;
         }
 
-        public CommonToken( ICharStream input, int type, int channel, int start, int stop )
+        public CommonToken (ICharStream input, int type, int channel, int start, int stop)
         {
             this.input = input;
             this.type = type;
@@ -81,14 +79,14 @@ namespace Naninovel.Antlr.Runtime
             this.stop = stop;
         }
 
-        public CommonToken( int type, string text )
+        public CommonToken (int type, string text)
         {
             this.type = type;
             this.channel = TokenChannels.Default;
             this.text = text;
         }
 
-        public CommonToken( IToken oldToken )
+        public CommonToken (IToken oldToken)
         {
             text = oldToken.Text;
             type = oldToken.Type;
@@ -97,10 +95,10 @@ namespace Naninovel.Antlr.Runtime
             charPositionInLine = oldToken.CharPositionInLine;
             channel = oldToken.Channel;
             input = oldToken.InputStream;
-            if ( oldToken is CommonToken )
+            if (oldToken is CommonToken)
             {
-                start = ( (CommonToken)oldToken ).start;
-                stop = ( (CommonToken)oldToken ).stop;
+                start = ((CommonToken)oldToken).start;
+                stop = ((CommonToken)oldToken).stop;
             }
         }
 
@@ -109,13 +107,13 @@ namespace Naninovel.Antlr.Runtime
         {
             get
             {
-                if ( text != null )
+                if (text != null)
                     return text;
-                if ( input == null )
+                if (input == null)
                     return null;
 
                 if (start < input.Count && stop < input.Count)
-                text = input.Substring( start, stop - start + 1 );
+                    text = input.Substring(start, stop - start + 1);
                 else
                     text = "<EOF>";
 
@@ -227,22 +225,21 @@ namespace Naninovel.Antlr.Runtime
                 input = value;
             }
         }
-
         #endregion
 
-        public override string ToString()
+        public override string ToString ()
         {
             string channelStr = "";
-            if ( channel > 0 )
+            if (channel > 0)
             {
                 channelStr = ",channel=" + channel;
             }
             string txt = Text;
-            if ( txt != null )
+            if (txt != null)
             {
-                txt = Regex.Replace( txt, "\n", "\\\\n" );
-                txt = Regex.Replace( txt, "\r", "\\\\r" );
-                txt = Regex.Replace( txt, "\t", "\\\\t" );
+                txt = Regex.Replace(txt, "\n", "\\\\n");
+                txt = Regex.Replace(txt, "\r", "\\\\r");
+                txt = Regex.Replace(txt, "\t", "\\\\t");
             }
             else
             {

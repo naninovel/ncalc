@@ -29,7 +29,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
 
         private static IList<IOutputStream> _output_streams;
 
-        private static void InitializeIfNeeded()
+        private static void InitializeIfNeeded ()
         {
             if (_output_streams == null)
             {
@@ -41,7 +41,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// <summary>
         /// Writes a line.
         /// </summary>
-        public static void WriteLine()
+        public static void WriteLine ()
         {
             OutputStreamHost.WriteLine(string.Empty);
         }
@@ -50,7 +50,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// Writes a line.
         /// </summary>
         /// <param name="text"></param>
-        public static void WriteLine(string text)
+        public static void WriteLine (string text)
         {
             OutputStreamHost.InitializeIfNeeded();
 
@@ -71,7 +71,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// </summary>
         /// <param name="format"></param>
         /// <param name="arg"></param>
-        public static void WriteLine(string format, params object[] arg)
+        public static void WriteLine (string format, params object[] arg)
         {
             OutputStreamHost.WriteLine(
                 string.Format(format, arg));
@@ -81,7 +81,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// Writes text.
         /// </summary>
         /// <param name="text"></param>
-        public static void Write(string text)
+        public static void Write (string text)
         {
             OutputStreamHost.InitializeIfNeeded();
 
@@ -102,7 +102,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// </summary>
         /// <param name="format"></param>
         /// <param name="arg"></param>
-        public static void Write(string format, params object[] arg)
+        public static void Write (string format, params object[] arg)
         {
             OutputStreamHost.Write(
                 string.Format(format, arg));
@@ -114,7 +114,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// <param name="progress"></param>
         /// <param name="key"></param>
         /// <param name="message"></param>
-        public static void ReportProgress(double progress, string key, string message)
+        public static void ReportProgress (double progress, string key, string message)
         {
             OutputStreamHost.InitializeIfNeeded();
             if (progress > 1)
@@ -147,7 +147,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// <param name="total"></param>
         /// <param name="key"></param>
         /// <param name="message"></param>
-        public static void ReportProgress(long current, long total, string key, string message)
+        public static void ReportProgress (long current, long total, string key, string message)
         {
             OutputStreamHost.ReportProgress((double)current / (double)total, key, message);
         }
@@ -156,7 +156,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// Register output stream.
         /// </summary>
         /// <param name="output_stream"></param>
-        public static void RegisterOutputStream(
+        public static void RegisterOutputStream (
             IOutputStream output_stream)
         {
             OutputStreamHost.InitializeIfNeeded();
@@ -168,7 +168,7 @@ namespace Naninovel.Antlr3.Runtime.PCL.Output
         /// Register output stream.
         /// </summary>
         /// <param name="output_stream"></param>
-        public static void UnRegisterOutputStream(
+        public static void UnRegisterOutputStream (
             IOutputStream output_stream)
         {
             OutputStreamHost.InitializeIfNeeded();

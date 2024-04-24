@@ -33,7 +33,6 @@
 namespace Naninovel.Antlr.Runtime
 {
     using System.Collections.Generic;
-
     using Array = System.Array;
     using CLSCompliant = System.CLSCompliantAttribute;
     using ICloneable = System.ICloneable;
@@ -49,7 +48,7 @@ namespace Naninovel.Antlr.Runtime
     [System.Serializable]
     public sealed class BitSet : ICloneable
     {
-        private const int BITS = 64;    // number of bits / long
+        private const int BITS = 64; // number of bits / long
         private const int LOG_BITS = 6; // 2^6 == 64
 
         /** <summary>
@@ -65,113 +64,111 @@ namespace Naninovel.Antlr.Runtime
         ulong[] _bits;
 
         /** <summary>Construct a bitset of size one word (64 bits)</summary> */
-        public BitSet()
-            : this( BITS )
-        {
-        }
+        public BitSet ()
+            : this(BITS) { }
 
         /** <summary>Construction from a static array of longs</summary> */
-        [CLSCompliant( false )]
-        public BitSet( ulong[] bits )
+        [CLSCompliant(false)]
+        public BitSet (ulong[] bits)
         {
             _bits = bits;
         }
 
         /** <summary>Construction from a list of integers</summary> */
-        public BitSet( IEnumerable<int> items )
+        public BitSet (IEnumerable<int> items)
             : this()
         {
-            foreach ( int i in items )
-                Add( i );
+            foreach (int i in items)
+                Add(i);
         }
 
         /** <summary>Construct a bitset given the size</summary>
          *  <param name="nbits">The size of the bitset in bits</param>
          */
-        public BitSet( int nbits )
+        public BitSet (int nbits)
         {
-            _bits = new ulong[( ( nbits - 1 ) >> LOG_BITS ) + 1];
+            _bits = new ulong[((nbits - 1) >> LOG_BITS) + 1];
         }
 
-        public static BitSet Of( int el )
+        public static BitSet Of (int el)
         {
-            BitSet s = new BitSet( el + 1 );
-            s.Add( el );
+            BitSet s = new BitSet(el + 1);
+            s.Add(el);
             return s;
         }
 
-        public static BitSet Of( int a, int b )
+        public static BitSet Of (int a, int b)
         {
-            BitSet s = new BitSet( Math.Max( a, b ) + 1 );
-            s.Add( a );
-            s.Add( b );
+            BitSet s = new BitSet(Math.Max(a, b) + 1);
+            s.Add(a);
+            s.Add(b);
             return s;
         }
 
-        public static BitSet Of( int a, int b, int c )
+        public static BitSet Of (int a, int b, int c)
         {
             BitSet s = new BitSet();
-            s.Add( a );
-            s.Add( b );
-            s.Add( c );
+            s.Add(a);
+            s.Add(b);
+            s.Add(c);
             return s;
         }
 
-        public static BitSet Of( int a, int b, int c, int d )
+        public static BitSet Of (int a, int b, int c, int d)
         {
             BitSet s = new BitSet();
-            s.Add( a );
-            s.Add( b );
-            s.Add( c );
-            s.Add( d );
+            s.Add(a);
+            s.Add(b);
+            s.Add(c);
+            s.Add(d);
             return s;
         }
 
         /** <summary>return this | a in a new set</summary> */
-        public BitSet Or( BitSet a )
+        public BitSet Or (BitSet a)
         {
-            if ( a == null )
+            if (a == null)
             {
                 return this;
             }
             BitSet s = (BitSet)this.Clone();
-            s.OrInPlace( a );
+            s.OrInPlace(a);
             return s;
         }
 
         /** <summary>or this element into this set (grow as necessary to accommodate)</summary> */
-        public void Add( int el )
+        public void Add (int el)
         {
-            int n = WordNumber( el );
-            if ( n >= _bits.Length )
+            int n = WordNumber(el);
+            if (n >= _bits.Length)
             {
-                GrowToInclude( el );
+                GrowToInclude(el);
             }
-            _bits[n] |= BitMask( el );
+            _bits[n] |= BitMask(el);
         }
 
         /** <summary>Grows the set to a larger number of bits.</summary>
          *  <param name="bit">element that must fit in set</param>
          */
-        public void GrowToInclude( int bit )
+        public void GrowToInclude (int bit)
         {
-            int newSize = Math.Max( _bits.Length << 1, NumWordsToHold( bit ) );
+            int newSize = Math.Max(_bits.Length << 1, NumWordsToHold(bit));
             SetSize(newSize);
         }
 
-        public void OrInPlace( BitSet a )
+        public void OrInPlace (BitSet a)
         {
-            if ( a == null )
+            if (a == null)
             {
                 return;
             }
             // If this is smaller than a, grow this first
-            if ( a._bits.Length > _bits.Length )
+            if (a._bits.Length > _bits.Length)
             {
-                SetSize( a._bits.Length );
+                SetSize(a._bits.Length);
             }
-            int min = Math.Min( _bits.Length, a._bits.Length );
-            for ( int i = min - 1; i >= 0; i-- )
+            int min = Math.Min(_bits.Length, a._bits.Length);
+            for (int i = min - 1; i >= 0; i--)
             {
                 _bits[i] |= a._bits[i];
             }
@@ -180,33 +177,33 @@ namespace Naninovel.Antlr.Runtime
         /** <summary>Sets the size of a set.</summary>
          *  <param name="nwords">how many words the new set should be</param>
          */
-        private void SetSize( int nwords )
+        private void SetSize (int nwords)
         {
             Array.Resize(ref _bits, nwords);
         }
 
-        private static ulong BitMask( int bitNumber )
+        private static ulong BitMask (int bitNumber)
         {
             int bitPosition = bitNumber & MOD_MASK; // bitNumber mod BITS
             return 1UL << bitPosition;
         }
 
-        public object Clone()
+        public object Clone ()
         {
-            return new BitSet( (ulong[])_bits.Clone() );
+            return new BitSet((ulong[])_bits.Clone());
         }
 
-        public int Size()
+        public int Size ()
         {
             int deg = 0;
-            for ( int i = _bits.Length - 1; i >= 0; i-- )
+            for (int i = _bits.Length - 1; i >= 0; i--)
             {
                 ulong word = _bits[i];
-                if ( word != 0L )
+                if (word != 0L)
                 {
-                    for ( int bit = BITS - 1; bit >= 0; bit-- )
+                    for (int bit = BITS - 1; bit >= 0; bit--)
                     {
-                        if ( ( word & ( 1UL << bit ) ) != 0 )
+                        if ((word & (1UL << bit)) != 0)
                         {
                             deg++;
                         }
@@ -216,26 +213,26 @@ namespace Naninovel.Antlr.Runtime
             return deg;
         }
 
-        public override int GetHashCode()
+        public override int GetHashCode ()
         {
             throw new System.NotImplementedException();
         }
 
-        public override bool Equals( object other )
+        public override bool Equals (object other)
         {
-            if ( other == null || !( other is BitSet ) )
+            if (other == null || !(other is BitSet))
             {
                 return false;
             }
 
             BitSet otherSet = (BitSet)other;
 
-            int n = Math.Min( this._bits.Length, otherSet._bits.Length );
+            int n = Math.Min(this._bits.Length, otherSet._bits.Length);
 
             // for any bits in common, compare
-            for ( int i = 0; i < n; i++ )
+            for (int i = 0; i < n; i++)
             {
-                if ( this._bits[i] != otherSet._bits[i] )
+                if (this._bits[i] != otherSet._bits[i])
                 {
                     return false;
                 }
@@ -243,21 +240,21 @@ namespace Naninovel.Antlr.Runtime
 
             // make sure any extra bits are off
 
-            if ( this._bits.Length > n )
+            if (this._bits.Length > n)
             {
-                for ( int i = n + 1; i < this._bits.Length; i++ )
+                for (int i = n + 1; i < this._bits.Length; i++)
                 {
-                    if ( this._bits[i] != 0 )
+                    if (this._bits[i] != 0)
                     {
                         return false;
                     }
                 }
             }
-            else if ( otherSet._bits.Length > n )
+            else if (otherSet._bits.Length > n)
             {
-                for ( int i = n + 1; i < otherSet._bits.Length; i++ )
+                for (int i = n + 1; i < otherSet._bits.Length; i++)
                 {
-                    if ( otherSet._bits[i] != 0 )
+                    if (otherSet._bits[i] != 0)
                     {
                         return false;
                     }
@@ -267,50 +264,50 @@ namespace Naninovel.Antlr.Runtime
             return true;
         }
 
-        public bool Member( int el )
+        public bool Member (int el)
         {
-            if ( el < 0 )
+            if (el < 0)
             {
                 return false;
             }
-            int n = WordNumber( el );
-            if ( n >= _bits.Length )
+            int n = WordNumber(el);
+            if (n >= _bits.Length)
                 return false;
-            return ( _bits[n] & BitMask( el ) ) != 0;
+            return (_bits[n] & BitMask(el)) != 0;
         }
 
         // remove this element from this set
-        public void Remove( int el )
+        public void Remove (int el)
         {
-            int n = WordNumber( el );
-            if ( n < _bits.Length )
+            int n = WordNumber(el);
+            if (n < _bits.Length)
             {
-                _bits[n] &= ~BitMask( el );
+                _bits[n] &= ~BitMask(el);
             }
         }
 
-        public bool IsNil()
+        public bool IsNil ()
         {
-            for ( int i = _bits.Length - 1; i >= 0; i-- )
+            for (int i = _bits.Length - 1; i >= 0; i--)
             {
-                if ( _bits[i] != 0 )
+                if (_bits[i] != 0)
                     return false;
             }
             return true;
         }
 
-        private static int NumWordsToHold( int el )
+        private static int NumWordsToHold (int el)
         {
-            return ( el >> LOG_BITS ) + 1;
+            return (el >> LOG_BITS) + 1;
         }
 
-        public int NumBits()
+        public int NumBits ()
         {
             return _bits.Length << LOG_BITS; // num words * bits per word
         }
 
         /** <summary>return how much space is being used by the bits array not how many actually have member bits on.</summary> */
-        public int LengthInLongWords()
+        public int LengthInLongWords ()
         {
             return _bits.Length;
         }
@@ -322,14 +319,13 @@ namespace Naninovel.Antlr.Runtime
             return this.and(a).equals(this);
         }
         */
-
-        public int[] ToArray()
+        public int[] ToArray ()
         {
             int[] elems = new int[Size()];
             int en = 0;
-            for ( int i = 0; i < ( _bits.Length << LOG_BITS ); i++ )
+            for (int i = 0; i < (_bits.Length << LOG_BITS); i++)
             {
-                if ( Member( i ) )
+                if (Member(i))
                 {
                     elems[en++] = i;
                 }
@@ -337,43 +333,43 @@ namespace Naninovel.Antlr.Runtime
             return elems;
         }
 
-        private static int WordNumber( int bit )
+        private static int WordNumber (int bit)
         {
             return bit >> LOG_BITS; // bit / BITS
         }
 
-        public override string ToString()
+        public override string ToString ()
         {
-            return ToString( null );
+            return ToString(null);
         }
 
-        public string ToString( string[] tokenNames )
+        public string ToString (string[] tokenNames)
         {
             StringBuilder buf = new StringBuilder();
             string separator = ",";
             bool havePrintedAnElement = false;
-            buf.Append( '{' );
+            buf.Append('{');
 
-            for ( int i = 0; i < ( _bits.Length << LOG_BITS ); i++ )
+            for (int i = 0; i < (_bits.Length << LOG_BITS); i++)
             {
-                if ( Member( i ) )
+                if (Member(i))
                 {
-                    if ( i > 0 && havePrintedAnElement )
+                    if (i > 0 && havePrintedAnElement)
                     {
-                        buf.Append( separator );
+                        buf.Append(separator);
                     }
-                    if ( tokenNames != null )
+                    if (tokenNames != null)
                     {
-                        buf.Append( tokenNames[i] );
+                        buf.Append(tokenNames[i]);
                     }
                     else
                     {
-                        buf.Append( i );
+                        buf.Append(i);
                     }
                     havePrintedAnElement = true;
                 }
             }
-            buf.Append( '}' );
+            buf.Append('}');
             return buf.ToString();
         }
     }

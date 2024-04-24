@@ -53,12 +53,12 @@ namespace Naninovel.Antlr.Runtime
         /** <summary>What token number is this from 0..n-1 tokens</summary> */
         int index;
 
-        public ClassicToken( int type )
+        public ClassicToken (int type)
         {
             this.type = type;
         }
 
-        public ClassicToken( IToken oldToken )
+        public ClassicToken (IToken oldToken)
         {
             text = oldToken.Text;
             type = oldToken.Type;
@@ -67,13 +67,13 @@ namespace Naninovel.Antlr.Runtime
             channel = oldToken.Channel;
         }
 
-        public ClassicToken( int type, string text )
+        public ClassicToken (int type, string text)
         {
             this.type = type;
             this.text = text;
         }
 
-        public ClassicToken( int type, string text, int channel )
+        public ClassicToken (int type, string text, int channel)
         {
             this.type = type;
             this.text = text;
@@ -147,9 +147,7 @@ namespace Naninovel.Antlr.Runtime
             {
                 return -1;
             }
-            set
-            {
-            }
+            set { }
         }
 
         public int StopIndex
@@ -158,9 +156,7 @@ namespace Naninovel.Antlr.Runtime
             {
                 return -1;
             }
-            set
-            {
-            }
+            set { }
         }
 
         public int TokenIndex
@@ -181,26 +177,23 @@ namespace Naninovel.Antlr.Runtime
             {
                 return null;
             }
-            set
-            {
-            }
+            set { }
         }
-
         #endregion
 
-        public override string ToString()
+        public override string ToString ()
         {
             string channelStr = "";
-            if ( channel > 0 )
+            if (channel > 0)
             {
                 channelStr = ",channel=" + channel;
             }
             string txt = Text;
-            if ( txt != null )
+            if (txt != null)
             {
-                txt = txt.Replace( "\n", "\\\\n" );
-                txt = txt.Replace( "\r", "\\\\r" );
-                txt = txt.Replace( "\t", "\\\\t" );
+                txt = txt.Replace("\n", "\\\\n");
+                txt = txt.Replace("\r", "\\\\r");
+                txt = txt.Replace("\t", "\\\\t");
             }
             else
             {

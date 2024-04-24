@@ -43,39 +43,33 @@ namespace Naninovel.Antlr.Runtime
     {
         private readonly int _decisionNumber;
 
-        public EarlyExitException()
-        {
-        }
+        public EarlyExitException () { }
 
-        public EarlyExitException(string message)
-            : base(message)
-        {
-        }
+        public EarlyExitException (string message)
+            : base(message) { }
 
-        public EarlyExitException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
+        public EarlyExitException (string message, Exception innerException)
+            : base(message, innerException) { }
 
-        public EarlyExitException(int decisionNumber, IIntStream input)
+        public EarlyExitException (int decisionNumber, IIntStream input)
             : base(input)
         {
             this._decisionNumber = decisionNumber;
         }
 
-        public EarlyExitException(string message, int decisionNumber, IIntStream input)
+        public EarlyExitException (string message, int decisionNumber, IIntStream input)
             : base(message, input)
         {
             this._decisionNumber = decisionNumber;
         }
 
-        public EarlyExitException(string message, int decisionNumber, IIntStream input, Exception innerException)
+        public EarlyExitException (string message, int decisionNumber, IIntStream input, Exception innerException)
             : base(message, input, innerException)
         {
             this._decisionNumber = decisionNumber;
         }
 
-        protected EarlyExitException(SerializationInfo info, StreamingContext context)
+        protected EarlyExitException (SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
             if (info == null)
@@ -92,7 +86,7 @@ namespace Naninovel.Antlr.Runtime
             }
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData (SerializationInfo info, StreamingContext context)
         {
             if (info == null)
                 throw new ArgumentNullException("info");
